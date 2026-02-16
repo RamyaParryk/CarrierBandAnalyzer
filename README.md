@@ -1,4 +1,4 @@
-# Band Analyzer for Android 🇯🇵
+# Band Analyzer for Android
 
 [🇯🇵 **Japanese**](./README_JP.md) | [💻 **View Source Code on GitHub**](https://github.com/RamyaParryk/CarrierBandAnalyzer)
 
