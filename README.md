@@ -35,6 +35,8 @@ This app supports the detection of all major bands used in Japan:
 | **5G (Sub6)** | n77, n78, n79 | Standard 5G coverage |
 | **5G (mmWave)** | n257 | Ultra high-speed 5G (Limited area) |
 
-## 📝 License
+## 📝 License & Credits
+
+Produced by **Rato Lab** Copyright (c) 2026 Rato Lab.
 
 This project is licensed under the MIT License.
