@@ -1,6 +1,6 @@
 # Band Analyzer for Android 🇯🇵
 
-[🇺🇸 **English**](./README.md) | [💻 **GitHubでソースコードを見る!**](https://github.com/RamyaParryk/CarrierBandAnalyzer)
+[🇺🇸 **English**](./README.md) | [💻 **GitHubでソースコードを見る**](https://github.com/RamyaParryk/CarrierBandAnalyzer)
 
 ---
 (以下そのまま)
