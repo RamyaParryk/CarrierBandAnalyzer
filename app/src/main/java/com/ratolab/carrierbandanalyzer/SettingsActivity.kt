@@ -255,18 +255,55 @@ fun HelpDialog(onDismiss: () -> Unit) {
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.help_title)) },
         text = {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                // 1. 概要
                 HelpSection(stringResource(R.string.help_sec1_title), stringResource(R.string.help_sec1_desc))
+
+                // 2. バックグラウンド監視
                 HelpSection(stringResource(R.string.help_sec2_title), stringResource(R.string.help_sec2_desc))
+
+                // ★新規追加：3. データの共有と出力
+                HelpSection(stringResource(R.string.help_sec_share_title), stringResource(R.string.help_sec_share_desc))
+
+                // 4. (旧3) 5G/LTEバンドの基礎
                 HelpSection(stringResource(R.string.help_sec3_title), stringResource(R.string.help_sec3_desc))
-                BandInfoTable(listOf(Triple("B1 / B3", "2.1/1.7G", stringResource(R.string.td_main_desc)), Triple("B11/21", "1.5GHz", stringResource(R.string.td_sub_desc)), Triple("B41", "2.5GHz", stringResource(R.string.td_high_desc)), Triple("B42", "3.5GHz", stringResource(R.string.td_high_desc))))
+                BandInfoTable(
+                    listOf(
+                        Triple("B1 / B3", "2.1/1.7G", stringResource(R.string.td_main_desc)),
+                        Triple("B11/21", "1.5GHz", stringResource(R.string.td_sub_desc)),
+                        Triple("B41", "2.5GHz", stringResource(R.string.td_high_desc)),
+                        Triple("B42", "3.5GHz", stringResource(R.string.td_high_desc))
+                    )
+                )
+
+                // 5. (旧4) 5G (NR) 専用バンド
                 HelpSection(stringResource(R.string.help_sec4_title), stringResource(R.string.help_sec4_desc))
-                BandInfoTable(listOf(Triple("n77/78", "Sub6", stringResource(R.string.td_5g_main)), Triple("n79", "Sub6", stringResource(R.string.td_5g_docomo)), Triple("n257", "mmWave", stringResource(R.string.td_mmwave))))
+                BandInfoTable(
+                    listOf(
+                        Triple("n77/78", "Sub6", stringResource(R.string.td_5g_main)),
+                        Triple("n79", "Sub6", stringResource(R.string.td_5g_docomo)),
+                        Triple("n257", "mmWave", stringResource(R.string.td_mmwave))
+                    )
+                )
+
+                // 6. (旧5) プラチナバンド
                 HelpSection(stringResource(R.string.help_sec5_title), stringResource(R.string.help_sec5_desc))
-                BandInfoTable(listOf(Triple("B8", "900MHz", "SoftBank / LINEMO"), Triple("B18/26", "800MHz", "au / UQ / povo"), Triple("B19", "800MHz", "docomo / ahamo"), Triple("B28", "700MHz", "All Carriers")))
+                BandInfoTable(
+                    listOf(
+                        Triple("B8", "900MHz", "SoftBank / LINEMO"),
+                        Triple("B18/26", "800MHz", "au / UQ / povo"),
+                        Triple("B19", "800MHz", "docomo / ahamo"),
+                        Triple("B28", "700MHz", "All Carriers")
+                    )
+                )
             }
         },
-        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } }
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) }
+        }
     )
 }
 
