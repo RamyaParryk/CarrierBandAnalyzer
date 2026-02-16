@@ -28,6 +28,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.filled.PlayCircle
+import androidx.compose.material.icons.filled.Language
 
 class SettingsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,14 +146,44 @@ fun SettingsScreen(
             )
             HorizontalDivider()
 
-            // === サポート ===
+// === サポート (Support) ===
             SettingsSectionTitle(stringResource(R.string.sec_support))
+
+            // ヘルプボタン
             ListItem(
                 headlineContent = { Text(stringResource(R.string.item_help)) },
                 leadingContent = {
                     Icon(Icons.AutoMirrored.Filled.Help, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                 },
                 modifier = Modifier.clickable { showHelpDialog = true },
+                colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
+            )
+
+            // YouTubeリンクボタン
+            ListItem(
+                headlineContent = { Text("YouTube (Rato Lab)") },
+                supportingContent = { Text("@ramyaparryk") },
+                leadingContent = {
+                    Icon(Icons.Default.PlayCircle, contentDescription = null, tint = Color(0xFFFF0000)) // YouTube赤
+                },
+                modifier = Modifier.clickable {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/@ramyaparryk"))
+                    context.startActivity(intent)
+                },
+                colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
+            )
+
+            // プロジェクトWebサイト
+            ListItem(
+                headlineContent = { Text("Project Website") },
+                supportingContent = { Text("GitHub Pages") },
+                leadingContent = {
+                    Icon(Icons.Default.Language, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                },
+                modifier = Modifier.clickable {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://ramyaparryk.github.io/CarrierBandAnalyzer/"))
+                    context.startActivity(intent)
+                },
                 colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
             )
 
