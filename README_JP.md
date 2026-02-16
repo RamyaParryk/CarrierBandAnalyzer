@@ -3,7 +3,7 @@
 [🇺🇸 **English**](./README.md) | [💻 **GitHubでソースコードを見る**](https://github.com/RamyaParryk/CarrierBandAnalyzer)
 
 ---
-# <img src="assets/icon.png" width="40" vertical-align="middle"> バンド解析 (CarrierBand Analyzer)
+# <img src="assets/icon.webp" width="40" vertical-align="middle"> バンド解析 (CarrierBand Analyzer)
 
 ---
 
