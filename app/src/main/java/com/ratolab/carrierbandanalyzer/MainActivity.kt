@@ -8,9 +8,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assessment
@@ -26,9 +26,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
@@ -37,6 +39,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // AdMob SDKの初期化
+        MobileAds.initialize(this) {}
+
         analyzer = BandAnalyzer(this)
 
         setContent {
@@ -68,7 +74,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// 優先度②：ReferenceBands（回線対応）を保持できるように拡張
 data class UiState(
     val carrier: String = "Loading...",
     val coveragePercent: Int = 0,
@@ -119,28 +124,22 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 actions = {
-                    // レポート画面へのボタン（新規追加）
                     IconButton(onClick = {
                         context.startActivity(Intent(context, CapabilityReportActivity::class.java))
                     }) {
-                        Icon(
-                            imageVector = Icons.Default.Assessment,
-                            contentDescription = "Report",
-                            modifier = Modifier.size(28.dp)
-                        )
+                        Icon(imageVector = Icons.Default.Assessment, contentDescription = "Report")
                     }
-                    // 設定画面へのボタン
                     IconButton(onClick = {
                         context.startActivity(Intent(context, SettingsActivity::class.java))
                     }) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = "Settings",
-                            modifier = Modifier.size(28.dp)
-                        )
+                        Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings")
                     }
                 }
             )
+        },
+        // 共通化したAdBannerを使用
+        bottomBar = {
+            AdBanner(modifier = Modifier.background(MaterialTheme.colorScheme.surface))
         }
     ) { innerPadding ->
         Column(
@@ -153,12 +152,10 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
         ) {
             DashboardCard(uiState)
 
-            // 現在の接続（リアルタイム）
             BandSection(stringResource(R.string.band_now), uiState.nowBands, BandType.NOW)
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
-            // 優先度②：端末対応・回線対応・不足の分離表示
             BandSection(stringResource(R.string.label_observed), uiState.observedBands, BandType.HISTORY)
             BandSection(stringResource(R.string.label_reference), uiState.referenceBands, BandType.REFERENCE)
             BandSection(stringResource(R.string.label_missing), uiState.missingBands, BandType.MISSING)
@@ -182,6 +179,7 @@ fun DashboardCard(state: UiState) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.SignalCellularAlt, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                 Spacer(modifier = Modifier.width(8.dp))
+                // 共通化した関数を使用
                 Text(
                     text = toJaCarrierName(state.carrier),
                     style = MaterialTheme.typography.titleMedium,
@@ -201,7 +199,6 @@ fun DashboardCard(state: UiState) {
                 color = if (state.coveragePercent > 50) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
             )
             Spacer(modifier = Modifier.height(16.dp))
-            // 優先度①：対応率の視覚化
             LinearProgressIndicator(
                 progress = { state.coveragePercent / 100f },
                 modifier = Modifier.fillMaxWidth().height(8.dp),
@@ -212,9 +209,6 @@ fun DashboardCard(state: UiState) {
         }
     }
 }
-
-// 優先度②：REFERENCE（回線対応）を色のバリエーションに追加
-enum class BandType { NOW, HISTORY, REFERENCE, MISSING }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -240,57 +234,10 @@ fun BandSection(title: String, bands: List<String>, type: BandType) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 bands.forEach { band ->
+                    // 共通化したBandChipを使用
                     BandChip(band, type)
                 }
             }
         }
     }
-}
-
-@Composable
-fun BandChip(text: String, type: BandType) {
-    // 役割に応じてハッキリ色を分ける
-    val containerColor = when (type) {
-        BandType.NOW -> MaterialTheme.colorScheme.primary           // [濃い青/紫] 今まさに繋がっている！（最優先）
-        BandType.HISTORY -> MaterialTheme.colorScheme.primaryContainer // [薄い青/紫] この端末で確認済み（実績）
-        BandType.REFERENCE -> MaterialTheme.colorScheme.tertiaryContainer // [薄い緑/黄] この回線の仕様（目標・基準）
-        BandType.MISSING -> MaterialTheme.colorScheme.surfaceVariant   // [グレー] まだ未確認（不足）
-    }
-
-    val contentColor = when (type) {
-        BandType.NOW -> MaterialTheme.colorScheme.onPrimary
-        BandType.HISTORY -> MaterialTheme.colorScheme.onPrimaryContainer
-        BandType.REFERENCE -> MaterialTheme.colorScheme.onTertiaryContainer // 文字色もセットで変更
-        BandType.MISSING -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
-    }
-
-    Surface(
-        color = containerColor,
-        contentColor = contentColor,
-        shape = RoundedCornerShape(8.dp),
-        modifier = Modifier.height(32.dp),
-        // REFERENCE（回線対応）だけ枠線を付けて「枠組み」感を出してもオシャレ
-        border = if (type == BandType.REFERENCE) {
-            androidx.compose.foundation.BorderStroke(1.dp, contentColor.copy(alpha = 0.3f))
-        } else null
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.padding(horizontal = 12.dp)
-        ) {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
-
-fun toJaCarrierName(label: String): String = when (label) {
-    "DOCOMO" -> "docomo / AHAMO"
-    "AU" -> "au / UQ / povo"
-    "SOFTBANK" -> "SoftBank / Y!mobile"
-    "RAKUTEN" -> "Rakuten Mobile"
-    else -> label
 }

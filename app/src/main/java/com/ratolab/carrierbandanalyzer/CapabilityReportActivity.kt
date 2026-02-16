@@ -2,12 +2,12 @@ package com.ratolab.carrierbandanalyzer
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -67,7 +67,6 @@ fun CapabilityReportScreen(
                     }
                 },
                 actions = {
-                    // 1. CSVログ出力ボタン
                     IconButton(onClick = {
                         exportLogFile(context, analyzer)
                     }) {
@@ -77,7 +76,6 @@ fun CapabilityReportScreen(
                         )
                     }
 
-                    // 2. テキストレポート共有ボタン
                     IconButton(onClick = {
                         shareReportText(context, deviceName, observedBands, coverage)
                     }) {
@@ -92,6 +90,10 @@ fun CapabilityReportScreen(
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             )
+        },
+        // 共通化したAdBannerを使用
+        bottomBar = {
+            AdBanner(modifier = Modifier.background(MaterialTheme.colorScheme.surface))
         }
     ) { innerPadding ->
         Column(
@@ -102,19 +104,16 @@ fun CapabilityReportScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // 端末情報
             ReportInfoSection(stringResource(R.string.label_device_name), deviceName)
 
-            // 推定LTE対応
             val lteBands = observedBands.filter { it.startsWith("B") }.sorted()
             ReportBandSection(stringResource(R.string.label_est_lte), lteBands, BandType.HISTORY)
 
-            // 推定NR対応
             val nrBands = observedBands.filter { it.startsWith("n") }.sorted()
             ReportBandSection(stringResource(R.string.label_est_nr), nrBands, BandType.NOW)
 
-            // 対応率 ProgressBar
             Column {
+                // 共通化した関数を使用
                 val carrierName = toJaCarrierName(coverage.carrier)
                 Text(
                     text = stringResource(R.string.label_coverage_by, carrierName),
@@ -136,13 +135,12 @@ fun CapabilityReportScreen(
                     modifier = Modifier.padding(top = 4.dp)
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
 
-/**
- * レポートをテキスト形式で共有する
- */
 private fun shareReportText(
     context: Context,
     deviceName: String,
@@ -177,9 +175,6 @@ private fun shareReportText(
     context.startActivity(Intent.createChooser(sendIntent, null))
 }
 
-/**
- * CSVファイルを共有する
- */
 private fun exportLogFile(context: Context, analyzer: BandAnalyzer) {
     val logFile = analyzer.getLogFile()
     if (!logFile.exists() || logFile.length() == 0L) {
@@ -205,8 +200,6 @@ private fun exportLogFile(context: Context, analyzer: BandAnalyzer) {
     }
 }
 
-// --- 共通UIパーツ ---
-
 @Composable
 fun ReportInfoSection(label: String, value: String) {
     Column {
@@ -228,6 +221,7 @@ fun ReportBandSection(title: String, bands: List<String>, type: BandType) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                // 共通化したBandChipを使用
                 bands.forEach { BandChip(it, type) }
             }
         }
