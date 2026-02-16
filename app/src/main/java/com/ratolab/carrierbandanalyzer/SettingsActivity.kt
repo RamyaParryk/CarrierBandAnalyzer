@@ -20,6 +20,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.PlayCircle
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -28,8 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.material.icons.filled.PlayCircle
-import androidx.compose.material.icons.filled.Language
+import androidx.core.content.FileProvider
 
 class SettingsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +41,10 @@ class SettingsActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 SettingsScreen(
+                    analyzer = analyzer,
                     onBack = { finish() },
                     onReset = {
                         analyzer.resetObservedBands()
-                        // 文字リソースから取得
                         val msg = getString(R.string.msg_history_cleared)
                         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                         finish()
@@ -62,6 +64,7 @@ class SettingsActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
+    analyzer: BandAnalyzer,
     onBack: () -> Unit,
     onReset: () -> Unit,
     onOpenPermissionSettings: () -> Unit
@@ -97,15 +100,16 @@ fun SettingsScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            // === バックグラウンド監視 ===
+            // === 優先度③：バックグラウンド監視状態 ===
             SettingsSectionTitle(stringResource(R.string.sec_monitoring))
             ListItem(
                 headlineContent = { Text(stringResource(R.string.item_service)) },
                 supportingContent = {
+                    // ラベルを指定の形式に変更
                     val statusText = if (isServiceRunning) {
-                        stringResource(R.string.service_running)
+                        stringResource(R.string.status_on)
                     } else {
-                        stringResource(R.string.service_stopped)
+                        stringResource(R.string.status_off)
                     }
                     Text(statusText)
                 },
@@ -127,8 +131,19 @@ fun SettingsScreen(
             )
             HorizontalDivider()
 
-            // === データ管理 ===
+            // === 優先度④：データ管理とCSV出力 ===
             SettingsSectionTitle(stringResource(R.string.sec_data))
+
+            // ログ出力ボタン
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.item_export_log)) },
+                supportingContent = { Text("band_logs.csv") },
+                leadingContent = { Icon(Icons.Default.Share, contentDescription = null) },
+                modifier = Modifier.clickable {
+                    exportLogFile(context, analyzer)
+                }
+            )
+
             SettingsItem(
                 title = stringResource(R.string.item_reset_title),
                 description = stringResource(R.string.item_reset_desc),
@@ -146,34 +161,29 @@ fun SettingsScreen(
             )
             HorizontalDivider()
 
-// === サポート (Support) ===
+            // === サポート (YouTube / Website) ===
             SettingsSectionTitle(stringResource(R.string.sec_support))
 
-            // ヘルプボタン
             ListItem(
                 headlineContent = { Text(stringResource(R.string.item_help)) },
                 leadingContent = {
                     Icon(Icons.AutoMirrored.Filled.Help, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                 },
-                modifier = Modifier.clickable { showHelpDialog = true },
-                colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
+                modifier = Modifier.clickable { showHelpDialog = true }
             )
 
-            // YouTubeリンクボタン
             ListItem(
                 headlineContent = { Text("YouTube (Rato Lab)") },
                 supportingContent = { Text("@ramyaparryk") },
                 leadingContent = {
-                    Icon(Icons.Default.PlayCircle, contentDescription = null, tint = Color(0xFFFF0000)) // YouTube赤
+                    Icon(Icons.Default.PlayCircle, contentDescription = null, tint = Color(0xFFFF0000))
                 },
                 modifier = Modifier.clickable {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/@ramyaparryk"))
                     context.startActivity(intent)
-                },
-                colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
+                }
             )
 
-            // プロジェクトWebサイト
             ListItem(
                 headlineContent = { Text("Project Website") },
                 supportingContent = { Text("GitHub Pages") },
@@ -183,14 +193,45 @@ fun SettingsScreen(
                 modifier = Modifier.clickable {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://ramyaparryk.github.io/CarrierBandAnalyzer/"))
                     context.startActivity(intent)
-                },
-                colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surface)
+                }
             )
 
             Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
+
+/**
+ * 優先度④：CSVファイルを共有する関数
+ */
+private fun exportLogFile(context: Context, analyzer: BandAnalyzer) {
+    val logFile = analyzer.getLogFile()
+    if (!logFile.exists() || logFile.length() == 0L) {
+        Toast.makeText(context, "Log file is empty", Toast.LENGTH_SHORT).show()
+        return
+    }
+
+    try {
+        // FileProviderを使ってURIを取得 (AndroidManifest.xmlの設定が必要)
+        val contentUri = FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.fileprovider",
+            logFile
+        )
+
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/csv"
+            putExtra(Intent.EXTRA_STREAM, contentUri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.item_export_log)))
+    } catch (e: Exception) {
+        Toast.makeText(context, "Failed to export: ${e.message}", Toast.LENGTH_SHORT).show()
+    }
+}
+
+// ... (HelpDialog, BandInfoTable, HelpSection などの Composable は変更なし) ...
 
 @Composable
 fun HelpDialog(onDismiss: () -> Unit) {
@@ -202,13 +243,8 @@ fun HelpDialog(onDismiss: () -> Unit) {
                 modifier = Modifier.verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                // 1. 概要
                 HelpSection(stringResource(R.string.help_sec1_title), stringResource(R.string.help_sec1_desc))
-
-                // 2. 使い方
                 HelpSection(stringResource(R.string.help_sec2_title), stringResource(R.string.help_sec2_desc))
-
-                // 3. 主力・高速バンド (4G)
                 HelpSection(stringResource(R.string.help_sec3_title), stringResource(R.string.help_sec3_desc))
                 BandInfoTable(
                     listOf(
@@ -218,8 +254,6 @@ fun HelpDialog(onDismiss: () -> Unit) {
                         Triple("B42", "3.5GHz", stringResource(R.string.td_high_desc))
                     )
                 )
-
-                // 4. 高速通信バンド (5G)
                 HelpSection(stringResource(R.string.help_sec4_title), stringResource(R.string.help_sec4_desc))
                 BandInfoTable(
                     listOf(
@@ -228,8 +262,6 @@ fun HelpDialog(onDismiss: () -> Unit) {
                         Triple("n257", "mmWave", stringResource(R.string.td_mmwave))
                     )
                 )
-
-                // 5. プラチナバンド
                 HelpSection(stringResource(R.string.help_sec5_title), stringResource(R.string.help_sec5_desc))
                 BandInfoTable(
                     listOf(
@@ -247,9 +279,6 @@ fun HelpDialog(onDismiss: () -> Unit) {
     )
 }
 
-/**
- * テーブル表示用パーツ
- */
 @Composable
 fun BandInfoTable(data: List<Triple<String, String, String>>) {
     val outlineColor = MaterialTheme.colorScheme.outlineVariant
@@ -267,7 +296,6 @@ fun BandInfoTable(data: List<Triple<String, String, String>>) {
             Text(stringResource(R.string.th_freq), Modifier.weight(1f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
             Text(stringResource(R.string.th_detail), Modifier.weight(1.8f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
         }
-
         data.forEach { (band, freq, detail) ->
             HorizontalDivider(color = outlineColor)
             Row(modifier = Modifier.padding(8.dp)) {
@@ -282,22 +310,12 @@ fun BandInfoTable(data: List<Triple<String, String, String>>) {
 @Composable
 fun HelpSection(title: String, content: String) {
     Column {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.primary,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = content,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(top = 4.dp),
-            lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.2f
-        )
+        Text(text = title, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
+        Text(text = content, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(top = 4.dp), lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.2f)
     }
 }
 
-// === 以下、ヘルパー関数 ===
+// === ヘルパー関数 ===
 
 private fun startBandService(context: Context) {
     val intent = Intent(context, BandMonitorService::class.java)
@@ -323,12 +341,7 @@ private fun isServiceRunning(context: Context): Boolean {
 
 @Composable
 fun SettingsSectionTitle(title: String) {
-    Text(
-        text = title,
-        style = MaterialTheme.typography.labelMedium,
-        color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(start = 16.dp, top = 24.dp, bottom = 8.dp)
-    )
+    Text(text = title, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(start = 16.dp, top = 24.dp, bottom = 8.dp))
 }
 
 @Composable

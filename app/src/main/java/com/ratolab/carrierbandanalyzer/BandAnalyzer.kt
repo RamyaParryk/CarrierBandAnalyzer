@@ -8,6 +8,9 @@ import android.telephony.CellIdentityNr
 import android.telephony.CellInfoLte
 import android.telephony.CellInfoNr
 import android.telephony.TelephonyManager
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
 class BandAnalyzer(context: Context) {
@@ -41,7 +44,7 @@ class BandAnalyzer(context: Context) {
         }
     }
 
-    // キャリアごとのバンド定義 (ここは内部IDなので変更なし)
+    // キャリアごとのバンド定義
     private val carrierBands = mapOf(
         "DOCOMO" to setOf("B1","B3","B19","B21","B28","B42","n77","n78","n79"),
         "AU" to setOf("B1","B3","B18","B26","B28","B41","B42","n77","n78","n257"),
@@ -130,7 +133,6 @@ class BandAnalyzer(context: Context) {
         val total = ref.size
         val percent = if (total == 0) 0 else ((covered.toDouble() / total) * 100.0).roundToInt()
 
-        // 修正箇所：多言語対応リソースを使用
         val judgement = when {
             total == 0 -> appContext.getString(R.string.judgement_unknown)
             percent >= 70 -> appContext.getString(R.string.judgement_excellent)
@@ -156,7 +158,33 @@ class BandAnalyzer(context: Context) {
             observedBands.clear()
         }
         prefs.edit().remove(KEY_OBSERVED_BANDS).apply()
+        // ログファイルも消去したい場合はここで File(appContext.filesDir, "band_logs.csv").delete()
     }
+
+    /**
+     * CSVログ保存機能 (Priority 4)
+     */
+    fun saveLog(bands: Set<String>) {
+        if (bands.isEmpty()) return
+
+        val time = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
+        val carrier = detectCarrierLabel()
+        val bandsStr = bands.sorted().joinToString("|")
+
+        val logLine = "$time, $carrier, $bandsStr\n"
+
+        try {
+            val logFile = File(appContext.filesDir, "band_logs.csv")
+            logFile.appendText(logLine)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * ログファイル取得用
+     */
+    fun getLogFile(): File = File(appContext.filesDir, "band_logs.csv")
 
     private fun addObservedAndPersist(bands: Set<String>) {
         var changed = false
@@ -173,7 +201,6 @@ class BandAnalyzer(context: Context) {
 
     @SuppressLint("MissingPermission")
     private fun detectCarrierLabel(): String {
-        // ... (キャリア判定ロジックは内部IDなのでそのまま) ...
         val tokens = mutableListOf<String>()
         fun add(s: String?) { if (!s.isNullOrBlank()) tokens += s }
         add(telephonyManager.simOperatorName)

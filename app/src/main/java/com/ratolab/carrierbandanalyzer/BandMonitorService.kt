@@ -24,17 +24,21 @@ class BandMonitorService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // サービス起動時の初期通知（まずは「スキャン中」と出す）
+        // サービス起動時の初期通知
         startForeground(NOTIFICATION_ID, buildNotification(getString(R.string.notif_scanning)))
 
         // 監視ループ開始
         serviceScope.launch {
             while (isActive) {
                 // 1. バンド取得
-                val nowBands = analyzer.scanNowBands() // これで履歴保存も行われる
+                val nowBands = analyzer.scanNowBands()
 
-                // 2. 通知の文字を作る
-                // bandsが空なら「スキャン中...」、あれば「接続中: B1, B3」のように整形
+                // 2. ログ保存の実行 (Priority 4)
+                if (nowBands.isNotEmpty()) {
+                    analyzer.saveLog(nowBands)
+                }
+
+                // 3. 通知の文字を作る
                 val contentText = if (nowBands.isEmpty()) {
                     getString(R.string.notif_scanning)
                 } else {
@@ -42,7 +46,7 @@ class BandMonitorService : Service() {
                     getString(R.string.notif_connected, bandStr)
                 }
 
-                // 3. 通知を更新
+                // 4. 通知を更新
                 updateNotification(contentText)
 
                 delay(3000) // 3秒ごとに更新
@@ -65,7 +69,6 @@ class BandMonitorService : Service() {
     }
 
     private fun buildNotification(contentText: String): Notification {
-        // 通知をタップしたときにアプリ（MainActivity）を開くためのIntent
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
@@ -74,12 +77,12 @@ class BandMonitorService : Service() {
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle(getString(R.string.notif_title)) // "バンド解析を実行中" / "Band Analyzer is active"
-            .setContentText(contentText)                      // "接続中: B1, B3" など
-            .setSmallIcon(R.drawable.ic_launcher_foreground) // アイコンは既存のものを使用
+            .setContentTitle(getString(R.string.notif_title))
+            .setContentText(contentText)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentIntent(pendingIntent)
-            .setOnlyAlertOnce(true) // 毎回ピロンと鳴らさない
-            .setOngoing(true)       // 消せない通知にする
+            .setOnlyAlertOnce(true)
+            .setOngoing(true)
             .build()
     }
 
@@ -87,8 +90,8 @@ class BandMonitorService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                getString(R.string.notif_channel_name), // ユーザーの設定画面に見える名前
-                NotificationManager.IMPORTANCE_LOW      // 音を鳴らさない設定
+                getString(R.string.notif_channel_name),
+                NotificationManager.IMPORTANCE_LOW
             )
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)

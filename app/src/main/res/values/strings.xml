@@ -65,4 +65,17 @@
     <string name="notif_title">Band Analyzer is active</string>
     <string name="notif_scanning">Scanning...</string>
     <string name="notif_connected">Connected: %1$s</string>
+    <string name="label_observed">Device Supported (Observed)</string>
+    <string name="label_reference">Carrier Support</string>
+    <string name="label_missing">Missing Bands</string>
+
+    <string name="status_on">Monitoring: ON</string>
+    <string name="status_off">Monitoring: OFF</string>
+    <string name="item_export_log">Export Log (CSV)</string>
+    <string name="msg_log_exported">Log saved to files.</string>
+    <string name="report_title">Device Capability Report</string>
+    <string name="label_device_name">Device Name</string>
+    <string name="label_est_lte">Estimated LTE Support (4G)</string>
+    <string name="label_est_nr">Estimated NR Support (5G)</string>
+    <string name="label_coverage_by">Compatibility Rate (%1$s)</string>
 </resources>

@@ -66,4 +66,17 @@
     <string name="notif_title">バンド解析を実行中</string>
     <string name="notif_scanning">スキャン中...</string>
     <string name="notif_connected">接続中: %1$s</string>
+
+    <string name="label_observed">この端末の対応 (確認済み)</string>
+    <string name="label_reference">この回線の対応</string>
+    <string name="label_missing">不足しているバンド</string>
+    <string name="status_on">監視状態: ON</string>
+    <string name="status_off">監視停止中</string>
+    <string name="item_export_log">ログをCSVで出力</string>
+    <string name="msg_log_exported">ログを保存しました</string>
+    <string name="report_title">端末能力レポート</string>
+    <string name="label_device_name">端末名</string>
+    <string name="label_est_lte">推定対応LTE (4G)</string>
+    <string name="label_est_nr">推定対応NR (5G)</string>
+    <string name="label_coverage_by">対応率 (%1$s)</string>
 </resources>
