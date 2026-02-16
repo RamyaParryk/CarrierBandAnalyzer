@@ -1,3 +1,68 @@
 <resources>
-    <string name="app_name">CarrierBand Analyzer</string>
+    <string name="app_name">Band Analyzer</string>
+    <string name="loading">Loading...</string>
+    <string name="band_now">Connected (Now)</string>
+    <string name="band_history">History (Observed)</string>
+    <string name="band_missing">Missing</string>
+    <string name="band_none">None</string>
+
+    <string name="settings_title">Settings</string>
+
+    <string name="sec_monitoring">Background Monitoring</string>
+    <string name="item_service">Monitoring Service</string>
+    <string name="service_running">Running (Notification On)</string>
+    <string name="service_stopped">Stopped</string>
+
+    <string name="sec_data">Data Management</string>
+    <string name="item_reset_title">Reset History</string>
+    <string name="item_reset_desc">Clear all recorded band data.</string>
+    <string name="msg_history_cleared">History cleared.</string>
+
+    <string name="sec_system">System Settings</string>
+    <string name="item_perm_title">Open Permissions</string>
+    <string name="item_perm_desc">Check/Change location &amp; notification permissions.</string>
+
+    <string name="sec_support">Support</string>
+    <string name="item_help">Help &amp; Usage</string>
+
+    <string name="help_title">Help &amp; Usage</string>
+    <string name="help_close">Close</string>
+
+    <string name="help_sec1_title">1. Overview</string>
+    <string name="help_sec1_desc">Visualizes LTE/5G bands for Japanese carriers (Docomo, au, SB, Rakuten) and sub-brands. Helps analyze true area quality beyond just signal bars.</string>
+
+    <string name="help_sec2_title">2. Usage &amp; Colors</string>
+    <string name="help_sec2_desc">• Launch to scan. Enable service for background recording.\n🟦 Dark: Active (Connected)\n⬜ Light: History\n⬛ Gray: Missing</string>
+
+    <string name="help_sec3_title">3. Main Bands (4G)</string>
+    <string name="help_sec3_desc">High speed, main coverage bands.</string>
+
+    <string name="help_sec4_title">4. High Speed (5G)</string>
+    <string name="help_sec4_desc">Next-gen ultra high-speed bands.</string>
+
+    <string name="help_sec5_title">5. Platinum Bands</string>
+    <string name="help_sec5_desc">Essential for indoor/rural connectivity.</string>
+
+    <string name="th_band">Band</string>
+    <string name="th_freq">Freq</string>
+    <string name="th_detail">Detail</string>
+
+    <string name="td_main_desc">Main / High Speed</string>
+    <string name="td_sub_desc">Sub / Capacity</string>
+    <string name="td_high_desc">Ultra High Speed</string>
+    <string name="td_5g_main">5G Main</string>
+    <string name="td_5g_docomo">Docomo Only</string>
+    <string name="td_mmwave">mmWave (Fastest)</string>
+
+    <string name="judgement_unknown">Unknown</string>
+    <string name="judgement_excellent">Excellent</string>
+    <string name="judgement_good">Good</string>
+    <string name="judgement_fair">Fair</string>
+    <string name="judgement_poor_slight">Slightly Weak</string>
+    <string name="judgement_poor">Weak</string>
+
+    <string name="notif_channel_name">Band Monitor Service</string>
+    <string name="notif_title">Band Analyzer is active</string>
+    <string name="notif_scanning">Scanning...</string>
+    <string name="notif_connected">Connected: %1$s</string>
 </resources>

@@ -8,7 +8,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
 }
 
 data class UiState(
-    val carrier: String = "取得中...",
+    val carrier: String = "Loading...",
     val coveragePercent: Int = 0,
     val judgement: String = "-",
     val nowBands: List<String> = emptyList(),
@@ -110,7 +110,7 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Band Analyzer") },
+                title = { Text(stringResource(R.string.app_name)) }, // バンド解析 or Band Analyzer
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -137,9 +137,12 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             DashboardCard(uiState)
-            BandSection("現在接続中 (Now)", uiState.nowBands, BandType.NOW)
-            BandSection("履歴 (Observed)", uiState.observedBands, BandType.HISTORY)
-            BandSection("未確認 (Missing)", uiState.missingBands, BandType.MISSING)
+
+            // 多言語対応の呼び出しに変更
+            BandSection(stringResource(R.string.band_now), uiState.nowBands, BandType.NOW)
+            BandSection(stringResource(R.string.band_history), uiState.observedBands, BandType.HISTORY)
+            BandSection(stringResource(R.string.band_missing), uiState.missingBands, BandType.MISSING)
+
             Spacer(modifier = Modifier.height(32.dp))
         }
     }
@@ -203,7 +206,7 @@ fun BandSection(title: String, bands: List<String>, type: BandType) {
 
         if (bands.isEmpty()) {
             Text(
-                text = "なし",
+                text = stringResource(R.string.band_none), // なし or None
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Gray,
                 modifier = Modifier.padding(start = 8.dp)

@@ -19,7 +19,6 @@ class BandAnalyzer(context: Context) {
     private val prefs = appContext.getSharedPreferences("band_analyzer_prefs", Context.MODE_PRIVATE)
 
     // メモリ上のキャッシュ
-    // 初期化時に読み込むが、外部（他プロセス/他インスタンス）での変更を検知できるようにする
     private val observedBands: MutableSet<String> = mutableSetOf()
 
     // 変更監視リスナー
@@ -30,9 +29,7 @@ class BandAnalyzer(context: Context) {
     }
 
     init {
-        // 初回ロード
         reloadFromPrefs(prefs)
-        // 変更監視登録（これでActivityでリセット→Service側も即座に検知してメモリクリアされる）
         prefs.registerOnSharedPreferenceChangeListener(prefListener)
     }
 
@@ -44,8 +41,7 @@ class BandAnalyzer(context: Context) {
         }
     }
 
-    // ... (以下、定数定義などは変更なし) ...
-
+    // キャリアごとのバンド定義 (ここは内部IDなので変更なし)
     private val carrierBands = mapOf(
         "DOCOMO" to setOf("B1","B3","B19","B21","B28","B42","n77","n78","n79"),
         "AU" to setOf("B1","B3","B18","B26","B28","B41","B42","n77","n78","n257"),
@@ -128,19 +124,20 @@ class BandAnalyzer(context: Context) {
     fun calculateCoverage(): CoverageResult {
         val carrier = detectCarrierLabel()
         val ref = carrierBands[carrier].orEmpty()
-        val currentObserved = getObservedBands() // 安全に取得
+        val currentObserved = getObservedBands()
 
         val covered = currentObserved.intersect(ref).size
         val total = ref.size
         val percent = if (total == 0) 0 else ((covered.toDouble() / total) * 100.0).roundToInt()
 
+        // 修正箇所：多言語対応リソースを使用
         val judgement = when {
-            total == 0 -> "不明"
-            percent >= 70 -> "非常に使いやすい"
-            percent >= 50 -> "使いやすい"
-            percent >= 30 -> "普通"
-            percent >= 15 -> "やや不利"
-            else -> "不利"
+            total == 0 -> appContext.getString(R.string.judgement_unknown)
+            percent >= 70 -> appContext.getString(R.string.judgement_excellent)
+            percent >= 50 -> appContext.getString(R.string.judgement_good)
+            percent >= 30 -> appContext.getString(R.string.judgement_fair)
+            percent >= 15 -> appContext.getString(R.string.judgement_poor_slight)
+            else -> appContext.getString(R.string.judgement_poor)
         }
 
         return CoverageResult(
@@ -155,8 +152,6 @@ class BandAnalyzer(context: Context) {
     }
 
     fun resetObservedBands() {
-        // メモリクリアと保存データの削除を同時に行う
-        // これを行うと OnSharedPreferenceChangeListener が発火し、他インスタンスもリロードされる
         synchronized(observedBands) {
             observedBands.clear()
         }
@@ -170,17 +165,15 @@ class BandAnalyzer(context: Context) {
                 if (observedBands.add(b)) changed = true
             }
         }
-        // 変更があった場合のみ保存
         if (changed) {
-            // 保存するときは synchronized ブロック内でセットのコピーを作るか、ロック範囲に注意
             val toSave = synchronized(observedBands) { observedBands.toSet() }
             prefs.edit().putStringSet(KEY_OBSERVED_BANDS, toSave).apply()
         }
     }
 
-    // ... (以下、detectCarrierLabel, reflection系, convert系ヘルパーは元のまま変更なし) ...
     @SuppressLint("MissingPermission")
     private fun detectCarrierLabel(): String {
+        // ... (キャリア判定ロジックは内部IDなのでそのまま) ...
         val tokens = mutableListOf<String>()
         fun add(s: String?) { if (!s.isNullOrBlank()) tokens += s }
         add(telephonyManager.simOperatorName)

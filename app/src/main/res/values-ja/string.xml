@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">バンド解析</string>
+
+    <string name="loading">取得中...</string>
+    <string name="band_now">現在接続中 (Now)</string>
+    <string name="band_history">履歴 (Observed)</string>
+    <string name="band_missing">未確認 (Missing)</string>
+    <string name="band_none">なし</string>
+
+    <string name="settings_title">設定</string>
+
+    <string name="sec_monitoring">バックグラウンド監視</string>
+    <string name="item_service">常駐監視サービス</string>
+    <string name="service_running">実行中 (通知を表示中)</string>
+    <string name="service_stopped">停止中</string>
+
+    <string name="sec_data">データ管理</string>
+    <string name="item_reset_title">観測履歴をリセット</string>
+    <string name="item_reset_desc">これまで記録したバンド情報をすべて消去します</string>
+    <string name="msg_history_cleared">履歴を消去しました</string>
+
+    <string name="sec_system">システム設定</string>
+    <string name="item_perm_title">権限設定を開く</string>
+    <string name="item_perm_desc">位置情報や通知の権限を確認・変更します</string>
+
+    <string name="sec_support">サポート</string>
+    <string name="item_help">ヘルプ・使い方</string>
+
+    <string name="help_title">ヘルプ・使い方</string>
+    <string name="help_close">閉じる</string>
+
+    <string name="help_sec1_title">1. アプリの概要</string>
+    <string name="help_sec1_desc">日本の全キャリア（サブブランド含む）の周波数を「可視化」するツールです。\nアンテナの本数だけでは分からない通信品質を把握できます。</string>
+
+    <string name="help_sec2_title">2. 使い方と色の意味</string>
+    <string name="help_sec2_desc">• 起動でスキャン。常駐監視で移動中も記録。\n🟦 濃い色: 今まさに接続中 (Active)\n⬜ 薄い色: 履歴あり (History)\n⬛ グレー: 未検出 (Missing)</string>
+
+    <string name="help_sec3_title">3. 主力・高速バンド (4G)</string>
+    <string name="help_sec3_desc">速度の要となる、各社のメインバンドです。</string>
+
+    <string name="help_sec4_title">4. 高速通信バンド (5G)</string>
+    <string name="help_sec4_desc">次世代の超高速周波数帯です。</string>
+
+    <string name="help_sec5_title">5. プラチナバンド</string>
+    <string name="help_sec5_desc">繋がりやすさを支える、建物内や地下に強い電波です。</string>
+
+    <string name="th_band">バンド</string>
+    <string name="th_freq">周波数</string>
+    <string name="th_detail">特徴/キャリア</string>
+
+    <string name="td_main_desc">各社の主力。高速</string>
+    <string name="td_sub_desc">補助用 / 容量対策</string>
+    <string name="td_high_desc">超高速LTE</string>
+    <string name="td_5g_main">5Gのメイン</string>
+    <string name="td_5g_docomo">ドコモ専用</string>
+    <string name="td_mmwave">ミリ波 (超爆速)</string>
+
+    <string name="judgement_unknown">不明</string>
+    <string name="judgement_excellent">非常に使いやすい</string>
+    <string name="judgement_good">使いやすい</string>
+    <string name="judgement_fair">普通</string>
+    <string name="judgement_poor_slight">やや不利</string>
+    <string name="judgement_poor">不利</string>
+
+    <string name="notif_channel_name">バックグラウンド監視サービス</string>
+    <string name="notif_title">バンド解析を実行中</string>
+    <string name="notif_scanning">スキャン中...</string>
+    <string name="notif_connected">接続中: %1$s</string>
+</resources>

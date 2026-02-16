@@ -25,6 +25,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
@@ -39,7 +40,9 @@ class SettingsActivity : ComponentActivity() {
                     onBack = { finish() },
                     onReset = {
                         analyzer.resetObservedBands()
-                        Toast.makeText(this, "履歴を消去しました", Toast.LENGTH_SHORT).show()
+                        // 文字リソースから取得
+                        val msg = getString(R.string.msg_history_cleared)
+                        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                         finish()
                     },
                     onOpenPermissionSettings = {
@@ -72,10 +75,10 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("設定") },
+                title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "戻る")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -92,10 +95,18 @@ fun SettingsScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            SettingsSectionTitle("バックグラウンド監視")
+            // === バックグラウンド監視 ===
+            SettingsSectionTitle(stringResource(R.string.sec_monitoring))
             ListItem(
-                headlineContent = { Text("常駐監視サービス") },
-                supportingContent = { Text(if (isServiceRunning) "実行中 (通知を表示中)" else "停止中") },
+                headlineContent = { Text(stringResource(R.string.item_service)) },
+                supportingContent = {
+                    val statusText = if (isServiceRunning) {
+                        stringResource(R.string.service_running)
+                    } else {
+                        stringResource(R.string.service_stopped)
+                    }
+                    Text(statusText)
+                },
                 trailingContent = {
                     Switch(
                         checked = isServiceRunning,
@@ -114,26 +125,29 @@ fun SettingsScreen(
             )
             HorizontalDivider()
 
-            SettingsSectionTitle("データ管理")
+            // === データ管理 ===
+            SettingsSectionTitle(stringResource(R.string.sec_data))
             SettingsItem(
-                title = "観測履歴をリセット",
-                description = "これまで記録したバンド情報をすべて消去します",
+                title = stringResource(R.string.item_reset_title),
+                description = stringResource(R.string.item_reset_desc),
                 onClick = onReset,
                 isDestructive = true
             )
             HorizontalDivider()
 
-            SettingsSectionTitle("システム設定")
+            // === システム設定 ===
+            SettingsSectionTitle(stringResource(R.string.sec_system))
             SettingsItem(
-                title = "権限設定を開く",
-                description = "位置情報や通知の権限を確認・変更します",
+                title = stringResource(R.string.item_perm_title),
+                description = stringResource(R.string.item_perm_desc),
                 onClick = onOpenPermissionSettings
             )
             HorizontalDivider()
 
-            SettingsSectionTitle("サポート")
+            // === サポート ===
+            SettingsSectionTitle(stringResource(R.string.sec_support))
             ListItem(
-                headlineContent = { Text("ヘルプ・使い方") },
+                headlineContent = { Text(stringResource(R.string.item_help)) },
                 leadingContent = {
                     Icon(Icons.AutoMirrored.Filled.Help, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                 },
@@ -146,68 +160,57 @@ fun SettingsScreen(
     }
 }
 
-// ... (他のimportは既存のまま)
-
-// ... (他の部分は変更なし)
-
-// ... (package, imports は既存のまま)
-
 @Composable
 fun HelpDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("ヘルプ・使い方") },
+        title = { Text(stringResource(R.string.help_title)) },
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                // 1. 概要：可視化ツールとしての目的を強調
-                HelpSection("1. アプリの概要",
-                    "本アプリは、日本の携帯キャリア（ドコモ・au・SB・楽天）および、ahamo・povo・LINEMO等の各回線が、今どの周波数を使って通信しているかを**「可視化」**するツールです。\n\n" +
-                            "アンテナの本数だけでは分からない、通信の混雑状況やエリアの真の品質を把握することを目的としています。")
+                // 1. 概要
+                HelpSection(stringResource(R.string.help_sec1_title), stringResource(R.string.help_sec1_desc))
 
-                HelpSection("2. 使い方と色の意味",
-                    "• 起動でスキャン開始。常駐監視で移動中も記録します。\n\n" +
-                            "🟦 **濃い色**: 今まさに通信中のバンド (Active)\n" +
-                            "⬜ **薄い色**: 既に観測した履歴 (History)\n" +
-                            "⬛ **グレー**: 未検出の対応バンド (Missing)")
+                // 2. 使い方
+                HelpSection(stringResource(R.string.help_sec2_title), stringResource(R.string.help_sec2_desc))
 
-                // 3. 主力・高速バンド (4G/LTE)
-                HelpSection("3. 主力・高速バンド (4G/LTE)", "速度の要となる、各社のメインバンドです。")
+                // 3. 主力・高速バンド (4G)
+                HelpSection(stringResource(R.string.help_sec3_title), stringResource(R.string.help_sec3_desc))
                 BandInfoTable(
                     listOf(
-                        Triple("B1 / B3", "2.1/1.7G", "各社の主力。高速だが障害物に並"),
-                        Triple("B11/21", "1.5GHz", "補助用。B21はドコモ、B11はau/SB"),
-                        Triple("B41", "2.5GHz", "SB(AXGP) / au(UQ等)。高速"),
-                        Triple("B42", "3.5GHz", "4G最強バンド。非常に高速")
+                        Triple("B1 / B3", "2.1/1.7G", stringResource(R.string.td_main_desc)),
+                        Triple("B11/21", "1.5GHz", stringResource(R.string.td_sub_desc)),
+                        Triple("B41", "2.5GHz", stringResource(R.string.td_high_desc)),
+                        Triple("B42", "3.5GHz", stringResource(R.string.td_high_desc))
                     )
                 )
 
                 // 4. 高速通信バンド (5G)
-                HelpSection("4. 高速通信バンド (5G)", "次世代の超高速周波数帯です。")
+                HelpSection(stringResource(R.string.help_sec4_title), stringResource(R.string.help_sec4_desc))
                 BandInfoTable(
                     listOf(
-                        Triple("n77/78", "Sub6", "5Gのメイン。n77は各社、n78はドコモ/au"),
-                        Triple("n79", "Sub6", "ドコモ専用の高速5G帯域"),
-                        Triple("n257", "ミリ波", "超爆速だが遮蔽物に極めて弱い")
+                        Triple("n77/78", "Sub6", stringResource(R.string.td_5g_main)),
+                        Triple("n79", "Sub6", stringResource(R.string.td_5g_docomo)),
+                        Triple("n257", "mmWave", stringResource(R.string.td_mmwave))
                     )
                 )
 
                 // 5. プラチナバンド
-                HelpSection("5. プラチナバンド", "「繋がりやすさ」を支える、建物内や地下に強い重要な電波です。")
+                HelpSection(stringResource(R.string.help_sec5_title), stringResource(R.string.help_sec5_desc))
                 BandInfoTable(
                     listOf(
-                        Triple("B8", "900MHz", "ソフトバンク / LINEMO"),
+                        Triple("B8", "900MHz", "SoftBank / LINEMO"),
                         Triple("B18/26", "800MHz", "au / UQ / povo"),
                         Triple("B19", "800MHz", "docomo / ahamo"),
-                        Triple("B28", "700MHz", "各社 (楽天モバイル含む)")
+                        Triple("B28", "700MHz", "All Carriers")
                     )
                 )
             }
         },
         confirmButton = {
-            TextButton(onClick = onDismiss) { Text("閉じる") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) }
         }
     )
 }
@@ -228,9 +231,9 @@ fun BandInfoTable(data: List<Triple<String, String, String>>) {
                 .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
                 .padding(8.dp)
         ) {
-            Text("バンド", Modifier.weight(1f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
-            Text("周波数", Modifier.weight(1f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
-            Text("特徴/キャリア", Modifier.weight(1.8f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
+            Text(stringResource(R.string.th_band), Modifier.weight(1f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
+            Text(stringResource(R.string.th_freq), Modifier.weight(1f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
+            Text(stringResource(R.string.th_detail), Modifier.weight(1.8f), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.labelMedium)
         }
 
         data.forEach { (band, freq, detail) ->
