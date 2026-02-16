@@ -36,8 +36,10 @@
 | **5G (Sub6)** | n77, n78, n79 | 標準的な5G |
 | **5G (ミリ波)** | n257 | 超高速5G |
 
+## 🔒 Privacy Policy / プライバシーポリシー
+[View Privacy Policy](PRIVACY_POLICY.md)
+
 ## 📝 ライセンス & 制作
 
 制作: **Rato Lab** Copyright (c) 2026 Rato Lab.
-
 本プロジェクトは MIT ライセンスの下で公開されています。
