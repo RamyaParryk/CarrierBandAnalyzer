@@ -22,7 +22,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Help
-import androidx.compose.material.icons.filled.ContentCopy // コピーアイコン
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.filled.Share
@@ -34,7 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.FileProvider
+import androidx.compose.ui.text.style.TextAlign
 
 class SettingsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,10 +127,10 @@ fun SettingsScreen(
             )
             HorizontalDivider()
 
-            // === データ管理 (コピー＆共有) ===
+            // === データ管理 ===
             SettingsSectionTitle(stringResource(R.string.sec_data))
 
-            // 1. レポートをコピー (新規追加：テキスト形式)
+            // 1. レポートをコピー
             ListItem(
                 headlineContent = { Text(stringResource(R.string.action_share_report)) },
                 supportingContent = { Text(stringResource(R.string.label_copy_to_clipboard)) },
@@ -140,13 +140,14 @@ fun SettingsScreen(
                 }
             )
 
-            // 2. CSV出力
+            // 2. CSV出力 (★修正箇所: 共通関数を使用)
             ListItem(
                 headlineContent = { Text(stringResource(R.string.item_export_log)) },
                 supportingContent = { Text("band_logs.csv") },
                 leadingContent = { Icon(Icons.Default.Share, contentDescription = null) },
                 modifier = Modifier.clickable {
-                    exportLogFile(context, analyzer)
+                    // ここで共通関数を呼び出し
+                    shareLogFile(context, analyzer.getLogFile())
                 }
             )
 
@@ -193,12 +194,20 @@ fun SettingsScreen(
             )
 
             Spacer(modifier = Modifier.height(32.dp))
+            // === バージョン ===
+            Text(
+                text = "Ver ${BuildConfig.VERSION_NAME} (Build ${BuildConfig.VERSION_CODE})",
+                style = MaterialTheme.typography.labelSmall,
+                color = Color.Gray,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
 
 /**
- * クリップボードにレポートテキストをコピーする関数
+ * クリップボードにレポートテキストをコピーする関数 (Settings独自)
  */
 private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
     val observed = analyzer.getObservedBands()
@@ -225,29 +234,8 @@ private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
     Toast.makeText(context, context.getString(R.string.msg_copied), Toast.LENGTH_SHORT).show()
 }
 
-/**
- * CSVファイルを共有する関数
- */
-private fun exportLogFile(context: Context, analyzer: BandAnalyzer) {
-    val logFile = analyzer.getLogFile()
-    if (!logFile.exists() || logFile.length() == 0L) {
-        Toast.makeText(context, "Log file is empty", Toast.LENGTH_SHORT).show()
-        return
-    }
-    try {
-        val contentUri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", logFile)
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/csv"
-            putExtra(Intent.EXTRA_STREAM, contentUri)
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.item_export_log)))
-    } catch (e: Exception) {
-        Toast.makeText(context, "Failed to export: ${e.message}", Toast.LENGTH_SHORT).show()
-    }
-}
-
-// ... (HelpDialog などのパーツは変更なし) ...
+// HelpDialog などのコンポーネントは重複しないよう省略（または前回のまま）
+// 必要な場合は教えてください
 
 @Composable
 fun HelpDialog(onDismiss: () -> Unit) {
@@ -259,16 +247,9 @@ fun HelpDialog(onDismiss: () -> Unit) {
                 modifier = Modifier.verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                // 1. 概要
                 HelpSection(stringResource(R.string.help_sec1_title), stringResource(R.string.help_sec1_desc))
-
-                // 2. バックグラウンド監視
                 HelpSection(stringResource(R.string.help_sec2_title), stringResource(R.string.help_sec2_desc))
-
-                // ★新規追加：3. データの共有と出力
                 HelpSection(stringResource(R.string.help_sec_share_title), stringResource(R.string.help_sec_share_desc))
-
-                // 4. (旧3) 5G/LTEバンドの基礎
                 HelpSection(stringResource(R.string.help_sec3_title), stringResource(R.string.help_sec3_desc))
                 BandInfoTable(
                     listOf(
@@ -278,8 +259,6 @@ fun HelpDialog(onDismiss: () -> Unit) {
                         Triple("B42", "3.5GHz", stringResource(R.string.td_high_desc))
                     )
                 )
-
-                // 5. (旧4) 5G (NR) 専用バンド
                 HelpSection(stringResource(R.string.help_sec4_title), stringResource(R.string.help_sec4_desc))
                 BandInfoTable(
                     listOf(
@@ -288,8 +267,6 @@ fun HelpDialog(onDismiss: () -> Unit) {
                         Triple("n257", "mmWave", stringResource(R.string.td_mmwave))
                     )
                 )
-
-                // 6. (旧5) プラチナバンド
                 HelpSection(stringResource(R.string.help_sec5_title), stringResource(R.string.help_sec5_desc))
                 BandInfoTable(
                     listOf(

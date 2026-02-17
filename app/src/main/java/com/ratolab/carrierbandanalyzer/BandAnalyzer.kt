@@ -1,13 +1,16 @@
 package com.ratolab.carrierbandanalyzer
 
+import android.Manifest // 追加
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager // 追加
 import android.os.Build
 import android.telephony.CellIdentityNr
 import android.telephony.CellInfoLte
 import android.telephony.CellInfoNr
 import android.telephony.TelephonyManager
+import androidx.core.content.ContextCompat // 追加
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,6 +37,14 @@ class BandAnalyzer(context: Context) {
     init {
         reloadFromPrefs(prefs)
         prefs.registerOnSharedPreferenceChangeListener(prefListener)
+    }
+
+    // ★追加: 許可チェック用の便利関数
+    private fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            appContext,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun reloadFromPrefs(sharedPreferences: SharedPreferences) {
@@ -72,6 +83,9 @@ class BandAnalyzer(context: Context) {
 
     @SuppressLint("MissingPermission")
     fun scanNowBands(): Set<String> {
+        // ★修正: 許可がない場合は空を返して終了（これで落ちなくなる！）
+        if (!hasLocationPermission()) return emptySet()
+
         val now = mutableSetOf<String>()
 
         val cells = telephonyManager.allCellInfo ?: emptyList()
@@ -105,6 +119,9 @@ class BandAnalyzer(context: Context) {
 
     @SuppressLint("MissingPermission")
     fun getCaChannelDebugList(): List<CaChannelDebug> {
+        // ★修正: ここも許可がないと落ちる可能性があるためガード
+        if (!hasLocationPermission()) return emptyList()
+
         val out = mutableListOf<CaChannelDebug>()
         val listAny: List<Any> = getPhysicalChannelConfigListViaReflection()
         for (cfg in listAny) {

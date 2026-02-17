@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.FileProvider
 
 class CapabilityReportActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +67,8 @@ fun CapabilityReportScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        exportLogFile(context, analyzer)
+                        // ★修正箇所: 共通関数を使用
+                        shareLogFile(context, analyzer.getLogFile())
                     }) {
                         Icon(
                             imageVector = Icons.Default.Description,
@@ -91,7 +91,6 @@ fun CapabilityReportScreen(
                 )
             )
         },
-        // 共通化したAdBannerを使用
         bottomBar = {
             AdBanner(modifier = Modifier.background(MaterialTheme.colorScheme.surface))
         }
@@ -113,7 +112,6 @@ fun CapabilityReportScreen(
             ReportBandSection(stringResource(R.string.label_est_nr), nrBands, BandType.NOW)
 
             Column {
-                // 共通化した関数を使用
                 val carrierName = toJaCarrierName(coverage.carrier)
                 Text(
                     text = stringResource(R.string.label_coverage_by, carrierName),
@@ -175,31 +173,6 @@ private fun shareReportText(
     context.startActivity(Intent.createChooser(sendIntent, null))
 }
 
-private fun exportLogFile(context: Context, analyzer: BandAnalyzer) {
-    val logFile = analyzer.getLogFile()
-    if (!logFile.exists() || logFile.length() == 0L) {
-        Toast.makeText(context, "Log file is empty", Toast.LENGTH_SHORT).show()
-        return
-    }
-
-    try {
-        val contentUri = FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.fileprovider",
-            logFile
-        )
-
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/csv"
-            putExtra(Intent.EXTRA_STREAM, contentUri)
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.item_export_log)))
-    } catch (e: Exception) {
-        Toast.makeText(context, "Failed to export: ${e.message}", Toast.LENGTH_SHORT).show()
-    }
-}
-
 @Composable
 fun ReportInfoSection(label: String, value: String) {
     Column {
@@ -221,7 +194,6 @@ fun ReportBandSection(title: String, bands: List<String>, type: BandType) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // 共通化したBandChipを使用
                 bands.forEach { BandChip(it, type) }
             }
         }

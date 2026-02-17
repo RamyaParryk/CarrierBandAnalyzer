@@ -34,13 +34,13 @@
     <string name="help_sec2_title">2. Usage &amp; Colors</string>
     <string name="help_sec2_desc">• Launch to scan. Enable service for background recording.\n🟦 Dark: Active (Connected)\n⬜ Light: History\n⬛ Gray: Missing</string>
 
-    <string name="help_sec3_title">3. Main Bands (4G)</string>
+    <string name="help_sec3_title">4. Main Bands (4G)</string>
     <string name="help_sec3_desc">High speed, main coverage bands.</string>
 
-    <string name="help_sec4_title">4. High Speed (5G)</string>
+    <string name="help_sec4_title">5. High Speed (5G)</string>
     <string name="help_sec4_desc">Next-gen ultra high-speed bands.</string>
 
-    <string name="help_sec5_title">5. Platinum Bands</string>
+    <string name="help_sec5_title">6. Platinum Bands</string>
     <string name="help_sec5_desc">Essential for indoor/rural connectivity.</string>
 
     <string name="th_band">Band</string>

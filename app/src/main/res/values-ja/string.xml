@@ -35,13 +35,13 @@
     <string name="help_sec2_title">2. 使い方と色の意味</string>
     <string name="help_sec2_desc">• 起動でスキャン。常駐監視で移動中も記録。\n🟦 濃い色: 今まさに接続中 (Active)\n⬜ 薄い色: 履歴あり (History)\n⬛ グレー: 未検出 (Missing)</string>
 
-    <string name="help_sec3_title">3. 主力・高速バンド (4G)</string>
+    <string name="help_sec3_title">4. 主力・高速バンド (4G)</string>
     <string name="help_sec3_desc">速度の要となる、各社のメインバンドです。</string>
 
-    <string name="help_sec4_title">4. 高速通信バンド (5G)</string>
+    <string name="help_sec4_title">5. 高速通信バンド (5G)</string>
     <string name="help_sec4_desc">次世代の超高速周波数帯です。</string>
 
-    <string name="help_sec5_title">5. プラチナバンド</string>
+    <string name="help_sec5_title">6. プラチナバンド</string>
     <string name="help_sec5_desc">繋がりやすさを支える、建物内や地下に強い電波です。</string>
 
     <string name="th_band">バンド</string>
