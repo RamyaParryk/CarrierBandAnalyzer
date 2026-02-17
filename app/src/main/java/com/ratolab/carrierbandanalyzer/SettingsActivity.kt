@@ -250,6 +250,7 @@ fun HelpDialog(onDismiss: () -> Unit) {
                 HelpSection(stringResource(R.string.help_sec1_title), stringResource(R.string.help_sec1_desc))
                 HelpSection(stringResource(R.string.help_sec2_title), stringResource(R.string.help_sec2_desc))
                 HelpSection(stringResource(R.string.help_sec_share_title), stringResource(R.string.help_sec_share_desc))
+                HelpSection(stringResource(R.string.help_sec_global_title), stringResource(R.string.help_sec_global_desc))
                 HelpSection(stringResource(R.string.help_sec3_title), stringResource(R.string.help_sec3_desc))
                 BandInfoTable(
                     listOf(
