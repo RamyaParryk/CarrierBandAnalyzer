@@ -39,6 +39,13 @@ This app supports the detection of all major bands used in Japan:
 | **5G (Sub6)** | n77, n78, n79 | Standard 5G coverage |
 | **5G (mmWave)** | n257 | Ultra high-speed 5G (Limited area) |
 
+## 🌍 Global Usage & Non-Japanese Carriers
+
+This app complies with global standards (PLMN/Android API).
+
+* **✅ What Works:** Real-time monitoring of **"Connected Bands" and "Carrier Names" works worldwide**, even with non-Japanese carriers. You can use it as a travel companion to check your local connectivity.
+* **⚠️ Limitations:** Advanced features such as **"Band Coverage Score" and "Signal Analysis" are currently optimized for major Japanese carriers.** Please note that these specific analysis metrics may not appear when used outside of Japan.
+
 ## 🔒 Privacy Policy / プライバシーポリシー
 [View Privacy Policy](PRIVACY_POLICY.md)
 
