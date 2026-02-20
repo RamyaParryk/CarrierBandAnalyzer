@@ -68,7 +68,6 @@ fun CapabilityReportScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        // ★修正箇所: 共通関数を使用
                         shareLogFile(context, analyzer.getLogFile())
                     }) {
                         Icon(
@@ -92,8 +91,15 @@ fun CapabilityReportScreen(
                 )
             )
         },
+        // ★修正箇所: navigationBarsPadding を追加して広告を押し上げる
         bottomBar = {
-            AdBanner(modifier = Modifier.background(MaterialTheme.colorScheme.surface))
+            Box(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surface)
+                    .navigationBarsPadding() // これによりシステムバーとの重なりを防ぎます
+            ) {
+                AdBanner()
+            }
         }
     ) { innerPadding ->
         Column(

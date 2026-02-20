@@ -138,7 +138,13 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
         },
         // 共通化したAdBannerを使用
         bottomBar = {
-            AdBanner(modifier = Modifier.background(MaterialTheme.colorScheme.surface))
+            Box(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surface)
+                    .navigationBarsPadding() // これでナビゲーションバーとの重なりを防ぎます
+            ) {
+                AdBanner()
+            }
         }
     ) { innerPadding ->
         Column(
