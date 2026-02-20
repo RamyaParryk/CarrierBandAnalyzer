@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">밴드 분석기</string>
+
+    <string name="loading">로딩 중...</string>
+    <string name="band_now">현재 연결됨 (Now)</string>
+    <string name="band_history">기록됨 (Observed)</string>
+    <string name="band_missing">미확인 (Missing)</string>
+    <string name="band_none">없음</string>
+
+    <string name="settings_title">설정</string>
+
+    <string name="sec_monitoring">백그라운드 모니터링</string>
+    <string name="item_service">상주 모니터링 서비스</string>
+    <string name="service_running">실행 중 (알림 표시 중)</string>
+    <string name="service_stopped">중지됨</string>
+
+    <string name="sec_data">데이터 관리</string>
+    <string name="item_reset_title">관측 기록 초기화</string>
+    <string name="item_reset_desc">지금까지 기록된 모든 밴드 정보를 삭제합니다.</string>
+    <string name="msg_history_cleared">기록이 삭제되었습니다.</string>
+
+    <string name="sec_system">시스템 설정</string>
+    <string name="item_perm_title">권한 설정 열기</string>
+    <string name="item_perm_desc">위치 및 알림 권한을 확인하고 변경합니다.</string>
+
+    <string name="sec_support">지원</string>
+    <string name="item_help">도움말 및 사용법</string>
+
+    <string name="help_title">도움말 및 사용법</string>
+    <string name="help_close">닫기</string>
+
+    <string name="help_sec1_title">1. 앱 개요</string>
+    <string name="help_sec1_desc">일본 통신사의 주파수를 시각화하는 도구입니다. 안테나 개수만으로는 알 수 없는 통신 품질을 파악할 수 있습니다.</string>
+
+    <string name="help_sec2_title">2. 사용법 및 색상 의미</string>
+    <string name="help_sec2_desc">• 실행 시 스캔. 서비스 활성화 시 이동 중에도 기록.\n🟦 진한 색: 현재 연결 중 (Active)\n⬜ 연한 색: 기록 있음 (History)\n⬛ 회색: 미감지 (Missing)</string>
+
+    <string name="help_sec_share_title">3. 공유 및 내보내기</string>
+    <string name="help_sec_share_desc">분석 결과를 텍스트로 복사하거나 기록을 CSV 파일로 내보낼 수 있습니다.</string>
+
+    <string name="help_sec_global_title">4. 글로벌 사용</string>
+    <string name="help_sec_global_desc">실시간 밴드 모니터링 기능은 전 세계에서 작동합니다. 단, 커버리지 분석 기능은 일본 4대 통신사에 최적화되어 있습니다.</string>
+
+    <string name="help_sec3_title">5. 주력/고속 밴드 (4G)</string>
+    <string name="help_sec3_desc">속도의 핵심이 되는 메인 밴드입니다.</string>
+
+    <string name="help_sec4_title">6. 고속 통신 밴드 (5G)</string>
+    <string name="help_sec4_desc">차세대 초고속 주파수 대역입니다.</string>
+
+    <string name="help_sec5_title">7. 플래티넘 밴드 (저대역)</string>
+    <string name="help_sec5_desc">건물 내부나 지하에서 강한 전파입니다.</string>
+
+    <string name="help_sec6_title">8. 전환된 5G (DSS)</string>
+    <string name="help_sec6_desc">4G 주파수를 5G용으로 전환한 밴드입니다. 5G 커버리지를 빠르게 넓히기 위해 사용되며, 속도는 4G와 비슷합니다.</string>
+    <string name="td_5g_diverted">4G 전환 (커버리지 확장)</string>
+
+    <string name="th_band">밴드</string>
+    <string name="th_freq">주파수</string>
+    <string name="th_detail">특징/통신사</string>
+
+    <string name="td_main_desc">주력 / 고속</string>
+    <string name="td_sub_desc">보조 / 용량 대책</string>
+    <string name="td_high_desc">초고속 LTE</string>
+    <string name="td_5g_main">5G 메인</string>
+    <string name="td_5g_docomo">Docomo 전용</string>
+    <string name="td_mmwave">밀리미터파 (초고속)</string>
+
+    <string name="judgement_unknown">알 수 없음</string>
+    <string name="judgement_excellent">매우 좋음</string>
+    <string name="judgement_good">좋음</string>
+    <string name="judgement_fair">보통</string>
+    <string name="judgement_poor_slight">약간 약함</string>
+    <string name="judgement_poor">약함</string>
+
+    <string name="notif_channel_name">백그라운드 모니터링 서비스</string>
+    <string name="notif_title">밴드 분석기 실행 중</string>
+    <string name="notif_scanning">스캔 중...</string>
+    <string name="notif_connected">연결됨: %1$s</string>
+
+    <string name="label_observed">이 기기 지원 (확인됨)</string>
+    <string name="label_reference">통신사 지원</string>
+    <string name="label_missing">부족한 밴드</string>
+    <string name="status_on">모니터링: 켜짐</string>
+    <string name="status_off">모니터링: 꺼짐</string>
+    <string name="item_export_log">로그 내보내기 (CSV)</string>
+    <string name="msg_log_exported">로그를 저장했습니다.</string>
+    <string name="report_title">기기 기능 보고서</string>
+    <string name="label_device_name">기기 이름</string>
+    <string name="label_est_lte">예상 지원 LTE (4G)</string>
+    <string name="label_est_nr">예상 지원 NR (5G)</string>
+    <string name="label_coverage_by">호환성 (%1$s)</string>
+    <string name="action_share_report">보고서 공유</string>
+    <string name="report_footer">\nCarrierBand Analyzer #RatoLab에서 생성됨</string>
+    <string name="label_copy_to_clipboard">클립보드에 복사</string>
+    <string name="msg_copied">복사되었습니다</string>
+
+    <string name="item_language_title">언어</string>
+    <string name="item_language_desc">앱 표시 언어를 변경합니다.</string>
+</resources>

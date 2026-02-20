@@ -10,8 +10,9 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -33,10 +34,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.core.os.LocaleListCompat
 
-class SettingsActivity : ComponentActivity() {
+class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val analyzer = BandAnalyzer(this)
@@ -75,9 +77,14 @@ fun SettingsScreen(
     val context = LocalContext.current
     var isServiceRunning by remember { mutableStateOf(isServiceRunning(context)) }
     var showHelpDialog by remember { mutableStateOf(false) }
+    var showLanguageDialog by remember { mutableStateOf(false) }
 
     if (showHelpDialog) {
         HelpDialog(onDismiss = { showHelpDialog = false })
+    }
+
+    if (showLanguageDialog) {
+        LanguageSelectionDialog(onDismiss = { showLanguageDialog = false })
     }
 
     Scaffold(
@@ -140,13 +147,12 @@ fun SettingsScreen(
                 }
             )
 
-            // 2. CSV出力 (★修正箇所: 共通関数を使用)
+            // 2. CSV出力
             ListItem(
                 headlineContent = { Text(stringResource(R.string.item_export_log)) },
                 supportingContent = { Text("band_logs.csv") },
                 leadingContent = { Icon(Icons.Default.Share, contentDescription = null) },
                 modifier = Modifier.clickable {
-                    // ここで共通関数を呼び出し
                     shareLogFile(context, analyzer.getLogFile())
                 }
             )
@@ -162,6 +168,15 @@ fun SettingsScreen(
 
             // === システム設定 ===
             SettingsSectionTitle(stringResource(R.string.sec_system))
+
+            // 言語切り替え
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.item_language_title)) },
+                supportingContent = { Text(stringResource(R.string.item_language_desc)) },
+                leadingContent = { Icon(Icons.Default.Language, contentDescription = null) },
+                modifier = Modifier.clickable { showLanguageDialog = true }
+            )
+
             SettingsItem(
                 title = stringResource(R.string.item_perm_title),
                 description = stringResource(R.string.item_perm_desc),
@@ -202,13 +217,11 @@ fun SettingsScreen(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
 
-/**
- * クリップボードにレポートテキストをコピーする関数 (Settings独自)
- */
 private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
     val observed = analyzer.getObservedBands()
     val coverage = analyzer.calculateCoverage()
@@ -233,9 +246,6 @@ private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
 
     Toast.makeText(context, context.getString(R.string.msg_copied), Toast.LENGTH_SHORT).show()
 }
-
-// HelpDialog などのコンポーネントは重複しないよう省略（または前回のまま）
-// 必要な場合は教えてください
 
 @Composable
 fun HelpDialog(onDismiss: () -> Unit) {
@@ -274,9 +284,56 @@ fun HelpDialog(onDismiss: () -> Unit) {
                         Triple("B8", "900MHz", "SoftBank / LINEMO"),
                         Triple("B18/26", "800MHz", "au / UQ / povo"),
                         Triple("B19", "800MHz", "docomo / ahamo"),
-                        Triple("B28", "700MHz", "All Carriers")
+                        Triple("B28", "700MHz", "All Carriers"),
                     )
                 )
+                HelpSection(stringResource(R.string.help_sec6_title), stringResource(R.string.help_sec6_desc))
+                BandInfoTable(
+                    listOf(
+                        Triple("n1 / n3", "2.1/1.7G", stringResource(R.string.td_5g_diverted)),
+                        Triple("n28", "700MHz", stringResource(R.string.td_5g_diverted))
+                    )
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) }
+        }
+    )
+}
+
+// 余計な処理を省いた確実な言語選択ダイアログ
+@Composable
+fun LanguageSelectionDialog(onDismiss: () -> Unit) {
+    val languages = listOf(
+        "ja" to "日本語",
+        "en" to "English",
+        "es" to "Español",
+        "de" to "Deutsch",
+        "ru" to "Русский",
+        "zh" to "中文",
+        "ko" to "한국어"
+    )
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.item_language_title)) },
+        text = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                languages.forEach { (tag, name) ->
+                    TextButton(
+                        onClick = {
+                            // 言語切り替えAPIを叩く
+                            val localeList = LocaleListCompat.forLanguageTags(tag)
+                            AppCompatDelegate.setApplicationLocales(localeList)
+                            // 最後にダイアログを閉じる
+                            onDismiss()
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(text = name, style = MaterialTheme.typography.bodyLarge)
+                    }
+                }
             }
         },
         confirmButton = {

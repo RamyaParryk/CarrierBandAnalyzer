@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">Band-Analysator</string>
+
+    <string name="loading">Wird geladen...</string>
+    <string name="band_now">Verbunden (Now)</string>
+    <string name="band_history">Verlauf (Observed)</string>
+    <string name="band_missing">Fehlt (Missing)</string>
+    <string name="band_none">Keine</string>
+
+    <string name="settings_title">Einstellungen</string>
+
+    <string name="sec_monitoring">Hintergrundüberwachung</string>
+    <string name="item_service">Überwachungsdienst</string>
+    <string name="service_running">Läuft (Benachrichtigung an)</string>
+    <string name="service_stopped">Gestoppt</string>
+
+    <string name="sec_data">Datenverwaltung</string>
+    <string name="item_reset_title">Verlauf zurücksetzen</string>
+    <string name="item_reset_desc">Löscht alle aufgezeichneten Banddaten.</string>
+    <string name="msg_history_cleared">Verlauf gelöscht.</string>
+
+    <string name="sec_system">Systemeinstellungen</string>
+    <string name="item_perm_title">Berechtigungen öffnen</string>
+    <string name="item_perm_desc">Standort- und Benachrichtigungsrechte prüfen/ändern.</string>
+
+    <string name="sec_support">Support</string>
+    <string name="item_help">Hilfe &amp; Nutzung</string>
+
+    <string name="help_title">Hilfe &amp; Nutzung</string>
+    <string name="help_close">Schließen</string>
+
+    <string name="help_sec1_title">1. Übersicht</string>
+    <string name="help_sec1_desc">Tool zur Visualisierung der Frequenzen japanischer Anbieter. Zeigt die wahre Verbindungsqualität jenseits der Signalbalken.</string>
+
+    <string name="help_sec2_title">2. Nutzung &amp; Farben</string>
+    <string name="help_sec2_desc">• Scan beim Start. Hintergrundaufzeichnung unterwegs.\n🟦 Dunkel: Aktuell verbunden (Active)\n⬜ Hell: Im Verlauf (History)\n⬛ Grau: Nicht erkannt (Missing)</string>
+
+    <string name="help_sec_share_title">3. Teilen &amp; Exportieren</string>
+    <string name="help_sec_share_desc">Sie können den Bericht als Text kopieren oder den Verlauf als CSV exportieren. Verfügbar über die Symbole im Bericht oder in den Einstellungen.</string>
+
+    <string name="help_sec_global_title">4. Globale Nutzung</string>
+    <string name="help_sec_global_desc">Die Echtzeit-Überwachung funktioniert weltweit. Analyse-Funktionen zur Netzabdeckung sind jedoch auf die 4 japanischen Hauptanbieter optimiert.</string>
+
+    <string name="help_sec3_title">5. Hauptbänder (4G)</string>
+    <string name="help_sec3_desc">Highspeed-Bänder für die primäre Netzabdeckung.</string>
+
+    <string name="help_sec4_title">6. Highspeed (5G)</string>
+    <string name="help_sec4_desc">Ultraschnelle Frequenzbänder der nächsten Generation.</string>
+
+    <string name="help_sec5_title">7. Platin-Bänder (Low-Band)</string>
+    <string name="help_sec5_desc">Wichtig für Verbindungen in Gebäuden und unter der Erde.</string>
+
+    <string name="help_sec6_title">8. Umgewidmetes 5G (DSS)</string>
+    <string name="help_sec6_desc">Für 5G umgewidmete 4G-Frequenzen. Dient der schnellen Erweiterung der 5G-Abdeckung bei ähnlichen Geschwindigkeiten wie 4G.</string>
+    <string name="td_5g_diverted">4G Umgewidmet (Abdeckung)</string>
+
+    <string name="th_band">Band</string>
+    <string name="th_freq">Frequenz</string>
+    <string name="th_detail">Details/Anbieter</string>
+
+    <string name="td_main_desc">Hauptband / Schnell</string>
+    <string name="td_sub_desc">Zusatz / Kapazität</string>
+    <string name="td_high_desc">Ultra-Highspeed LTE</string>
+    <string name="td_5g_main">5G Hauptband</string>
+    <string name="td_5g_docomo">Nur Docomo</string>
+    <string name="td_mmwave">Millimeterwellen (mmWave)</string>
+
+    <string name="judgement_unknown">Unbekannt</string>
+    <string name="judgement_excellent">Hervorragend</string>
+    <string name="judgement_good">Gut</string>
+    <string name="judgement_fair">Mittelmäßig</string>
+    <string name="judgement_poor_slight">Etwas schwach</string>
+    <string name="judgement_poor">Schwach</string>
+
+    <string name="notif_channel_name">Überwachungsdienst</string>
+    <string name="notif_title">Band-Analysator aktiv</string>
+    <string name="notif_scanning">Scannen...</string>
+    <string name="notif_connected">Verbunden: %1$s</string>
+
+    <string name="label_observed">Gerät unterstützt</string>
+    <string name="label_reference">Netz unterstützt</string>
+    <string name="label_missing">Fehlende Bänder</string>
+    <string name="status_on">Überwachung: EIN</string>
+    <string name="status_off">Überwachung: AUS</string>
+    <string name="item_export_log">Protokoll exportieren (CSV)</string>
+    <string name="msg_log_exported">Protokoll gespeichert.</string>
+    <string name="report_title">Gerätefähigkeitsbericht</string>
+    <string name="label_device_name">Gerätename</string>
+    <string name="label_est_lte">Geschätztes LTE (4G)</string>
+    <string name="label_est_nr">Geschätztes NR (5G)</string>
+    <string name="label_coverage_by">Kompatibilität (%1$s)</string>
+    <string name="action_share_report">Bericht teilen</string>
+    <string name="report_footer">\nGeneriert von CarrierBand Analyzer #RatoLab</string>
+    <string name="label_copy_to_clipboard">In die Zwischenablage kopieren</string>
+    <string name="msg_copied">Kopiert</string>
+
+    <string name="item_language_title">Sprache</string>
+    <string name="item_language_desc">Anzeigesprache der App ändern.</string>
+</resources>
