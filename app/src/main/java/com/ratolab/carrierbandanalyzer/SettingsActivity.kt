@@ -105,6 +105,16 @@ fun SettingsScreen(
                     navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             )
+        },
+        // ★修正箇所: 広告エリアを追加し、ナビゲーションバーとの重なりを防ぐ
+        bottomBar = {
+            Box(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surface)
+                    .navigationBarsPadding()
+            ) {
+                AdBanner()
+            }
         }
     ) { innerPadding ->
         Column(

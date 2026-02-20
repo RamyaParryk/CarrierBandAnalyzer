@@ -1,16 +1,16 @@
 package com.ratolab.carrierbandanalyzer
 
-import android.Manifest // 追加
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.pm.PackageManager // 追加
+import android.content.pm.PackageManager
 import android.os.Build
 import android.telephony.CellIdentityNr
 import android.telephony.CellInfoLte
 import android.telephony.CellInfoNr
 import android.telephony.TelephonyManager
-import androidx.core.content.ContextCompat // 追加
+import androidx.core.content.ContextCompat
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,7 +39,7 @@ class BandAnalyzer(context: Context) {
         prefs.registerOnSharedPreferenceChangeListener(prefListener)
     }
 
-    // ★追加: 許可チェック用の便利関数
+    // ★許可チェック用の便利関数
     private fun hasLocationPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
             appContext,
@@ -55,17 +55,17 @@ class BandAnalyzer(context: Context) {
         }
     }
 
-    // キャリアごとのバンド定義
+    // ★修正箇所: キャリアごとのバンド定義 (転用5G・ミリ波などを完全網羅)
     private val carrierBands = mapOf(
-        "DOCOMO" to setOf("B1","B3","B19","B21","B28","B42","n77","n78","n79"),
-        "AU" to setOf("B1","B3","B18","B26","B28","B41","B42","n77","n78","n257"),
-        "SOFTBANK" to setOf("B1","B3","B8","B11","B28","B41","B42","n77","n78","n257"),
-        "RAKUTEN" to setOf("B3","B18","B26","n77"),
-        "AHAMO" to setOf("B1","B3","B19","B21","B28","B42","n77","n78","n79"),
-        "POVO" to setOf("B1","B3","B18","B26","B28","B41","B42","n77","n78","n257"),
-        "UQ" to setOf("B1","B3","B18","B26","B28","B41","B42","n77","n78","n257"),
-        "LINEMO" to setOf("B1","B3","B8","B11","B28","B41","B42","n77","n78","n257"),
-        "Y!MOBILE" to setOf("B1","B3","B8","B11","B28","B41","B42","n77","n78","n257")
+        "DOCOMO" to setOf("B1","B3","B19","B21","B28","B42","n1","n28","n77","n78","n79","n257"),
+        "AU" to setOf("B1","B3","B18","B26","B28","B41","B42","n1","n3","n28","n77","n78","n257"),
+        "SOFTBANK" to setOf("B1","B3","B8","B11","B28","B41","B42","n1","n3","n28","n77","n78","n257"),
+        "RAKUTEN" to setOf("B3","B18","B26","B28","n28","n77","n257"),
+        "AHAMO" to setOf("B1","B3","B19","B21","B28","B42","n1","n28","n77","n78","n79","n257"),
+        "POVO" to setOf("B1","B3","B18","B26","B28","B41","B42","n1","n3","n28","n77","n78","n257"),
+        "UQ" to setOf("B1","B3","B18","B26","B28","B41","B42","n1","n3","n28","n77","n78","n257"),
+        "LINEMO" to setOf("B1","B3","B8","B11","B28","B41","B42","n1","n3","n28","n77","n78","n257"),
+        "Y!MOBILE" to setOf("B1","B3","B8","B11","B28","B41","B42","n1","n3","n28","n77","n78","n257")
     )
 
     fun getCarrier(): String = detectCarrierLabel()
@@ -83,7 +83,6 @@ class BandAnalyzer(context: Context) {
 
     @SuppressLint("MissingPermission")
     fun scanNowBands(): Set<String> {
-        // ★修正: 許可がない場合は空を返して終了（これで落ちなくなる！）
         if (!hasLocationPermission()) return emptySet()
 
         val now = mutableSetOf<String>()
@@ -119,7 +118,6 @@ class BandAnalyzer(context: Context) {
 
     @SuppressLint("MissingPermission")
     fun getCaChannelDebugList(): List<CaChannelDebug> {
-        // ★修正: ここも許可がないと落ちる可能性があるためガード
         if (!hasLocationPermission()) return emptyList()
 
         val out = mutableListOf<CaChannelDebug>()
@@ -175,12 +173,8 @@ class BandAnalyzer(context: Context) {
             observedBands.clear()
         }
         prefs.edit().remove(KEY_OBSERVED_BANDS).apply()
-        // ログファイルも消去したい場合はここで File(appContext.filesDir, "band_logs.csv").delete()
     }
 
-    /**
-     * CSVログ保存機能 (Priority 4)
-     */
     fun saveLog(bands: Set<String>) {
         if (bands.isEmpty()) return
 
@@ -198,9 +192,6 @@ class BandAnalyzer(context: Context) {
         }
     }
 
-    /**
-     * ログファイル取得用
-     */
     fun getLogFile(): File = File(appContext.filesDir, "band_logs.csv")
 
     private fun addObservedAndPersist(bands: Set<String>) {
