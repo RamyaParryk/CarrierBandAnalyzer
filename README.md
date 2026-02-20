@@ -37,8 +37,10 @@ This app supports the detection of all major bands used in Japan:
 | **Platinum (Low)** | B8, B18, B19, B26, B28 | Wide coverage (Rural/Indoor) |
 | **Main (Mid)** | B1, B3, B11, B21 | High capacity & Standard speed |
 | **High Speed (4G)** | B41, B42 | Ultra high-speed LTE |
+| **Repurposed 5G**	| n1, n3, n28 | 5G using 4G frequencies (Area Expansion) |
 | **5G (Sub6)** | n77, n78, n79 | Standard 5G coverage |
 | **5G (mmWave)** | n257 | Ultra high-speed 5G (Limited area) |
+
 
 ## 🌍 Global Usage & Non-Japanese Carriers
 
