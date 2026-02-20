@@ -15,6 +15,7 @@
 * **Carrier Optimization:** Automatically detects major Japanese carriers and MVNOs to provide accurate band information.
 * **Platinum Band Detection:** Highlights "Platinum Bands" (B8, B18, B19, B28) which are essential for stable connectivity in rural areas or indoors.
 * **Background Monitoring:** Uses a foreground service to record band history and coverage even when the app is closed or the screen is off.
+* **Multi-Language Support (7 Languages):** Supports English, Japanese, Spanish, German, Russian, Chinese, and Korean. Includes an in-app language switcher.
 
 ### 📤 Sharing & Export
 - **Share Report**: Copy analysis results to clipboard as text or share directly via system share sheet.
