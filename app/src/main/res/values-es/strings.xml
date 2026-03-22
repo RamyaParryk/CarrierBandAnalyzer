@@ -41,16 +41,19 @@
     <string name="help_sec_global_title">4. Uso Global</string>
     <string name="help_sec_global_desc">La monitorización en tiempo real funciona en todo el mundo. Sin embargo, las funciones de análisis de cobertura están optimizadas para los 4 operadores principales de Japón.</string>
 
-    <string name="help_sec3_title">5. Bandas Principales (4G)</string>
+    <string name="help_sec_graph_title">5. Estadísticas y Gráficos</string>
+    <string name="help_sec_graph_desc">Toca la tarjeta de porcentaje en la pantalla de inicio para ver la frecuencia de conexión. Activa el servicio en segundo plano para acumular datos.</string>
+
+    <string name="help_sec3_title">6. Bandas Principales (4G)</string>
     <string name="help_sec3_desc">Bandas de alta velocidad, fundamentales para la cobertura principal.</string>
 
-    <string name="help_sec4_title">6. Alta Velocidad (5G)</string>
+    <string name="help_sec4_title">7. Alta Velocidad (5G)</string>
     <string name="help_sec4_desc">Bandas de frecuencia ultrarrápida de nueva generación.</string>
 
-    <string name="help_sec5_title">7. Bandas Platino (Baja Frecuencia)</string>
+    <string name="help_sec5_title">8. Bandas Platino (Baja Frecuencia)</string>
     <string name="help_sec5_desc">Ondas de radio potentes para interiores y zonas subterráneas.</string>
 
-    <string name="help_sec6_title">8. 5G Reutilizado (DSS)</string>
+    <string name="help_sec6_title">9. 5G Reutilizado (DSS)</string>
     <string name="help_sec6_desc">Frecuencias 4G reutilizadas para 5G. Se usan para expandir rápidamente la cobertura, con velocidades similares al 4G.</string>
     <string name="td_5g_diverted">4G Reutilizado (Cobertura)</string>
 
@@ -96,4 +99,15 @@
 
     <string name="item_language_title">Idioma</string>
     <string name="item_language_desc">Cambiar el idioma de la aplicación.</string>
+    <string name="stat_title">Estadísticas y Gráficos</string>
+    <string name="stat_tab_today">Hoy</string>
+    <string name="stat_tab_week">Últimos 7 días</string>
+    <string name="stat_tab_month">Este mes</string>
+    <string name="stat_tab_all">Todo</string>
+    <string name="stat_no_data">No hay datos para este período</string>
+    <string name="stat_ranking">Frecuencia de Conexión</string>
+    <string name="stat_count_format">%1$s veces (%2$s)</string>
+    <string name="warn_service_off_title">Servicio en segundo plano APAGADO</string>
+    <string name="warn_service_off_desc">Actívelo en la configuración para registrar automáticamente.</string>
+    <string name="stat_tap_to_view">Toca para ver gráficos ＞</string>
 </resources>

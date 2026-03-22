@@ -41,16 +41,19 @@
     <string name="help_sec_global_title">4. 海外使用</string>
     <string name="help_sec_global_desc">实时频段监控功能在全球范围内均可使用。但网络覆盖率等分析指标主要针对日本四大运营商进行了优化。</string>
 
-    <string name="help_sec3_title">5. 主力/高速频段 (4G)</string>
+    <string name="help_sec_graph_title">5. 统计与图表</string>
+    <string name="help_sec_graph_desc">点击主屏幕上的百分比卡片，即可查看各时间段的连接次数与比例。开启后台监控以自动积累数据。</string>
+
+    <string name="help_sec3_title">6. 主力/高速频段 (4G)</string>
     <string name="help_sec3_desc">各大运营商的核心高速频段。</string>
 
-    <string name="help_sec4_title">6. 高速频段 (5G)</string>
+    <string name="help_sec4_title">7. 高速频段 (5G)</string>
     <string name="help_sec4_desc">新一代超高速频段。</string>
 
-    <string name="help_sec5_title">7. 黄金频段 (低频段)</string>
+    <string name="help_sec5_title">8. 黄金频段 (低频段)</string>
     <string name="help_sec5_desc">穿透力强，是室内和地下信号的保障。</string>
 
-    <string name="help_sec6_title">8. 重耕 5G (DSS)</string>
+    <string name="help_sec6_title">9. 重耕 5G (DSS)</string>
     <string name="help_sec6_desc">将4G频段重耕用于5G。旨在快速扩大5G覆盖范围，网速与4G相近。</string>
     <string name="td_5g_diverted">4G重耕 (扩大覆盖)</string>
 
@@ -96,4 +99,15 @@
 
     <string name="item_language_title">语言</string>
     <string name="item_language_desc">更改应用显示语言。</string>
+    <string name="stat_title">统计与图表</string>
+    <string name="stat_tab_today">今天</string>
+    <string name="stat_tab_week">过去7天</string>
+    <string name="stat_tab_month">本月</string>
+    <string name="stat_tab_all">全部</string>
+    <string name="stat_no_data">此期间暂无数据</string>
+    <string name="stat_ranking">连接次数排名</string>
+    <string name="stat_count_format">%1$s 次 (%2$s)</string>
+    <string name="warn_service_off_title">后台监控已关闭</string>
+    <string name="warn_service_off_desc">请在设置中开启服务以自动记录日志。</string>
+    <string name="stat_tap_to_view">点击查看图表与统计 ＞</string>
 </resources>

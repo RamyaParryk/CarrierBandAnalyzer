@@ -12,9 +12,10 @@
 ## 📱 Features
 
 * **Real-time Visualization:** Instantly displays the currently connected LTE/5G bands (e.g., Band 1, Band 19, n78).
+* **Statistics & Graphs:** Visualize your connection history with beautiful bar charts. Check connection frequency and percentage ratios over different periods (Today, 7 Days, This Month, All).
 * **Carrier Optimization:** Automatically detects major Japanese carriers and MVNOs to provide accurate band information.
 * **Platinum Band Detection:** Highlights "Platinum Bands" (B8, B18, B19, B28) which are essential for stable connectivity in rural areas or indoors.
-* **Background Monitoring:** Uses a foreground service to record band history and coverage even when the app is closed or the screen is off.
+* **Background Monitoring:** Uses a foreground service to record band history even when the app is closed. Displays a warning banner on the home screen if the service is turned off to prevent missed logs.
 * **Multi-Language Support (7 Languages):** Supports English, Japanese, Spanish, German, Russian, Chinese, and Korean. Includes an in-app language switcher.
 
 ### 📤 Sharing & Export

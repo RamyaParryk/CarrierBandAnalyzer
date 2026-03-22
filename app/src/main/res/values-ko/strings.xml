@@ -41,16 +41,19 @@
     <string name="help_sec_global_title">4. 글로벌 사용</string>
     <string name="help_sec_global_desc">실시간 밴드 모니터링 기능은 전 세계에서 작동합니다. 단, 커버리지 분석 기능은 일본 4대 통신사에 최적화되어 있습니다.</string>
 
-    <string name="help_sec3_title">5. 주력/고속 밴드 (4G)</string>
+    <string name="help_sec_graph_title">5. 통계 및 그래프</string>
+    <string name="help_sec_graph_desc">홈 화면의 퍼센트 카드를 탭하면 기간별 연결 횟수와 비율을 확인할 수 있습니다. 백그라운드 서비스를 켜면 데이터가 누적됩니다.</string>
+
+    <string name="help_sec3_title">6. 주력/고속 밴드 (4G)</string>
     <string name="help_sec3_desc">속도의 핵심이 되는 메인 밴드입니다.</string>
 
-    <string name="help_sec4_title">6. 고속 통신 밴드 (5G)</string>
+    <string name="help_sec4_title">7. 고속 통신 밴드 (5G)</string>
     <string name="help_sec4_desc">차세대 초고속 주파수 대역입니다.</string>
 
-    <string name="help_sec5_title">7. 플래티넘 밴드 (저대역)</string>
+    <string name="help_sec5_title">8. 플래티넘 밴드 (저대역)</string>
     <string name="help_sec5_desc">건물 내부나 지하에서 강한 전파입니다.</string>
 
-    <string name="help_sec6_title">8. 전환된 5G (DSS)</string>
+    <string name="help_sec6_title">9. 전환된 5G (DSS)</string>
     <string name="help_sec6_desc">4G 주파수를 5G용으로 전환한 밴드입니다. 5G 커버리지를 빠르게 넓히기 위해 사용되며, 속도는 4G와 비슷합니다.</string>
     <string name="td_5g_diverted">4G 전환 (커버리지 확장)</string>
 
@@ -96,4 +99,15 @@
 
     <string name="item_language_title">언어</string>
     <string name="item_language_desc">앱 표시 언어를 변경합니다.</string>
+    <string name="stat_title">통계 및 그래프</string>
+    <string name="stat_tab_today">오늘</string>
+    <string name="stat_tab_week">최근 7일</string>
+    <string name="stat_tab_month">이번 달</string>
+    <string name="stat_tab_all">전체</string>
+    <string name="stat_no_data">이 기간의 데이터가 없습니다</string>
+    <string name="stat_ranking">연결 횟수 순위</string>
+    <string name="stat_count_format">%1$s 회 (%2$s)</string>
+    <string name="warn_service_off_title">백그라운드 서비스 꺼짐</string>
+    <string name="warn_service_off_desc">자동으로 로그를 기록하려면 설정에서 켜주세요.</string>
+    <string name="stat_tap_to_view">탭하여 그래프 및 통계 보기 ＞</string>
 </resources>

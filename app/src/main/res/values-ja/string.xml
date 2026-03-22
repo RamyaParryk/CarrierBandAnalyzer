@@ -41,16 +41,19 @@
     <string name="help_sec_global_title">4. 海外・他社回線での利用</string>
     <string name="help_sec_global_desc">世界標準規格に準拠しているため、海外や未定義のキャリアでも「接続バンド」のリアルタイム表示（モニター機能）は可能です。\nただし「網羅率スコア」などの分析機能は、現在日本の主要4キャリアに最適化されています。</string>
 
-    <string name="help_sec3_title">5. 主力・高速バンド (4G)</string>
+    <string name="help_sec_graph_title">5. 統計・グラフ機能</string>
+    <string name="help_sec_graph_desc">トップ画面の「％」が書かれたカードをタップすると、期間ごとの接続回数と割合（％）を確認できます。常駐監視をONにしておくと自動でデータが蓄積されます。</string>
+
+    <string name="help_sec3_title">6. 主力・高速バンド (4G)</string>
     <string name="help_sec3_desc">速度の要となる、各社のメインバンドです。</string>
 
-    <string name="help_sec4_title">6. 高速通信バンド (5G)</string>
+    <string name="help_sec4_title">7. 高速通信バンド (5G)</string>
     <string name="help_sec4_desc">次世代の超高速周波数帯です。</string>
 
-    <string name="help_sec5_title">7. プラチナバンド</string>
+    <string name="help_sec5_title">8. プラチナバンド</string>
     <string name="help_sec5_desc">繋がりやすさを支える、建物内や地下に強い電波です。</string>
 
-    <string name="help_sec6_title">8. 転用5G</string>
+    <string name="help_sec6_title">9. 転用5G</string>
     <string name="help_sec6_desc">4Gの周波数を5G用に転用したバンドです。5Gのエリアを素早く広げる目的で使われており、通信速度は4Gとほぼ同等になります。</string>
     <string name="td_5g_diverted">4G転用 (エリア拡張)</string>
 
@@ -96,4 +99,15 @@
 
     <string name="item_language_title">言語 (Language)</string>
     <string name="item_language_desc">アプリの表示言語を変更します</string>
+    <string name="stat_title">接続統計・グラフ</string>
+    <string name="stat_tab_today">今日</string>
+    <string name="stat_tab_week">過去7日</string>
+    <string name="stat_tab_month">今月</string>
+    <string name="stat_tab_all">すべて</string>
+    <string name="stat_no_data">この期間のデータはありません</string>
+    <string name="stat_ranking">接続回数ランキング</string>
+    <string name="stat_count_format">%1$s 回 (%2$s)</string>
+    <string name="warn_service_off_title">常駐監視がオフです</string>
+    <string name="warn_service_off_desc">ログを自動記録するには、設定からサービスをオンにしてください。</string>
+    <string name="stat_tap_to_view">タップしてグラフ・統計を見る ＞</string>
 </resources>

@@ -41,16 +41,19 @@
     <string name="help_sec_global_title">4. Глобальное использование</string>
     <string name="help_sec_global_desc">Мониторинг в реальном времени работает по всему миру. Однако аналитика покрытия оптимизирована для 4 главных операторов Японии.</string>
 
-    <string name="help_sec3_title">5. Основные диапазоны (4G)</string>
+    <string name="help_sec_graph_title">5. Статистика и Графики</string>
+    <string name="help_sec_graph_desc">Нажмите на карточку с процентами на главном экране, чтобы увидеть частоту подключений. Включите фоновую службу для сбора данных.</string>
+
+    <string name="help_sec3_title">6. Основные диапазоны (4G)</string>
     <string name="help_sec3_desc">Высокоскоростные диапазоны для основного покрытия.</string>
 
-    <string name="help_sec4_title">6. Высокая скорость (5G)</string>
+    <string name="help_sec4_title">7. Высокая скорость (5G)</string>
     <string name="help_sec4_desc">Сверхвысокоскоростные диапазоны нового поколения.</string>
 
-    <string name="help_sec5_title">7. Платиновые диапазоны (Low-band)</string>
+    <string name="help_sec5_title">8. Платиновые диапазоны (Low-band)</string>
     <string name="help_sec5_desc">Критически важны для связи внутри зданий и под землей.</string>
 
-    <string name="help_sec6_title">8. Переопределенный 5G (DSS)</string>
+    <string name="help_sec6_title">9. Переопределенный 5G (DSS)</string>
     <string name="help_sec6_desc">Частоты 4G, используемые для 5G. Служат для быстрого расширения зоны покрытия со скоростью, близкой к 4G.</string>
     <string name="td_5g_diverted">Переопределен из 4G</string>
 
@@ -96,4 +99,15 @@
 
     <string name="item_language_title">Язык</string>
     <string name="item_language_desc">Изменить язык приложения.</string>
+    <string name="stat_title">Статистика и Графики</string>
+    <string name="stat_tab_today">Сегодня</string>
+    <string name="stat_tab_week">За 7 дней</string>
+    <string name="stat_tab_month">Этот месяц</string>
+    <string name="stat_tab_all">Все</string>
+    <string name="stat_no_data">Нет данных за этот период</string>
+    <string name="stat_ranking">Частота подключений</string>
+    <string name="stat_count_format">%1$s раз (%2$s)</string>
+    <string name="warn_service_off_title">Фоновая служба отключена</string>
+    <string name="warn_service_off_desc">Включите в настройках для автоматической записи логов.</string>
+    <string name="stat_tap_to_view">Нажмите для просмотра графиков ＞</string>
 </resources>

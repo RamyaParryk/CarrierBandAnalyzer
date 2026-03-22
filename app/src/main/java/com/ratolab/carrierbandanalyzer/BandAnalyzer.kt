@@ -297,7 +297,6 @@ class BandAnalyzer(context: Context) {
         20 -> "NR"
         else -> "TYPE_$type"
     }
-
     private fun convertEarfcnToBand(earfcn: Int): String? = when (earfcn) {
         in 0..599 -> "B1"
         in 1200..1949 -> "B3"
@@ -318,4 +317,64 @@ class BandAnalyzer(context: Context) {
     companion object {
         private const val KEY_OBSERVED_BANDS = "observed_bands"
     }
+
+    // --- ここから追加：グラフ集計用ロジック ---
+    enum class StatPeriod { TODAY, WEEK, MONTH, ALL }
+
+    fun getBandStatistics(period: StatPeriod): Map<String, Int> {
+        val logFile = getLogFile()
+        if (!logFile.exists()) return emptyMap()
+
+        val counts = mutableMapOf<String, Int>()
+        val now = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+
+        try {
+            logFile.forEachLine { line ->
+                val parts = line.split(",")
+                if (parts.size >= 3) {
+                    val dateStr = parts[0].trim()
+                    val bandsStr = parts[2].trim()
+
+                    val logDate = try { dateFormat.parse(dateStr) } catch(e: Exception) { null }
+                    if (logDate != null) {
+                        val logCal = Calendar.getInstance().apply { time = logDate }
+
+                        // 期間の判定
+                        val isIncluded = when (period) {
+                            StatPeriod.TODAY -> {
+                                now.get(Calendar.YEAR) == logCal.get(Calendar.YEAR) &&
+                                        now.get(Calendar.DAY_OF_YEAR) == logCal.get(Calendar.DAY_OF_YEAR)
+                            }
+                            StatPeriod.WEEK -> {
+                                val diffMillis = now.timeInMillis - logCal.timeInMillis
+                                val diffDays = diffMillis / (1000 * 60 * 60 * 24)
+                                diffDays in 0..7
+                            }
+                            StatPeriod.MONTH -> {
+                                now.get(Calendar.YEAR) == logCal.get(Calendar.YEAR) &&
+                                        now.get(Calendar.MONTH) == logCal.get(Calendar.MONTH)
+                            }
+                            StatPeriod.ALL -> true
+                        }
+
+                        // 対象期間ならカウントアップ
+                        if (isIncluded && bandsStr.isNotEmpty()) {
+                            val bands = bandsStr.split("|")
+                            bands.forEach { b ->
+                                val cleanBand = b.trim()
+                                if (cleanBand.isNotEmpty()) {
+                                    counts[cleanBand] = counts.getOrDefault(cleanBand, 0) + 1
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return counts
+    }
+    // --- ここまで追加 ---
 }

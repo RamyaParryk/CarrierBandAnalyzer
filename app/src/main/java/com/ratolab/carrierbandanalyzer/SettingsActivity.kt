@@ -78,7 +78,7 @@ fun SettingsScreen(
     onOpenPermissionSettings: () -> Unit
 ) {
     val context = LocalContext.current
-    var isServiceRunning by remember { mutableStateOf(isServiceRunning(context)) }
+    var isServiceActive by remember { mutableStateOf(isServiceRunning(context)) }
     var showHelpDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
 
@@ -106,7 +106,6 @@ fun SettingsScreen(
                 )
             )
         },
-        // ★修正箇所: 広告エリアを追加し、ナビゲーションバーとの重なりを防ぐ
         bottomBar = {
             Box(
                 modifier = Modifier
@@ -128,18 +127,18 @@ fun SettingsScreen(
             ListItem(
                 headlineContent = { Text(stringResource(R.string.item_service)) },
                 supportingContent = {
-                    Text(if (isServiceRunning) stringResource(R.string.status_on) else stringResource(R.string.status_off))
+                    Text(if (isServiceActive) stringResource(R.string.status_on) else stringResource(R.string.status_off))
                 },
                 trailingContent = {
                     Switch(
-                        checked = isServiceRunning,
+                        checked = isServiceActive,
                         onCheckedChange = { check ->
                             if (check) {
                                 startBandService(context)
-                                isServiceRunning = true
+                                isServiceActive = true
                             } else {
                                 stopBandService(context)
-                                isServiceRunning = false
+                                isServiceActive = false
                             }
                         }
                     )
@@ -189,7 +188,6 @@ fun SettingsScreen(
                 leadingContent = { Icon(Icons.Default.Language, contentDescription = null) },
                 modifier = Modifier.clickable { showLanguageDialog = true }
             )
-
             SettingsItem(
                 title = stringResource(R.string.item_perm_title),
                 description = stringResource(R.string.item_perm_desc),
@@ -259,7 +257,6 @@ private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
 
     Toast.makeText(context, context.getString(R.string.msg_copied), Toast.LENGTH_SHORT).show()
 }
-
 @Composable
 fun HelpDialog(onDismiss: () -> Unit) {
     AlertDialog(
@@ -274,6 +271,7 @@ fun HelpDialog(onDismiss: () -> Unit) {
                 HelpSection(stringResource(R.string.help_sec2_title), stringResource(R.string.help_sec2_desc))
                 HelpSection(stringResource(R.string.help_sec_share_title), stringResource(R.string.help_sec_share_desc))
                 HelpSection(stringResource(R.string.help_sec_global_title), stringResource(R.string.help_sec_global_desc))
+                HelpSection(stringResource(R.string.help_sec_graph_title), stringResource(R.string.help_sec_graph_desc))
                 HelpSection(stringResource(R.string.help_sec3_title), stringResource(R.string.help_sec3_desc))
                 BandInfoTable(
                     listOf(
@@ -314,7 +312,6 @@ fun HelpDialog(onDismiss: () -> Unit) {
         }
     )
 }
-
 // 余計な処理を省いた確実な言語選択ダイアログ
 @Composable
 fun LanguageSelectionDialog(onDismiss: () -> Unit) {
@@ -327,7 +324,6 @@ fun LanguageSelectionDialog(onDismiss: () -> Unit) {
         "zh" to "中文",
         "ko" to "한국어"
     )
-
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(stringResource(R.string.item_language_title)) },
@@ -354,7 +350,6 @@ fun LanguageSelectionDialog(onDismiss: () -> Unit) {
         }
     )
 }
-
 @Composable
 fun BandInfoTable(data: List<Triple<String, String, String>>) {
     val outlineColor = MaterialTheme.colorScheme.outlineVariant
@@ -374,7 +369,6 @@ fun BandInfoTable(data: List<Triple<String, String, String>>) {
         }
     }
 }
-
 @Composable
 fun HelpSection(title: String, content: String) {
     Column {
@@ -382,7 +376,6 @@ fun HelpSection(title: String, content: String) {
         Text(text = content, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(top = 4.dp), lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.2f)
     }
 }
-
 private fun startBandService(context: Context) {
     val intent = Intent(context, BandMonitorService::class.java)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) context.startForegroundService(intent) else context.startService(intent)
@@ -391,21 +384,10 @@ private fun startBandService(context: Context) {
 private fun stopBandService(context: Context) {
     context.stopService(Intent(context, BandMonitorService::class.java))
 }
-
-@Suppress("DEPRECATION")
-private fun isServiceRunning(context: Context): Boolean {
-    val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-    for (service in manager.getRunningServices(Int.MAX_VALUE)) {
-        if (BandMonitorService::class.java.name == service.service.className) return true
-    }
-    return false
-}
-
 @Composable
 fun SettingsSectionTitle(title: String) {
     Text(text = title, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(start = 16.dp, top = 24.dp, bottom = 8.dp))
 }
-
 @Composable
 fun SettingsItem(title: String, description: String, onClick: () -> Unit, isDestructive: Boolean = false) {
     ListItem(

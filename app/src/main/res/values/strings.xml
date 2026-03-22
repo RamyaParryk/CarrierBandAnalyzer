@@ -40,16 +40,19 @@
     <string name="help_sec_global_title">4. Global Usage</string>
     <string name="help_sec_global_desc">Real-time monitoring of connected bands works worldwide. However, "Analysis Scores" and "Coverage" metrics are optimized for Japanese carriers and may not appear abroad.</string>
 
-    <string name="help_sec3_title">5. Main Bands (4G)</string>
+    <string name="help_sec_graph_title">5. Statistics &amp; Graphs</string>
+    <string name="help_sec_graph_desc">Tap the percentage card on the home screen to view your connection frequency and ratio by period. Turn on the background service to accumulate data automatically.</string>
+
+    <string name="help_sec3_title">6. Main Bands (4G)</string>
     <string name="help_sec3_desc">High speed, main coverage bands.</string>
 
-    <string name="help_sec4_title">6. High Speed (5G)</string>
+    <string name="help_sec4_title">7. High Speed (5G)</string>
     <string name="help_sec4_desc">Next-gen ultra high-speed bands.</string>
 
-    <string name="help_sec5_title">7. Platinum Bands</string>
+    <string name="help_sec5_title">8. Platinum Bands</string>
     <string name="help_sec5_desc">Essential for indoor/rural connectivity.</string>
 
-    <string name="help_sec6_title">8. Repurposed 5G</string>
+    <string name="help_sec6_title">9. Repurposed 5G</string>
     <string name="help_sec6_desc">Existing 4G bands repurposed to expand 5G coverage quickly. Speeds are generally similar to standard 4G LTE.</string>
     <string name="td_5g_diverted">Repurposed (Coverage)</string>
 
@@ -95,4 +98,15 @@
 
     <string name="item_language_title">Language</string>
     <string name="item_language_desc">Change app display language.</string>
+    <string name="stat_title">Statistics &amp; Graphs</string>
+    <string name="stat_tab_today">Today</string>
+    <string name="stat_tab_week">Last 7 Days</string>
+    <string name="stat_tab_month">This Month</string>
+    <string name="stat_tab_all">All</string>
+    <string name="stat_no_data">No data available for this period</string>
+    <string name="stat_ranking">Connection Frequency</string>
+    <string name="stat_count_format">%1$s times (%2$s)</string>
+    <string name="warn_service_off_title">Background Service is OFF</string>
+    <string name="warn_service_off_desc">Turn on the service in settings to record logs automatically.</string>
+    <string name="stat_tap_to_view">Tap to view graphs &amp; stats ＞</string>
 </resources>

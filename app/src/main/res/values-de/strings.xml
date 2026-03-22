@@ -41,16 +41,19 @@
     <string name="help_sec_global_title">4. Globale Nutzung</string>
     <string name="help_sec_global_desc">Die Echtzeit-Überwachung funktioniert weltweit. Analyse-Funktionen zur Netzabdeckung sind jedoch auf die 4 japanischen Hauptanbieter optimiert.</string>
 
-    <string name="help_sec3_title">5. Hauptbänder (4G)</string>
+    <string name="help_sec_graph_title">5. Statistiken &amp; Diagramme</string>
+    <string name="help_sec_graph_desc">Tippen Sie auf die Prozentkarte auf dem Startbildschirm, um die Verbindungshäufigkeit anzuzeigen. Aktivieren Sie den Hintergrunddienst, um Daten zu sammeln.</string>
+
+    <string name="help_sec3_title">6. Hauptbänder (4G)</string>
     <string name="help_sec3_desc">Highspeed-Bänder für die primäre Netzabdeckung.</string>
 
-    <string name="help_sec4_title">6. Highspeed (5G)</string>
+    <string name="help_sec4_title">7. Highspeed (5G)</string>
     <string name="help_sec4_desc">Ultraschnelle Frequenzbänder der nächsten Generation.</string>
 
-    <string name="help_sec5_title">7. Platin-Bänder (Low-Band)</string>
+    <string name="help_sec5_title">8. Platin-Bänder (Low-Band)</string>
     <string name="help_sec5_desc">Wichtig für Verbindungen in Gebäuden und unter der Erde.</string>
 
-    <string name="help_sec6_title">8. Umgewidmetes 5G (DSS)</string>
+    <string name="help_sec6_title">9. Umgewidmetes 5G (DSS)</string>
     <string name="help_sec6_desc">Für 5G umgewidmete 4G-Frequenzen. Dient der schnellen Erweiterung der 5G-Abdeckung bei ähnlichen Geschwindigkeiten wie 4G.</string>
     <string name="td_5g_diverted">4G Umgewidmet (Abdeckung)</string>
 
@@ -96,4 +99,15 @@
 
     <string name="item_language_title">Sprache</string>
     <string name="item_language_desc">Anzeigesprache der App ändern.</string>
+    <string name="stat_title">Statistiken &amp; Diagramme</string>
+    <string name="stat_tab_today">Heute</string>
+    <string name="stat_tab_week">Letzte 7 Tage</string>
+    <string name="stat_tab_month">Dieser Monat</string>
+    <string name="stat_tab_all">Alles</string>
+    <string name="stat_no_data">Keine Daten für diesen Zeitraum</string>
+    <string name="stat_ranking">Verbindungshäufigkeit</string>
+    <string name="stat_count_format">%1$s mal (%2$s)</string>
+    <string name="warn_service_off_title">Hintergrunddienst ist AUS</string>
+    <string name="warn_service_off_desc">Einschalten, um Protokolle automatisch aufzuzeichnen.</string>
+    <string name="stat_tap_to_view">Tippen für Diagramme ＞</string>
 </resources>
