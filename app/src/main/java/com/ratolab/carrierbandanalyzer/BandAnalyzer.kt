@@ -169,10 +169,21 @@ class BandAnalyzer(context: Context) {
     }
 
     fun resetObservedBands() {
+        // ① メモリとSharedPreferencesの履歴（チップの表示）を消去
         synchronized(observedBands) {
             observedBands.clear()
         }
         prefs.edit().remove(KEY_OBSERVED_BANDS).apply()
+
+        // ② ★追加：グラフ用のCSVログファイルも完全に削除する
+        try {
+            val logFile = getLogFile()
+            if (logFile.exists()) {
+                logFile.delete()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun saveLog(bands: Set<String>) {
