@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">Анализатор частот</string>
+
+    <string name="loading">Загрузка...</string>
+    <string name="band_now">Подключено (Now)</string>
+    <string name="band_history">История (Observed)</string>
+    <string name="band_missing">Отсутствует (Missing)</string>
+    <string name="band_none">Нет</string>
+
+    <string name="settings_title">Настройки</string>
+
+    <string name="sec_monitoring">Фоновый мониторинг</string>
+    <string name="item_service">Служба мониторинга</string>
+    <string name="service_running">Работает (Уведомление включено)</string>
+    <string name="service_stopped">Остановлено</string>
+
+    <string name="sec_data">Управление данными</string>
+    <string name="item_reset_title">Сбросить историю</string>
+    <string name="item_reset_desc">Очистить все записанные данные о частотах.</string>
+    <string name="msg_history_cleared">История очищена.</string>
+
+    <string name="sec_system">Системные настройки</string>
+    <string name="item_perm_title">Открыть разрешения</string>
+    <string name="item_perm_desc">Проверить/Изменить разрешения на геолокацию и уведомления.</string>
+
+    <string name="sec_support">Поддержка</string>
+    <string name="item_help">Справка и Использование</string>
+
+    <string name="help_title">Справка и Использование</string>
+    <string name="help_close">Закрыть</string>
+
+    <string name="help_sec1_title">1. Обзор</string>
+    <string name="help_sec1_desc">Инструмент для визуализации частот японских операторов связи. Помогает понять реальное качество связи, а не только уровень сигнала.</string>
+
+    <string name="help_sec2_title">2. Использование и цвета</string>
+    <string name="help_sec2_desc">• Сканирование при запуске. Фоновая запись в движении.\n🟦 Темный: Активное подключение (Active)\n⬜ Светлый: В истории (History)\n⬛ Серый: Не обнаружено (Missing)</string>
+
+    <string name="help_sec_share_title">3. Поделиться и экспорт</string>
+    <string name="help_sec_share_desc">Вы можете скопировать отчет как текст или экспортировать историю в файл CSV. Доступно через значки на экране отчета или настроек.</string>
+
+    <string name="help_sec_global_title">4. Глобальное использование</string>
+    <string name="help_sec_global_desc">Мониторинг в реальном времени работает по всему миру. Однако аналитика покрытия оптимизирована для 4 главных операторов Японии.</string>
+
+    <string name="help_sec_graph_title">5. Статистика и Графики</string>
+    <string name="help_sec_graph_desc">Нажмите на карточку с процентами на главном экране, чтобы увидеть частоту подключений. Включите фоновую службу для сбора данных.</string>
+
+    <string name="help_sec3_title">6. Основные диапазоны (4G)</string>
+    <string name="help_sec3_desc">Высокоскоростные диапазоны для основного покрытия.</string>
+
+    <string name="help_sec4_title">7. Высокая скорость (5G)</string>
+    <string name="help_sec4_desc">Сверхвысокоскоростные диапазоны нового поколения.</string>
+
+    <string name="help_sec5_title">8. Платиновые диапазоны (Low-band)</string>
+    <string name="help_sec5_desc">Критически важны для связи внутри зданий и под землей.</string>
+
+    <string name="help_sec6_title">9. Переопределенный 5G (DSS)</string>
+    <string name="help_sec6_desc">Частоты 4G, используемые для 5G. Служат для быстрого расширения зоны покрытия со скоростью, близкой к 4G.</string>
+    <string name="td_5g_diverted">Переопределен из 4G</string>
+
+    <string name="th_band">Диапазон</string>
+    <string name="th_freq">Частота</string>
+    <string name="th_detail">Детали/Оператор</string>
+
+    <string name="td_main_desc">Основной / Быстрый</string>
+    <string name="td_sub_desc">Доп. / Емкость</string>
+    <string name="td_high_desc">Ультрабыстрый LTE</string>
+    <string name="td_5g_main">Основной 5G</string>
+    <string name="td_5g_docomo">Только Docomo</string>
+    <string name="td_mmwave">Миллиметровые волны</string>
+
+    <string name="judgement_unknown">Неизвестно</string>
+    <string name="judgement_excellent">Отлично</string>
+    <string name="judgement_good">Хорошо</string>
+    <string name="judgement_fair">Нормально</string>
+    <string name="judgement_poor_slight">Слабовато</string>
+    <string name="judgement_poor">Слабо</string>
+
+    <string name="notif_channel_name">Служба мониторинга</string>
+    <string name="notif_title">Анализатор частот активен</string>
+    <string name="notif_scanning">Сканирование...</string>
+    <string name="notif_connected">Подключено: %1$s</string>
+
+    <string name="label_observed">Поддерживается устройством</string>
+    <string name="label_reference">Поддержка оператора</string>
+    <string name="label_missing">Отсутствующие диапазоны</string>
+    <string name="status_on">Мониторинг: ВКЛ</string>
+    <string name="status_off">Мониторинг: ВЫКЛ</string>
+    <string name="item_export_log">Экспорт лога (CSV)</string>
+    <string name="msg_log_exported">Лог сохранен.</string>
+    <string name="report_title">Отчет о возможностях</string>
+    <string name="label_device_name">Устройство</string>
+    <string name="label_est_lte">Поддержка LTE (4G)</string>
+    <string name="label_est_nr">Поддержка NR (5G)</string>
+    <string name="label_coverage_by">Совместимость (%1$s)</string>
+    <string name="action_share_report">Поделиться отчепом</string>
+    <string name="report_footer">\nСгенерировано CarrierBand Analyzer #RatoLab</string>
+    <string name="label_copy_to_clipboard">Копировать в буфер</string>
+    <string name="msg_copied">Скопировано</string>
+
+    <string name="item_language_title">Язык</string>
+    <string name="item_language_desc">Изменить язык приложения.</string>
+    <string name="stat_title">Статистика и Графики</string>
+    <string name="stat_tab_today">Сегодня</string>
+    <string name="stat_tab_week">За 7 дней</string>
+    <string name="stat_tab_month">Этот месяц</string>
+    <string name="stat_tab_all">Все</string>
+    <string name="stat_no_data">Нет данных за этот период</string>
+    <string name="stat_ranking">Частота подключений</string>
+    <string name="stat_count_format">%1$s раз (%2$s)</string>
+    <string name="warn_service_off_title">Фоновая служба отключена</string>
+    <string name="warn_service_off_desc">Включите в настройках для автоматической записи логов.</string>
+    <string name="stat_tap_to_view">Нажмите для просмотра графиков ＞</string>
+</resources>

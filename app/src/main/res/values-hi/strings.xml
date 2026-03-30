@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Band Analyzer</string>
+    <string name="loading">लोड हो रहा है...</string>
+    <string name="band_now">कनेक्टेड (अभी)</string>
+    <string name="band_history">इतिहास (देखा गया)</string>
+    <string name="band_missing">अनुपलब्ध</string>
+    <string name="band_none">कोई नहीं</string>
+
+    <string name="settings_title">सेटिंग्स</string>
+
+    <string name="sec_monitoring">बैकग्राउंड मॉनिटरिंग</string>
+    <string name="item_service">मॉनिटरिंग सेवा</string>
+    <string name="service_running">चल रहा है (सूचना चालू)</string>
+    <string name="service_stopped">रुक गया</string>
+
+    <string name="sec_data">डेटा प्रबंधन</string>
+    <string name="item_reset_title">इतिहास रीसेट करें</string>
+    <string name="item_reset_desc">सभी रिकॉर्ड किए गए बैंड डेटा को मिटाएं।</string>
+    <string name="msg_history_cleared">इतिहास मिटा दिया गया।</string>
+
+    <string name="sec_system">सिस्टम सेटिंग्स</string>
+    <string name="item_perm_title">अनुमतियाँ खोलें</string>
+    <string name="item_perm_desc">स्थान और सूचना अनुमतियों की जांच करें/बदलें।</string>
+
+    <string name="sec_support">सहायता</string>
+    <string name="item_help">सहायता और उपयोग</string>
+
+    <string name="help_title">सहायता और उपयोग</string>
+    <string name="help_close">बंद करें</string>
+
+    <string name="help_sec1_title">1. अवलोकन</string>
+    <string name="help_sec1_desc">जापानी कैरियर्स (Docomo, au, SB, Rakuten) और सब-ब्रांड्स के लिए LTE/5G बैंड दिखाता है। यह केवल सिग्नल बार से परे वास्तविक नेटवर्क गुणवत्ता का विश्लेषण करने में मदद करता है।</string>
+
+    <string name="help_sec2_title">2. उपयोग और रंग</string>
+    <string name="help_sec2_desc">• स्कैन करने के लिए ऐप खोलें। बैकग्राउंड रिकॉर्डिंग के लिए सेवा सक्षम करें।\n🟦 गहरा: सक्रिय (कनेक्टेड)\n⬜ हल्का: इतिहास\n⬛ ग्रे: अनुपलब्ध</string>
+
+    <string name="help_sec_share_title">3. शेयर और एक्सपोर्ट</string>
+    <string name="help_sec_share_desc">आप विश्लेषण रिपोर्ट को टेक्स्ट के रूप में कॉपी कर सकते हैं या विस्तृत इतिहास लॉग को CSV फ़ाइल के रूप में एक्सपोर्ट कर सकते हैं। यह रिपोर्ट या सेटिंग्स स्क्रीन में आइकन के माध्यम से उपलब्ध है।</string>
+
+    <string name="help_sec_global_title">4. वैश्विक उपयोग</string>
+    <string name="help_sec_global_desc">कनेक्टेड बैंड की रीयल-टाइम मॉनिटरिंग दुनिया भर में काम करती है। हालाँकि, "विश्लेषण स्कोर" और "कवरेज" मेट्रिक्स जापानी कैरियर्स के लिए अनुकूलित हैं और विदेशों में दिखाई नहीं दे सकते हैं।</string>
+
+    <string name="help_sec_graph_title">5. सांख्यिकी और ग्राफ</string>
+    <string name="help_sec_graph_desc">अवधि के अनुसार अपनी कनेक्शन आवृत्ति और अनुपात देखने के लिए होम स्क्रीन पर प्रतिशत कार्ड पर टैप करें। डेटा को स्वचालित रूप से जमा करने के लिए बैकग्राउंड सेवा चालू करें।</string>
+
+    <string name="help_sec3_title">6. मुख्य बैंड (4G)</string>
+    <string name="help_sec3_desc">उच्च गति, मुख्य कवरेज बैंड।</string>
+
+    <string name="help_sec4_title">7. उच्च गति (5G)</string>
+    <string name="help_sec4_desc">अगली पीढ़ी के अल्ट्रा हाई-स्पीड बैंड।</string>
+
+    <string name="help_sec5_title">8. प्लैटिनम बैंड</string>
+    <string name="help_sec5_desc">इनडोर/ग्रामीण कनेक्टिविटी के लिए आवश्यक।</string>
+
+    <string name="help_sec6_title">9. परिवर्तित 5G (Repurposed 5G)</string>
+    <string name="help_sec6_desc">5G कवरेज का तेजी से विस्तार करने के लिए मौजूदा 4G बैंड को बदला गया है। गति आमतौर पर मानक 4G LTE के समान होती है।</string>
+    <string name="td_5g_diverted">परिवर्तित (कवरेज)</string>
+
+    <string name="th_band">बैंड</string>
+    <string name="th_freq">फ्रीक्वेंसी</string>
+    <string name="th_detail">विवरण</string>
+
+    <string name="td_main_desc">मुख्य / उच्च गति</string>
+    <string name="td_sub_desc">उप / क्षमता</string>
+    <string name="td_high_desc">अल्ट्रा हाई स्पीड</string>
+    <string name="td_5g_main">5G मुख्य</string>
+    <string name="td_5g_docomo">केवल Docomo</string>
+    <string name="td_mmwave">mmWave (सबसे तेज)</string>
+
+    <string name="judgement_unknown">अज्ञात</string>
+    <string name="judgement_excellent">बहुत बढ़िया</string>
+    <string name="judgement_good">अच्छा</string>
+    <string name="judgement_fair">ठीक</string>
+    <string name="judgement_poor_slight">थोड़ा कमजोर</string>
+    <string name="judgement_poor">कमजोर</string>
+
+    <string name="notif_channel_name">बैंड मॉनिटर सर्विस</string>
+    <string name="notif_title">बैंड एनालाइज़र सक्रिय है</string>
+    <string name="notif_scanning">स्कैन हो रहा है...</string>
+    <string name="notif_connected">कनेक्टेड: %1$s</string>
+    <string name="label_observed">डिवाइस समर्थित (देखा गया)</string>
+    <string name="label_reference">कैरियर सपोर्ट</string>
+    <string name="label_missing">अनुपलब्ध बैंड</string>
+
+    <string name="status_on">मॉनिटरिंग: चालू</string>
+    <string name="status_off">मॉनिटरिंग: बंद</string>
+    <string name="item_export_log">एक्सपोर्ट लॉग (CSV)</string>
+    <string name="msg_log_exported">लॉग फ़ाइलों में सहेजा गया।</string>
+    <string name="report_title">डिवाइस क्षमता रिपोर्ट</string>
+    <string name="label_device_name">डिवाइस का नाम</string>
+    <string name="label_est_lte">अनुमानित LTE सपोर्ट (4G)</string>
+    <string name="label_est_nr">अनुमानित NR सपोर्ट (5G)</string>
+    <string name="label_coverage_by">संगतता दर (%1$s)</string>
+    <string name="action_share_report">रिपोर्ट शेयर करें</string>
+    <string name="report_footer">\nकैरियरबैंड एनालाइज़र #RatoLab द्वारा जनरेट किया गया</string>
+    <string name="label_copy_to_clipboard">क्लिपबोर्ड पर कॉपी करें</string>
+    <string name="msg_copied">क्लिपबोर्ड पर कॉपी किया गया</string>
+
+    <string name="item_language_title">भाषा</string>
+    <string name="item_language_desc">ऐप डिस्प्ले भाषा बदलें।</string>
+    <string name="stat_title">सांख्यिकी और ग्राफ</string>
+    <string name="stat_tab_today">आज</string>
+    <string name="stat_tab_week">पिछले 7 दिन</string>
+    <string name="stat_tab_month">इस महीने</string>
+    <string name="stat_tab_all">सभी</string>
+    <string name="stat_no_data">इस अवधि के लिए कोई डेटा उपलब्ध नहीं है</string>
+    <string name="stat_ranking">कनेक्शन आवृत्ति</string>
+    <string name="stat_count_format">%1$s बार (%2$s)</string>
+    <string name="warn_service_off_title">बैकग्राउंड सेवा बंद है</string>
+    <string name="warn_service_off_desc">लॉग को स्वचालित रूप से रिकॉर्ड करने के लिए सेटिंग्स में सेवा चालू करें।</string>
+    <string name="stat_tap_to_view">ग्राफ और सांख्यिकी देखने के लिए टैप करें ＞</string>
+</resources>
