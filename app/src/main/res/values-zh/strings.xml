@@ -110,4 +110,16 @@
     <string name="warn_service_off_title">后台监控已关闭</string>
     <string name="warn_service_off_desc">请在设置中开启服务以自动记录日志。</string>
     <string name="stat_tap_to_view">点击查看图表与统计 ＞</string>
+
+    <string name="item_usage">概述与使用方法</string>
+    <string name="item_faq">常见问题 (FAQ)</string>
+    <string name="faq_title">常见问题</string>
+    <string name="faq_q1">Q. 后台监控会消耗电量吗？</string>
+    <string name="faq_a1">A. 几乎不耗电。与GPS不同，它采用被动记录机制，仅在操作系统检测到网络状态变化时才记录数据。</string>
+    <string name="faq_q2">Q. 检查网络信号的频率是多少？</string>
+    <string name="faq_a2">A. 在打开应用界面时，大约每1.5秒检查一次最新信息。在后台监控期间，仅在系统发出网络变化通知时进行记录。</string>
+    <string name="faq_q3">Q. 在海外或使用不支持的运营商时如何显示？</string>
+    <string name="faq_a3">A. 即使使用不支持的SIM卡，也会直接显示并记录获取到的原始运营商名称（例如：T-MOBILE等）和频段信息。但是，不会计算覆盖率（百分比）。</string>
+    <string name="faq_q4">Q. 为什么有些已连接的频段没有显示？</string>
+    <string name="faq_a4">A. 在部分智能手机上，由于操作系统或制造商的限制，可能无法向应用提供当前连接的频段信息。</string>
 </resources>

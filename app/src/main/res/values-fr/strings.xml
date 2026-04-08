@@ -110,4 +110,16 @@
     <string name="warn_service_off_title">Le service en arrière-plan est DÉSACTIVÉ</string>
     <string name="warn_service_off_desc">Activez le service dans les paramètres pour enregistrer automatiquement les journaux.</string>
     <string name="stat_tap_to_view">Appuyez pour voir les graphiques ＞</string>
+
+    <string name="item_usage">Aperçu et Utilisation</string>
+    <string name="item_faq">Foire Aux Questions (FAQ)</string>
+    <string name="faq_title">Foire Aux Questions</string>
+    <string name="faq_q1">Q. La surveillance en arrière-plan consomme-t-elle de la batterie ?</string>
+    <string name="faq_a1">R. Elle ne consomme presque pas de batterie. Contrairement au GPS, elle enregistre les données de manière passive uniquement lorsque le système d\'exploitation détecte un changement d\'état du réseau.</string>
+    <string name="faq_q2">Q. À quelle fréquence le signal réseau est-il vérifié ?</string>
+    <string name="faq_a2">R. Lorsque l\'application est ouverte, elle vérifie les mises à jour environ toutes les 1,5 secondes. En arrière-plan, elle n\'enregistre que lorsque le système signale un changement de réseau.</string>
+    <string name="faq_q3">Q. Comment cela fonctionne-t-il à l\'étranger ou avec des opérateurs non pris en charge ?</string>
+    <string name="faq_a3">R. Même avec des cartes SIM non prises en charge, le nom brut de l\'opérateur (ex. T-MOBILE) et les infos de bande sont affichés et enregistrés. Cependant, le pourcentage de couverture n\'est pas calculé.</string>
+    <string name="faq_q4">Q. Pourquoi certaines bandes connectées ne s\'affichent-elles pas ?</string>
+    <string name="faq_a4">R. Sur certains smartphones, les restrictions du système d\'exploitation ou du fabricant empêchent l\'application d\'accéder aux informations de la bande actuellement connectée.</string>
 </resources>

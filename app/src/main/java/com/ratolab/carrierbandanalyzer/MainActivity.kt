@@ -40,16 +40,17 @@ import kotlinx.coroutines.withContext
 import androidx.activity.enableEdgeToEdge
 import java.util.Locale
 
+// ★修正箇所: AppCompatActvity -> AppCompatActivity
 class MainActivity : AppCompatActivity() {
     private lateinit var analyzer: BandAnalyzer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // システム言語をチェックし、非対応（アラビア語やフランス語など）なら英語をデフォルトにする
+        // システム言語をチェックし、非対応なら英語をデフォルトにする
         val appLocale = AppCompatDelegate.getApplicationLocales()
         if (appLocale.isEmpty) { // ユーザーがアプリ内でまだ言語を手動設定していない場合
             val systemLang = Locale.getDefault().language
-            val supportedLangs = listOf("ja", "en", "es", "de", "ru", "zh", "ko", "hi", "fr")
+            val supportedLangs = listOf("ja", "en", "es", "de", "ru", "zh", "ko", "hi", "fr", "vi", "th", "ar", "fa", "tr")
             if (!supportedLangs.contains(systemLang)) {
                 // 非対応言語のスマホの場合は、強制的に英語(en)をセットする
                 AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))

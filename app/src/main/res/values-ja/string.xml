@@ -110,4 +110,16 @@
     <string name="warn_service_off_title">常駐監視がオフです</string>
     <string name="warn_service_off_desc">ログを自動記録するには、設定からサービスをオンにしてください。</string>
     <string name="stat_tap_to_view">タップしてグラフ・統計を見る ＞</string>
+
+    <string name="item_usage">概要・使い方</string>
+    <string name="item_faq">よくある質問 (FAQ)</string>
+    <string name="faq_title">よくある質問</string>
+    <string name="faq_q1">Q. 常時監視はバッテリーを消費しますか？</string>
+    <string name="faq_a1">A. ほとんど消費しません。GPS等とは異なり、OSが通信状態の変化を検知したタイミングでのみ受動的にデータを記録する仕組みを採用しているためです。</string>
+    <string name="faq_q2">Q. 電波はどのくらいの頻度で取得していますか？</string>
+    <string name="faq_a2">A. アプリ画面を開いている間は約1.5秒間隔で最新情報をチェックします。バックグラウンド監視中は、システムから電波の変化が通知されたタイミングで記録します。</string>
+    <string name="faq_q3">Q. 海外や未対応キャリアでの表示はどうなりますか？</string>
+    <string name="faq_a3">A. 未対応のSIMでも、取得できた生のキャリア名（例: T-MOBILE等）とバンド情報をそのまま表示・記録します。ただし、パーセンテージ（網羅率）の計算は行われません。</string>
+    <string name="faq_q4">Q. 掴んでいるはずのバンドが表示されないのはなぜ？</string>
+    <string name="faq_a4">A. 一部のスマートフォン端末では、OSやメーカー側の制限により、現在接続中のバンド情報がアプリ側に提供されない仕様になっている場合があります。</string>
 </resources>

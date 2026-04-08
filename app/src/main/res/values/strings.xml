@@ -109,4 +109,16 @@
     <string name="warn_service_off_title">Background Service is OFF</string>
     <string name="warn_service_off_desc">Turn on the service in settings to record logs automatically.</string>
     <string name="stat_tap_to_view">Tap to view graphs &amp; stats ＞</string>
+
+    <string name="item_usage">Overview &amp; Usage</string>
+    <string name="item_faq">Frequently Asked Questions (FAQ)</string>
+    <string name="faq_title">Frequently Asked Questions</string>
+    <string name="faq_q1">Q. Does background monitoring drain the battery?</string>
+    <string name="faq_a1">A. It consumes almost no battery. Unlike GPS, it uses a mechanism that passively records data only when the OS detects a change in the network status.</string>
+    <string name="faq_q2">Q. How often is the network signal checked?</string>
+    <string name="faq_a2">A. While the app is open, it checks for updates approximately every 1.5 seconds. In the background, it only records when the system notifies it of a network change.</string>
+    <string name="faq_q3">Q. How does it work overseas or with unsupported carriers?</string>
+    <string name="faq_a3">A. Even with unsupported SIMs, it displays and logs the raw carrier name (e.g., T-MOBILE) and band info. However, coverage percentages are not calculated.</string>
+    <string name="faq_q4">Q. Why are some connected bands not showing up?</string>
+    <string name="faq_a4">A. On certain smartphones, OS or manufacturer restrictions prevent the currently connected band information from being shared with apps.</string>
 </resources>

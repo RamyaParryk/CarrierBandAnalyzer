@@ -110,4 +110,16 @@
     <string name="warn_service_off_title">Hintergrunddienst ist AUS</string>
     <string name="warn_service_off_desc">Einschalten, um Protokolle automatisch aufzuzeichnen.</string>
     <string name="stat_tap_to_view">Tippen für Diagramme ＞</string>
+
+    <string name="item_usage">Übersicht &amp; Nutzung</string>
+    <string name="item_faq">Häufig gestellte Fragen (FAQ)</string>
+    <string name="faq_title">Häufig gestellte Fragen</string>
+    <string name="faq_q1">F. Verbraucht die Hintergrundüberwachung den Akku?</string>
+    <string name="faq_a1">A. Es wird fast kein Akku verbraucht. Im Gegensatz zu GPS werden Daten nur dann passiv aufgezeichnet, wenn das Betriebssystem eine Änderung des Netzwerkstatus erkennt.</string>
+    <string name="faq_q2">F. Wie oft wird das Netzwerksignal überprüft?</string>
+    <string name="faq_a2">A. Solange die App geöffnet ist, wird ca. alle 1,5 Sekunden nach Updates gesucht. Im Hintergrund wird nur aufgezeichnet, wenn das System eine Netzwerkänderung meldet.</string>
+    <string name="faq_q3">F. Wie funktioniert es im Ausland oder bei nicht unterstützten Anbietern?</string>
+    <string name="faq_a3">A. Auch bei nicht unterstützten SIM-Karten werden der rohe Anbietername (z.B. T-MOBILE) und die Band-Infos angezeigt und protokolliert. Prozentwerte für die Abdeckung werden jedoch nicht berechnet.</string>
+    <string name="faq_q4">F. Warum werden einige verbundene Bänder nicht angezeigt?</string>
+    <string name="faq_a4">A. Auf bestimmten Smartphones verhindern Betriebssystem- oder Herstellereinschränkungen, dass die App auf die aktuellen Bandinformationen zugreifen kann.</string>
 </resources>

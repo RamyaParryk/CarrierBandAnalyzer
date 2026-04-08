@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Band Analyzer</string>
+    <string name="loading">در حال بارگیری...</string>
+    <string name="band_now">متصل (اکنون)</string>
+    <string name="band_history">تاریخچه (مشاهده شده)</string>
+    <string name="band_missing">از دست رفته</string>
+    <string name="band_none">هیچکدام</string>
+
+    <string name="settings_title">تنظیمات</string>
+    <string name="sec_monitoring">نظارت در پس‌زمینه</string>
+    <string name="item_service">سرویس نظارت</string>
+    <string name="service_running">در حال اجرا (اعلان روشن)</string>
+    <string name="service_stopped">متوقف شده</string>
+
+    <string name="sec_data">مدیریت داده‌ها</string>
+    <string name="item_reset_title">پاک کردن تاریخچه</string>
+    <string name="item_reset_desc">تمام داده‌های باند ثبت شده را پاک کنید.</string>
+    <string name="msg_history_cleared">تاریخچه پاک شد.</string>
+
+    <string name="sec_system">تنظیمات سیستم</string>
+    <string name="item_perm_title">باز کردن مجوزها</string>
+    <string name="item_perm_desc">بررسی/تغییر مجوزهای مکان و اعلان.</string>
+
+    <string name="sec_support">پشتیبانی</string>
+    <string name="item_help">راهنما و استفاده</string>
+    <string name="help_title">راهنما و استفاده</string>
+    <string name="help_close">بستن</string>
+
+    <string name="help_sec1_title">1. بررسی کلی</string>
+    <string name="help_sec1_desc">باندهای LTE/5G را برای اپراتورهای ژاپنی نشان می‌دهد. به تحلیل کیفیت واقعی شبکه فراتر از نوارهای سیگنال کمک می‌کند.</string>
+    <string name="help_sec2_title">2. استفاده و رنگ‌ها</string>
+    <string name="help_sec2_desc">• برای اسکن اجرا کنید. سرویس را برای ثبت در پس‌زمینه فعال کنید.\n🟦 تیره: فعال (متصل)\n⬜ روشن: تاریخچه\n⬛ خاکستری: ناموجود</string>
+    <string name="help_sec_share_title">3. اشتراک‌گذاری و خروجی</string>
+    <string name="help_sec_share_desc">می‌توانید گزارش را به عنوان متن کپی کنید یا فایل تاریخچه را به صورت CSV دریافت کنید.</string>
+    <string name="help_sec_global_title">4. استفاده جهانی</string>
+    <string name="help_sec_global_desc">نظارت در زمان واقعی در سراسر جهان کار می‌کند. با این حال، "امتیازات تجزیه و تحلیل" برای اپراتورهای ژاپنی بهینه‌سازی شده است.</string>
+    <string name="help_sec_graph_title">5. آمار و نمودارها</string>
+    <string name="help_sec_graph_desc">برای مشاهده فرکانس و نسبت اتصال خود، روی کارت درصد ضربه بزنید. سرویس پس‌زمینه را روشن کنید تا داده‌ها جمع‌آوری شوند.</string>
+
+    <string name="help_sec3_title">6. باندهای اصلی (4G)</string>
+    <string name="help_sec3_desc">سرعت بالا، باندهای پوشش اصلی.</string>
+    <string name="help_sec4_title">7. سرعت بسیار بالا (5G)</string>
+    <string name="help_sec4_desc">باندهای سرعت بسیار بالای نسل بعدی.</string>
+    <string name="help_sec5_title">8. باندهای پلاتینیوم</string>
+    <string name="help_sec5_desc">برای اتصال در داخل ساختمان/روستا ضروری است.</string>
+    <string name="help_sec6_title">9. 5G تغییر کاربری داده شده</string>
+    <string name="help_sec6_desc">باندهای 4G موجود برای گسترش سریع پوشش 5G تغییر کاربری دادند.</string>
+    <string name="td_5g_diverted">تغییر کاربری (پوشش)</string>
+
+    <string name="th_band">باند</string>
+    <string name="th_freq">فرکانس</string>
+    <string name="th_detail">جزئیات</string>
+
+    <string name="td_main_desc">اصلی / سرعت بالا</string>
+    <string name="td_sub_desc">فرعی / ظرفیت</string>
+    <string name="td_high_desc">سرعت بسیار بالا</string>
+    <string name="td_5g_main">5G اصلی</string>
+    <string name="td_5g_docomo">فقط Docomo</string>
+    <string name="td_mmwave">mmWave (سریع‌ترین)</string>
+
+    <string name="judgement_unknown">نامشخص</string>
+    <string name="judgement_excellent">عالی</string>
+    <string name="judgement_good">خوب</string>
+    <string name="judgement_fair">متوسط</string>
+    <string name="judgement_poor_slight">کمی ضعیف</string>
+    <string name="judgement_poor">ضعیف</string>
+
+    <string name="notif_channel_name">سرویس مانیتورینگ باند</string>
+    <string name="notif_title">Band Analyzer فعال است</string>
+    <string name="notif_scanning">در حال اسکن...</string>
+    <string name="notif_connected">متصل: %1$s</string>
+    <string name="label_observed">پشتیبانی دستگاه (مشاهده شده)</string>
+    <string name="label_reference">پشتیبانی اپراتور</string>
+    <string name="label_missing">باندهای ناموجود</string>
+
+    <string name="status_on">نظارت: روشن</string>
+    <string name="status_off">نظارت: خاموش</string>
+    <string name="item_export_log">خروجی لاگ (CSV)</string>
+    <string name="msg_log_exported">لاگ در فایل‌ها ذخیره شد.</string>
+    <string name="report_title">گزارش قابلیت‌های دستگاه</string>
+    <string name="label_device_name">نام دستگاه</string>
+    <string name="label_est_lte">پشتیبانی برآوردی LTE (4G)</string>
+    <string name="label_est_nr">پشتیبانی برآوردی NR (5G)</string>
+    <string name="label_coverage_by">نرخ سازگاری (%1$s)</string>
+    <string name="action_share_report">اشتراک‌گذاری گزارش</string>
+    <string name="report_footer">\nایجاد شده توسط CarrierBand Analyzer #RatoLab</string>
+    <string name="label_copy_to_clipboard">کپی در کلیپ‌بورد</string>
+    <string name="msg_copied">در کلیپ‌بورد کپی شد</string>
+
+    <string name="item_language_title">زبان</string>
+    <string name="item_language_desc">تغییر زبان برنامه.</string>
+    <string name="stat_title">آمار و نمودارها</string>
+    <string name="stat_tab_today">امروز</string>
+    <string name="stat_tab_week">7 روز گذشته</string>
+    <string name="stat_tab_month">این ماه</string>
+    <string name="stat_tab_all">همه</string>
+    <string name="stat_no_data">داده‌ای برای این دوره موجود نیست</string>
+    <string name="stat_ranking">فرکانس اتصال</string>
+    <string name="stat_count_format">%1$s بار (%2$s)</string>
+    <string name="warn_service_off_title">سرویس پس‌زمینه خاموش است</string>
+    <string name="warn_service_off_desc">برای ثبت خودکار، سرویس را در تنظیمات روشن کنید.</string>
+    <string name="stat_tap_to_view">برای مشاهده آمار ضربه بزنید ＞</string>
+
+    <string name="item_usage">بررسی کلی و استفاده</string>
+    <string name="item_faq">سوالات متداول (FAQ)</string>
+    <string name="faq_title">سوالات متداول</string>
+    <string name="faq_q1">س. آیا نظارت در پس‌زمینه باتری را مصرف می‌کند؟</string>
+    <string name="faq_a1">ج. تقریباً هیچ باتری مصرف نمی‌کند. برخلاف GPS، این برنامه تنها زمانی داده‌ها را ثبت می‌کند که سیستم‌عامل تغییر وضعیت شبکه را تشخیص دهد.</string>
+    <string name="faq_q2">س. هر چند وقت یکبار سیگنال شبکه بررسی می‌شود؟</string>
+    <string name="faq_a2">ج. زمانی که برنامه باز است، تقریباً هر 1.5 ثانیه به‌روزرسانی‌ها را بررسی می‌کند. در پس‌زمینه، فقط زمانی ثبت می‌شود که سیستم تغییر شبکه را اطلاع دهد.</string>
+    <string name="faq_q3">س. چگونه در خارج از کشور یا با سیم‌کارت‌های پشتیبانی نشده کار می‌کند؟</string>
+    <string name="faq_a3">ج. حتی با سیم‌کارت‌های پشتیبانی نشده، نام اصلی اپراتور (مانند T-MOBILE) و اطلاعات باند را نمایش و ثبت می‌کند. با این حال، درصد پوشش محاسبه نمی‌شود.</string>
+    <string name="faq_q4">س. چرا برخی از باندهای متصل نمایش داده نمی‌شوند؟</string>
+    <string name="faq_a4">ج. در برخی از گوشی‌های هوشمند، محدودیت‌های سیستم‌عامل یا سازنده از اشتراک‌گذاری اطلاعات باند متصل با برنامه‌ها جلوگیری می‌کند.</string>
+</resources>

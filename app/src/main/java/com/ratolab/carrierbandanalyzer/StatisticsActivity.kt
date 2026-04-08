@@ -19,7 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource // ★このインポートが足りていませんでした！
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
@@ -129,16 +129,12 @@ fun StatisticsScreen(analyzer: BandAnalyzer, onBack: () -> Unit) {
 
 @Composable
 fun HorizontalBarChart(data: Map<String, Int>) {
-    // 回数が多い順にソート
     val sortedData = data.toList().sortedByDescending { it.second }
     val maxCount = sortedData.maxOfOrNull { it.second } ?: 1
-
-    // 全体の合計回数を計算（0割りを防ぐために最低値1を保証）
     val totalCount = sortedData.sumOf { it.second }.coerceAtLeast(1)
 
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         sortedData.forEach { (band, count) ->
-            // アニメーション付きのバー幅計算
             val targetFraction = count.toFloat() / maxCount.toFloat()
             val animatedFraction by animateFloatAsState(
                 targetValue = targetFraction,
@@ -146,32 +142,33 @@ fun HorizontalBarChart(data: Map<String, Int>) {
                 label = "barAnimation"
             )
 
-            // 割合(%)と、カンマ区切りの回数を作成
             val percentage = (count.toFloat() / totalCount.toFloat()) * 100f
-            // 小数点第1位まで表示（例: 25.4%）
             val formattedPercent = String.format(java.util.Locale.US, "%.1f%%", percentage)
             val formattedCount = java.text.NumberFormat.getNumberInstance().format(count)
 
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-                // 左側: バンド名
                 Text(
                     text = band,
                     modifier = Modifier.width(48.dp),
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                // 中央: グラフのバー
+
                 Box(modifier = Modifier.weight(1f).height(24.dp)) {
-                    // 背景の薄いバー
-                    Box(modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(4.dp)).background(MaterialTheme.colorScheme.surfaceVariant))
-                    // 前景の色のついたバー（アニメーションで伸びる）
-                    Box(modifier = Modifier.fillMaxWidth(animatedFraction).fillMaxHeight().clip(RoundedCornerShape(4.dp)).background(MaterialTheme.colorScheme.primary))
+                    // グレーの背景バー（surfaceVariant）を削除
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(animatedFraction)
+                            .fillMaxHeight()
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(MaterialTheme.colorScheme.primary)
+                    )
                 }
-                // 右側: 回数とパーセンテージ（1行表示）
+
                 Text(
-                    // ★ここで、言語ファイルに2つのデータ（回数と％）を同時に渡しています！
                     text = stringResource(R.string.stat_count_format, formattedCount, formattedPercent),
-                    modifier = Modifier.padding(start = 12.dp),
+                    // テキスト領域の幅を固定(90.dp)し、バーの右端がガタつかないように変更
+                    modifier = Modifier.width(90.dp).padding(start = 12.dp),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.secondary,
                     textAlign = androidx.compose.ui.text.style.TextAlign.End

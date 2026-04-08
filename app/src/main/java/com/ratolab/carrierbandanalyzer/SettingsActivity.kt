@@ -1,6 +1,5 @@
 package com.ratolab.carrierbandanalyzer
 
-import android.app.ActivityManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -22,11 +21,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.PlayCircle
+import androidx.compose.material.icons.filled.QuestionAnswer
+import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -42,7 +44,6 @@ import androidx.activity.enableEdgeToEdge
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         enableEdgeToEdge()
         val analyzer = BandAnalyzer(this)
 
@@ -79,16 +80,14 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     var isServiceActive by remember { mutableStateOf(isServiceRunning(context)) }
-    var showHelpDialog by remember { mutableStateOf(false) }
+
+    var showUsageDialog by remember { mutableStateOf(false) }
+    var showFaqDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
 
-    if (showHelpDialog) {
-        HelpDialog(onDismiss = { showHelpDialog = false })
-    }
-
-    if (showLanguageDialog) {
-        LanguageSelectionDialog(onDismiss = { showLanguageDialog = false })
-    }
+    if (showUsageDialog) UsageDialog(onDismiss = { showUsageDialog = false })
+    if (showFaqDialog) FaqDialog(onDismiss = { showFaqDialog = false })
+    if (showLanguageDialog) LanguageSelectionDialog(onDismiss = { showLanguageDialog = false })
 
     Scaffold(
         topBar = {
@@ -124,103 +123,97 @@ fun SettingsScreen(
         ) {
             // === 監視状態 ===
             SettingsSectionTitle(stringResource(R.string.sec_monitoring))
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.item_service)) },
-                supportingContent = {
-                    Text(if (isServiceActive) stringResource(R.string.status_on) else stringResource(R.string.status_off))
-                },
-                trailingContent = {
-                    Switch(
-                        checked = isServiceActive,
-                        onCheckedChange = { check ->
-                            if (check) {
-                                startBandService(context)
-                                isServiceActive = true
-                            } else {
-                                stopBandService(context)
-                                isServiceActive = false
+            SettingsCard {
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.item_service)) },
+                    supportingContent = { Text(if (isServiceActive) stringResource(R.string.status_on) else stringResource(R.string.status_off)) },
+                    leadingContent = { Icon(Icons.Default.Visibility, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+                    trailingContent = {
+                        Switch(
+                            checked = isServiceActive,
+                            onCheckedChange = { check ->
+                                if (check) {
+                                    startBandService(context)
+                                    isServiceActive = true
+                                } else {
+                                    stopBandService(context)
+                                    isServiceActive = false
+                                }
                             }
-                        }
-                    )
-                }
-            )
-            HorizontalDivider()
+                        )
+                    }
+                )
+            }
 
             // === データ管理 ===
             SettingsSectionTitle(stringResource(R.string.sec_data))
-
-            // 1. レポートをコピー
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.action_share_report)) },
-                supportingContent = { Text(stringResource(R.string.label_copy_to_clipboard)) },
-                leadingContent = { Icon(Icons.Default.ContentCopy, contentDescription = null) },
-                modifier = Modifier.clickable {
-                    copyReportToClipboard(context, analyzer)
-                }
-            )
-
-            // 2. CSV出力
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.item_export_log)) },
-                supportingContent = { Text("band_logs.csv") },
-                leadingContent = { Icon(Icons.Default.Share, contentDescription = null) },
-                modifier = Modifier.clickable {
-                    shareLogFile(context, analyzer.getLogFile())
-                }
-            )
-
-            // 3. リセット
-            SettingsItem(
-                title = stringResource(R.string.item_reset_title),
-                description = stringResource(R.string.item_reset_desc),
-                onClick = onReset,
-                isDestructive = true
-            )
-            HorizontalDivider()
+            SettingsCard {
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.action_share_report)) },
+                    supportingContent = { Text(stringResource(R.string.label_copy_to_clipboard)) },
+                    leadingContent = { Icon(Icons.Default.ContentCopy, contentDescription = null) },
+                    modifier = Modifier.clickable { copyReportToClipboard(context, analyzer) }
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.item_export_log)) },
+                    supportingContent = { Text("band_logs.csv") },
+                    leadingContent = { Icon(Icons.Default.Share, contentDescription = null) },
+                    modifier = Modifier.clickable { shareLogFile(context, analyzer.getLogFile()) }
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.item_reset_title), color = MaterialTheme.colorScheme.error) },
+                    supportingContent = { Text(stringResource(R.string.item_reset_desc)) },
+                    leadingContent = { Icon(Icons.Default.DeleteForever, contentDescription = null, tint = MaterialTheme.colorScheme.error) },
+                    modifier = Modifier.clickable { onReset() }
+                )
+            }
 
             // === システム設定 ===
             SettingsSectionTitle(stringResource(R.string.sec_system))
-
-            // 言語切り替え
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.item_language_title)) },
-                supportingContent = { Text(stringResource(R.string.item_language_desc)) },
-                leadingContent = { Icon(Icons.Default.Language, contentDescription = null) },
-                modifier = Modifier.clickable { showLanguageDialog = true }
-            )
-            SettingsItem(
-                title = stringResource(R.string.item_perm_title),
-                description = stringResource(R.string.item_perm_desc),
-                onClick = onOpenPermissionSettings
-            )
-            HorizontalDivider()
+            SettingsCard {
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.item_language_title)) },
+                    supportingContent = { Text(stringResource(R.string.item_language_desc)) },
+                    leadingContent = { Icon(Icons.Default.Language, contentDescription = null) },
+                    modifier = Modifier.clickable { showLanguageDialog = true }
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.item_perm_title)) },
+                    supportingContent = { Text(stringResource(R.string.item_perm_desc)) },
+                    leadingContent = { Icon(Icons.Default.Security, contentDescription = null) },
+                    modifier = Modifier.clickable { onOpenPermissionSettings() }
+                )
+            }
 
             // === サポート ===
             SettingsSectionTitle(stringResource(R.string.sec_support))
-            ListItem(
-                headlineContent = { Text(stringResource(R.string.item_help)) },
-                leadingContent = { Icon(Icons.AutoMirrored.Filled.Help, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
-                modifier = Modifier.clickable { showHelpDialog = true }
-            )
-            ListItem(
-                headlineContent = { Text("YouTube (Rato Lab)") },
-                supportingContent = { Text("@ramyaparryk") },
-                leadingContent = { Icon(Icons.Default.PlayCircle, contentDescription = null, tint = Color(0xFFFF0000)) },
-                modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/@ramyaparryk")))
-                }
-            )
-            ListItem(
-                headlineContent = { Text("Project Website") },
-                supportingContent = { Text("GitHub Pages") },
-                leadingContent = { Icon(Icons.Default.Language, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
-                modifier = Modifier.clickable {
-                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://ramyaparryk.github.io/CarrierBandAnalyzer/")))
-                }
-            )
+            SettingsCard {
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.item_usage)) },
+                    leadingContent = { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+                    modifier = Modifier.clickable { showUsageDialog = true }
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.item_faq)) },
+                    leadingContent = { Icon(Icons.Default.QuestionAnswer, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+                    modifier = Modifier.clickable { showFaqDialog = true }
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text("Project Website") },
+                    supportingContent = { Text("GitHub Pages") },
+                    leadingContent = { Icon(Icons.Default.Language, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+                    modifier = Modifier.clickable {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://ramyaparryk.github.io/CarrierBandAnalyzer/")))
+                    }
+                )
+            }
 
             Spacer(modifier = Modifier.height(32.dp))
-            // === バージョン ===
             Text(
                 text = "Ver ${BuildConfig.VERSION_NAME} (Build ${BuildConfig.VERSION_CODE})",
                 style = MaterialTheme.typography.labelSmall,
@@ -233,11 +226,24 @@ fun SettingsScreen(
     }
 }
 
+@Composable
+fun SettingsCard(content: @Composable ColumnScope.() -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Column(content = content)
+    }
+}
+
 private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
     val observed = analyzer.getObservedBands()
     val coverage = analyzer.calculateCoverage()
     val deviceName = Build.MODEL
-
     val lteBands = observed.filter { it.startsWith("B") }.sorted().joinToString(", ")
     val nrBands = observed.filter { it.startsWith("n") }.sorted().joinToString(", ")
     val carrierName = toJaCarrierName(coverage.carrier)
@@ -254,14 +260,14 @@ private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText("Band Report", reportText)
     clipboard.setPrimaryClip(clip)
-
     Toast.makeText(context, context.getString(R.string.msg_copied), Toast.LENGTH_SHORT).show()
 }
+
 @Composable
-fun HelpDialog(onDismiss: () -> Unit) {
+fun UsageDialog(onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.help_title)) },
+        title = { Text(stringResource(R.string.item_usage)) },
         text = {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -307,12 +313,30 @@ fun HelpDialog(onDismiss: () -> Unit) {
                 )
             }
         },
-        confirmButton = {
-            TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) }
-        }
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } }
     )
 }
-// 余計な処理を省いた確実な言語選択ダイアログ
+
+@Composable
+fun FaqDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.faq_title)) },
+        text = {
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                HelpSection(stringResource(R.string.faq_q1), stringResource(R.string.faq_a1))
+                HelpSection(stringResource(R.string.faq_q2), stringResource(R.string.faq_a2))
+                HelpSection(stringResource(R.string.faq_q3), stringResource(R.string.faq_a3))
+                HelpSection(stringResource(R.string.faq_q4), stringResource(R.string.faq_a4))
+            }
+        },
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } }
+    )
+}
+
 @Composable
 fun LanguageSelectionDialog(onDismiss: () -> Unit) {
     val languages = listOf(
@@ -324,7 +348,12 @@ fun LanguageSelectionDialog(onDismiss: () -> Unit) {
         "zh" to "中文",
         "ko" to "한국어",
         "hi" to "हिन्दी",
-        "fr" to "Français"
+        "fr" to "Français",
+        "vi" to "Tiếng Việt", // ベトナム語
+        "th" to "ไทย", // タイ語
+        "ar" to "العربية", // アラビア語
+        "fa" to "فارسی", // ペルシャ語
+        "tr" to "Türkçe" // トルコ語
     )
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -334,24 +363,18 @@ fun LanguageSelectionDialog(onDismiss: () -> Unit) {
                 languages.forEach { (tag, name) ->
                     TextButton(
                         onClick = {
-                            // 言語切り替えAPIを叩く
-                            val localeList = LocaleListCompat.forLanguageTags(tag)
-                            AppCompatDelegate.setApplicationLocales(localeList)
-                            // 最後にダイアログを閉じる
+                            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
                             onDismiss()
                         },
                         modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(text = name, style = MaterialTheme.typography.bodyLarge)
-                    }
+                    ) { Text(text = name, style = MaterialTheme.typography.bodyLarge) }
                 }
             }
         },
-        confirmButton = {
-            TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) }
-        }
+        confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } }
     )
 }
+
 @Composable
 fun BandInfoTable(data: List<Triple<String, String, String>>) {
     val outlineColor = MaterialTheme.colorScheme.outlineVariant
@@ -371,6 +394,7 @@ fun BandInfoTable(data: List<Triple<String, String, String>>) {
         }
     }
 }
+
 @Composable
 fun HelpSection(title: String, content: String) {
     Column {
@@ -378,6 +402,7 @@ fun HelpSection(title: String, content: String) {
         Text(text = content, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(top = 4.dp), lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * 1.2f)
     }
 }
+
 private fun startBandService(context: Context) {
     val intent = Intent(context, BandMonitorService::class.java)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) context.startForegroundService(intent) else context.startService(intent)
@@ -386,15 +411,8 @@ private fun startBandService(context: Context) {
 private fun stopBandService(context: Context) {
     context.stopService(Intent(context, BandMonitorService::class.java))
 }
+
 @Composable
 fun SettingsSectionTitle(title: String) {
-    Text(text = title, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(start = 16.dp, top = 24.dp, bottom = 8.dp))
-}
-@Composable
-fun SettingsItem(title: String, description: String, onClick: () -> Unit, isDestructive: Boolean = false) {
-    ListItem(
-        headlineContent = { Text(title, color = if (isDestructive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface) },
-        supportingContent = { Text(description) },
-        modifier = Modifier.clickable { onClick() }
-    )
+    Text(text = title, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(start = 24.dp, top = 24.dp, bottom = 8.dp))
 }

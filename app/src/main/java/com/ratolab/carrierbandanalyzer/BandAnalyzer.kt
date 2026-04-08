@@ -39,7 +39,7 @@ class BandAnalyzer(context: Context) {
         prefs.registerOnSharedPreferenceChangeListener(prefListener)
     }
 
-    // ★許可チェック用の便利関数
+    // 許可チェック用の便利関数
     private fun hasLocationPermission(): Boolean {
         return ContextCompat.checkSelfPermission(
             appContext,
@@ -55,7 +55,7 @@ class BandAnalyzer(context: Context) {
         }
     }
 
-    // ★修正箇所: キャリアごとのバンド定義 (転用5G・ミリ波などを完全網羅)
+    // キャリアごとのバンド定義 (転用5G・ミリ波などを完全網羅)
     private val carrierBands = mapOf(
         "DOCOMO" to setOf("B1","B3","B19","B21","B28","B42","n1","n28","n77","n78","n79","n257"),
         "AU" to setOf("B1","B3","B18","B26","B28","B41","B42","n1","n3","n28","n77","n78","n257"),
@@ -169,13 +169,11 @@ class BandAnalyzer(context: Context) {
     }
 
     fun resetObservedBands() {
-        // ① メモリとSharedPreferencesの履歴（チップの表示）を消去
         synchronized(observedBands) {
             observedBands.clear()
         }
         prefs.edit().remove(KEY_OBSERVED_BANDS).apply()
 
-        // ② ★追加：グラフ用のCSVログファイルも完全に削除する
         try {
             val logFile = getLogFile()
             if (logFile.exists()) {
@@ -222,6 +220,7 @@ class BandAnalyzer(context: Context) {
     private fun detectCarrierLabel(): String {
         val tokens = mutableListOf<String>()
         fun add(s: String?) { if (!s.isNullOrBlank()) tokens += s }
+        // ① SIMや電波から名前をかき集める
         add(telephonyManager.simOperatorName)
         add(telephonyManager.networkOperatorName)
         add(getStringViaReflection(telephonyManager, "getSimCarrierIdName"))
@@ -229,6 +228,7 @@ class BandAnalyzer(context: Context) {
         val op = telephonyManager.simOperator.orEmpty()
         val hay = tokens.joinToString(" | ").lowercase()
 
+        // ② 日本の主要キャリア・サブブランドを文字列から判定
         if (hay.contains("ahamo")) return "AHAMO"
         if (hay.contains("povo")) return "POVO"
         if (hay.contains("uq")) return "UQ"
@@ -239,12 +239,16 @@ class BandAnalyzer(context: Context) {
         if (hay.contains("softbank") || hay.contains("ソフトバンク")) return "SOFTBANK"
         if (hay.contains("rakuten") || hay.contains("楽天")) return "RAKUTEN"
 
+        // かき集めた名前の中で一番最初の有効なものを、大文字にして取得（例：T-MOBILE）
+        val rawCarrierName = tokens.firstOrNull()?.uppercase() ?: "UNKNOWN"
+
+        // ③ PLMNコードで日本の主要キャリアを最終判定。それでもダメなら「生のキャリア名」を返す！
         return when {
             op.startsWith("44010") -> "DOCOMO"
             op.startsWith("44011") -> "RAKUTEN"
             op.startsWith("44050") || op.startsWith("44051") -> "AU"
             op.startsWith("44020") || op.startsWith("44021") -> "SOFTBANK"
-            else -> "UNKNOWN"
+            else -> rawCarrierName // ★変更箇所："UNKNOWN" ではなく生のキャリア名を返す！
         }
     }
 
@@ -329,7 +333,7 @@ class BandAnalyzer(context: Context) {
         private const val KEY_OBSERVED_BANDS = "observed_bands"
     }
 
-    // --- ここから追加：グラフ集計用ロジック ---
+    // --- グラフ集計用ロジック ---
     enum class StatPeriod { TODAY, WEEK, MONTH, ALL }
 
     fun getBandStatistics(period: StatPeriod): Map<String, Int> {
@@ -387,5 +391,4 @@ class BandAnalyzer(context: Context) {
         }
         return counts
     }
-    // --- ここまで追加 ---
 }

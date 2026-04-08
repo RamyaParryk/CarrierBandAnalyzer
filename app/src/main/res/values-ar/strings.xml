@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Band Analyzer</string>
+    <string name="loading">جاري التحميل...</string>
+    <string name="band_now">متصل (الآن)</string>
+    <string name="band_history">السجل (تم رصده)</string>
+    <string name="band_missing">مفقود</string>
+    <string name="band_none">لا يوجد</string>
+
+    <string name="settings_title">الإعدادات</string>
+    <string name="sec_monitoring">المراقبة في الخلفية</string>
+    <string name="item_service">خدمة المراقبة</string>
+    <string name="service_running">قيد التشغيل (الإشعارات مفعلة)</string>
+    <string name="service_stopped">متوقف</string>
+
+    <string name="sec_data">إدارة البيانات</string>
+    <string name="item_reset_title">مسح السجل</string>
+    <string name="item_reset_desc">مسح جميع بيانات النطاق المسجلة.</string>
+    <string name="msg_history_cleared">تم مسح السجل.</string>
+
+    <string name="sec_system">إعدادات النظام</string>
+    <string name="item_perm_title">فتح الأذونات</string>
+    <string name="item_perm_desc">تحقق/تغيير أذونات الموقع والإشعارات.</string>
+
+    <string name="sec_support">الدعم</string>
+    <string name="item_help">المساعدة والاستخدام</string>
+    <string name="help_title">المساعدة والاستخدام</string>
+    <string name="help_close">إغلاق</string>
+
+    <string name="help_sec1_title">1. نظرة عامة</string>
+    <string name="help_sec1_desc">يعرض نطاقات LTE/5G لشركات الاتصالات اليابانية (Docomo, au, SB, Rakuten). يساعد في تحليل جودة الشبكة الحقيقية.</string>
+    <string name="help_sec2_title">2. الاستخدام والألوان</string>
+    <string name="help_sec2_desc">• افتح للتحديث. قم بتفعيل الخدمة للتسجيل في الخلفية.\n🟦 داكن: نشط (متصل)\n⬜ فاتح: السجل\n⬛ رمادي: مفقود</string>
+    <string name="help_sec_share_title">3. المشاركة والتصدير</string>
+    <string name="help_sec_share_desc">يمكنك نسخ التقرير كنص أو تصدير سجل مفصل كملف CSV.</string>
+    <string name="help_sec_global_title">4. الاستخدام العالمي</string>
+    <string name="help_sec_global_desc">المراقبة في الوقت الفعلي تعمل في جميع أنحاء العالم، لكن "درجات التحليل" محسنة لشركات الاتصالات اليابانية.</string>
+    <string name="help_sec_graph_title">5. الإحصائيات والرسوم البيانية</string>
+    <string name="help_sec_graph_desc">انقر على بطاقة النسبة المئوية في الشاشة الرئيسية لعرض تردد وتسبة الاتصال. قم بتشغيل خدمة الخلفية لجمع البيانات.</string>
+
+    <string name="help_sec3_title">6. النطاقات الرئيسية (4G)</string>
+    <string name="help_sec3_desc">سرعة عالية، النطاقات الرئيسية للتغطية.</string>
+    <string name="help_sec4_title">7. سرعة فائقة (5G)</string>
+    <string name="help_sec4_desc">نطاقات الجيل القادم فائقة السرعة.</string>
+    <string name="help_sec5_title">8. النطاقات البلاتينية</string>
+    <string name="help_sec5_desc">ضرورية للاتصال الداخلي/الريفي.</string>
+    <string name="help_sec6_title">9. 5G محول</string>
+    <string name="help_sec6_desc">نطاقات 4G تم تحويلها لتوسيع تغطية 5G بسرعة.</string>
+    <string name="td_5g_diverted">محول (تغطية)</string>
+
+    <string name="th_band">النطاق</string>
+    <string name="th_freq">التردد</string>
+    <string name="th_detail">التفاصيل</string>
+
+    <string name="td_main_desc">رئيسي / سرعة عالية</string>
+    <string name="td_sub_desc">فرعي / سعة</string>
+    <string name="td_high_desc">سرعة فائقة</string>
+    <string name="td_5g_main">5G رئيسي</string>
+    <string name="td_5g_docomo">Docomo فقط</string>
+    <string name="td_mmwave">mmWave (الأسرع)</string>
+
+    <string name="judgement_unknown">غير معروف</string>
+    <string name="judgement_excellent">ممتاز</string>
+    <string name="judgement_good">جيد</string>
+    <string name="judgement_fair">مقبول</string>
+    <string name="judgement_poor_slight">ضعيف قليلاً</string>
+    <string name="judgement_poor">ضعيف</string>
+
+    <string name="notif_channel_name">خدمة مراقبة النطاق</string>
+    <string name="notif_title">Band Analyzer نشط</string>
+    <string name="notif_scanning">جاري المسح...</string>
+    <string name="notif_connected">متصل: %1$s</string>
+    <string name="label_observed">الأجهزة المدعومة (تم رصدها)</string>
+    <string name="label_reference">دعم شركة الاتصالات</string>
+    <string name="label_missing">النطاقات المفقودة</string>
+
+    <string name="status_on">المراقبة: تشغيل</string>
+    <string name="status_off">المراقبة: إيقاف</string>
+    <string name="item_export_log">تصدير السجل (CSV)</string>
+    <string name="msg_log_exported">تم حفظ السجل في الملفات.</string>
+    <string name="report_title">تقرير قدرات الجهاز</string>
+    <string name="label_device_name">اسم الجهاز</string>
+    <string name="label_est_lte">دعم LTE المقدر (4G)</string>
+    <string name="label_est_nr">دعم NR المقدر (5G)</string>
+    <string name="label_coverage_by">معدل التوافق (%1$s)</string>
+    <string name="action_share_report">مشاركة التقرير</string>
+    <string name="report_footer">\nتم الإنشاء بواسطة CarrierBand Analyzer #RatoLab</string>
+    <string name="label_copy_to_clipboard">نسخ إلى الحافظة</string>
+    <string name="msg_copied">تم النسخ إلى الحافظة</string>
+
+    <string name="item_language_title">اللغة</string>
+    <string name="item_language_desc">تغيير لغة التطبيق.</string>
+    <string name="stat_title">الإحصائيات والرسوم البيانية</string>
+    <string name="stat_tab_today">اليوم</string>
+    <string name="stat_tab_week">آخر 7 أيام</string>
+    <string name="stat_tab_month">هذا الشهر</string>
+    <string name="stat_tab_all">الكل</string>
+    <string name="stat_no_data">لا توجد بيانات لهذه الفترة</string>
+    <string name="stat_ranking">تردد الاتصال</string>
+    <string name="stat_count_format">%1$s مرة (%2$s)</string>
+    <string name="warn_service_off_title">خدمة الخلفية متوقفة</string>
+    <string name="warn_service_off_desc">قم بتشغيل الخدمة في الإعدادات لتسجيل السجلات تلقائيًا.</string>
+    <string name="stat_tap_to_view">انقر لعرض الرسوم البيانية ＞</string>
+
+    <string name="item_usage">نظرة عامة والاستخدام</string>
+    <string name="item_faq">الأسئلة الشائعة (FAQ)</string>
+    <string name="faq_title">الأسئلة الشائعة</string>
+    <string name="faq_q1">س. هل تستهلك المراقبة في الخلفية البطارية؟</string>
+    <string name="faq_a1">ج. تستهلك البطارية بشكل شبه معدوم. على عكس نظام تحديد المواقع (GPS)، تسجل البيانات فقط عندما يكتشف النظام تغييرًا في حالة الشبكة.</string>
+    <string name="faq_q2">س. كم مرة يتم فحص إشارة الشبكة؟</string>
+    <string name="faq_a2">ج. أثناء فتح التطبيق، يتم التحديث كل 1.5 ثانية تقريبًا. في الخلفية، يتم التسجيل فقط عندما يُعلم النظام بتغيير الشبكة.</string>
+    <string name="faq_q3">س. كيف يعمل في الخارج أو مع شركات اتصالات غير مدعومة؟</string>
+    <string name="faq_a3">ج. حتى مع شرائح SIM غير المدعومة، يتم عرض وتسجيل اسم شركة الاتصالات الخام (مثل T-MOBILE). ومع ذلك، لا يتم حساب نسبة التغطية.</string>
+    <string name="faq_q4">س. لماذا لا تظهر بعض النطاقات المتصلة؟</string>
+    <string name="faq_a4">ج. في بعض الهواتف الذكية، تمنع قيود نظام التشغيل أو الشركة المصنعة مشاركة معلومات النطاق المتصل مع التطبيقات.</string>
+</resources>

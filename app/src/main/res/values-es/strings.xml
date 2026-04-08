@@ -110,4 +110,16 @@
     <string name="warn_service_off_title">Servicio en segundo plano APAGADO</string>
     <string name="warn_service_off_desc">Actívelo en la configuración para registrar automáticamente.</string>
     <string name="stat_tap_to_view">Toca para ver gráficos ＞</string>
+
+    <string name="item_usage">Descripción y Uso</string>
+    <string name="item_faq">Preguntas Frecuentes (FAQ)</string>
+    <string name="faq_title">Preguntas Frecuentes</string>
+    <string name="faq_q1">P. ¿La monitorización en segundo plano consume mucha batería?</string>
+    <string name="faq_a1">R. Apenas consume batería. A diferencia del GPS, registra datos pasivamente solo cuando el sistema operativo detecta un cambio en el estado de la red.</string>
+    <string name="faq_q2">P. ¿Con qué frecuencia se comprueba la señal de red?</string>
+    <string name="faq_a2">R. Mientras la aplicación está abierta, se actualiza aproximadamente cada 1,5 segundos. En segundo plano, solo registra cuando el sistema notifica un cambio de red.</string>
+    <string name="faq_q3">P. ¿Cómo funciona en el extranjero o con operadores no compatibles?</string>
+    <string name="faq_a3">R. Incluso con SIMs no compatibles, muestra y registra el nombre original del operador (ej. T-MOBILE) y la información de la banda. Sin embargo, no se calcula el porcentaje de cobertura.</string>
+    <string name="faq_q4">P. ¿Por qué no aparecen algunas bandas a las que estoy conectado?</string>
+    <string name="faq_a4">R. En algunos smartphones, las restricciones del sistema operativo o del fabricante impiden que la información de la banda conectada se comparta con las aplicaciones.</string>
 </resources>
