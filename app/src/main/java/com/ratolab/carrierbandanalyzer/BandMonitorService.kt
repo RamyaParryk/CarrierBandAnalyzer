@@ -14,10 +14,10 @@ import kotlinx.coroutines.*
 
 class BandMonitorService : Service() {
     private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
-    private lateinit var analyzer: BandAnalyzer
+    
     override fun onCreate() {
         super.onCreate()
-        analyzer = BandAnalyzer(this)
+
         createNotificationChannel()
     }
 
@@ -28,18 +28,19 @@ class BandMonitorService : Service() {
         serviceScope.launch {
             while (isActive) {
                 // 1. バンド取得
-                val nowBands = analyzer.scanNowBands()
+                val sims = SimRepository.active(this@BandMonitorService)
+                val summaries = mutableListOf<String>()
+                for ((index, sim) in sims.withIndex()) {
+                    val analyzer = BandAnalyzer(this@BandMonitorService, sim.subscriptionId)
+                    val found = analyzer.scanNowBands()
+                    if (found.isNotEmpty()) analyzer.saveLog(found)
+                    summaries.add("SIM ${index + 1}: " + if (found.isEmpty()) "—" else found.sorted().joinToString(", "))
+                }
+                val nowBands = emptySet<String>()
                 // 2. ログ保存の実行 (Priority 4)
-                if (nowBands.isNotEmpty()) {
-                    analyzer.saveLog(nowBands)
-                }
+
                 // 3. 通知の文字を作る
-                val contentText = if (nowBands.isEmpty()) {
-                    getString(R.string.notif_scanning)
-                } else {
-                    val bandStr = nowBands.sorted().joinToString(", ")
-                    getString(R.string.notif_connected, bandStr)
-                }
+                val contentText = summaries.joinToString(" | ").ifBlank { getString(R.string.notif_scanning) }
                 // 4. 通知を更新
                 updateNotification(contentText)
 

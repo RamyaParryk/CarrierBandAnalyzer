@@ -29,7 +29,7 @@ class StatisticsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val analyzer = BandAnalyzer(this)
+        val analyzer = BandAnalyzer(this, intent.getIntExtra("subscription_id", android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID))
 
         setContent {
             MaterialTheme {

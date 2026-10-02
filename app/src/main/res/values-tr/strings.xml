@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Band Analyzer</string>
     <string name="loading">Yükleniyor...</string>
@@ -6,27 +6,22 @@
     <string name="band_history">Geçmiş (Gözlemlenen)</string>
     <string name="band_missing">Eksik</string>
     <string name="band_none">Yok</string>
-
     <string name="settings_title">Ayarlar</string>
     <string name="sec_monitoring">Arka Plan İzleme</string>
     <string name="item_service">İzleme Hizmeti</string>
     <string name="service_running">Çalışıyor (Bildirim Açık)</string>
     <string name="service_stopped">Durduruldu</string>
-
     <string name="sec_data">Veri Yönetimi</string>
     <string name="item_reset_title">Geçmişi Sıfırla</string>
     <string name="item_reset_desc">Kaydedilen tüm bant verilerini temizle.</string>
     <string name="msg_history_cleared">Geçmiş temizlendi.</string>
-
     <string name="sec_system">Sistem Ayarları</string>
     <string name="item_perm_title">İzinleri Aç</string>
     <string name="item_perm_desc">Konum ve bildirim izinlerini kontrol et/değiştir.</string>
-
     <string name="sec_support">Destek</string>
     <string name="item_help">Yardım ve Kullanım</string>
     <string name="help_title">Yardım ve Kullanım</string>
     <string name="help_close">Kapat</string>
-
     <string name="help_sec1_title">1. Genel Bakış</string>
     <string name="help_sec1_desc">Japon operatörleri için LTE/5G bantlarını görselleştirir. Gerçek alan kalitesini analiz etmeye yardımcı olur.</string>
     <string name="help_sec2_title">2. Kullanım ve Renkler</string>
@@ -37,7 +32,6 @@
     <string name="help_sec_global_desc">Gerçek zamanlı bant izleme dünya çapında çalışır. Ancak "Analiz Puanları" Japon operatörleri için optimize edilmiştir.</string>
     <string name="help_sec_graph_title">5. İstatistikler ve Grafikler</string>
     <string name="help_sec_graph_desc">Bağlantı frekansınızı görmek için ana ekrandaki yüzde kartına dokunun. Otomatik veri toplamak için arka plan hizmetini açın.</string>
-
     <string name="help_sec3_title">6. Ana Bantlar (4G)</string>
     <string name="help_sec3_desc">Yüksek hız, ana kapsama bantları.</string>
     <string name="help_sec4_title">7. Yüksek Hız (5G)</string>
@@ -47,25 +41,21 @@
     <string name="help_sec6_title">9. Yeniden Düzenlenmiş 5G</string>
     <string name="help_sec6_desc">Mevcut 4G bantları 5G kapsamını genişletmek için yeniden kullanıldı.</string>
     <string name="td_5g_diverted">Düzenlenmiş (Kapsama)</string>
-
     <string name="th_band">Bant</string>
     <string name="th_freq">Frekans</string>
     <string name="th_detail">Detay</string>
-
     <string name="td_main_desc">Ana / Yüksek Hız</string>
     <string name="td_sub_desc">Alt / Kapasite</string>
     <string name="td_high_desc">Ultra Yüksek Hız</string>
     <string name="td_5g_main">5G Ana</string>
     <string name="td_5g_docomo">Sadece Docomo</string>
     <string name="td_mmwave">mmWave (En Hızlı)</string>
-
     <string name="judgement_unknown">Bilinmiyor</string>
     <string name="judgement_excellent">Mükemmel</string>
     <string name="judgement_good">İyi</string>
     <string name="judgement_fair">Orta</string>
     <string name="judgement_poor_slight">Hafif Zayıf</string>
     <string name="judgement_poor">Zayıf</string>
-
     <string name="notif_channel_name">Bant İzleme Hizmeti</string>
     <string name="notif_title">Band Analyzer aktif</string>
     <string name="notif_scanning">Taranıyor...</string>
@@ -73,7 +63,6 @@
     <string name="label_observed">Cihaz Destekli (Gözlemlenen)</string>
     <string name="label_reference">Operatör Desteği</string>
     <string name="label_missing">Eksik Bantlar</string>
-
     <string name="status_on">İzleme: AÇIK</string>
     <string name="status_off">İzleme: KAPALI</string>
     <string name="item_export_log">Günlüğü Dışa Aktar (CSV)</string>
@@ -87,7 +76,6 @@
     <string name="report_footer">\nCarrierBand Analyzer #RatoLab tarafından oluşturuldu</string>
     <string name="label_copy_to_clipboard">Panoya kopyala</string>
     <string name="msg_copied">Panoya kopyalandı</string>
-
     <string name="item_language_title">Dil</string>
     <string name="item_language_desc">Uygulama dilini değiştir.</string>
     <string name="stat_title">İstatistikler ve Grafikler</string>
@@ -101,16 +89,21 @@
     <string name="warn_service_off_title">Arka Plan Hizmeti KAPALI</string>
     <string name="warn_service_off_desc">Günlükleri kaydetmek için hizmeti ayarlardan açın.</string>
     <string name="stat_tap_to_view">Grafikleri görmek için dokunun ＞</string>
-
     <string name="item_usage">Genel Bakış ve Kullanım</string>
     <string name="item_faq">Sıkça Sorulan Sorular (FAQ)</string>
     <string name="faq_title">Sıkça Sorulan Sorular</string>
-    <string name="faq_q1">S. Arka plan izleme pili tüketir mi?</string>
-    <string name="faq_a1">C. Neredeyse hiç pil tüketmez. GPS\'in aksine, işletim sistemi ağ durumunda bir değişiklik algıladığında verileri pasif olarak kaydeder.</string>
-    <string name="faq_q2">S. Ağ sinyali ne sıklıkla kontrol edilir?</string>
-    <string name="faq_a2">C. Uygulama açıkken yaklaşık her 1,5 saniyede bir güncellemeleri kontrol eder. Arka planda ise sadece sistem ağ değişikliği bildirdiğinde kayıt yapar.</string>
-    <string name="faq_q3">S. Yurtdışında veya desteklenmeyen operatörlerle nasıl çalışır?</string>
-    <string name="faq_a3">C. Desteklenmeyen SIM\'lerde bile ham operatör adını (örn. T-MOBILE) ve bant bilgisini görüntüler ve günlüğe kaydeder. Ancak kapsama yüzdeleri hesaplanmaz.</string>
+    <string name="faq_q1">S. Arka plan izleme pil harcar mı?</string>
+    <string name="faq_a1">C. Mobil ağ bilgileri yaklaşık her 3 saniyede okunur. Tüketim cihaza ve işletim sistemine bağlıdır.</string>
+    <string name="faq_q2">S. Bantlar ne sıklıkla kontrol edilir?</string>
+    <string name="faq_a2">C. Ana ekranda yaklaşık 1,5 saniyede bir, arka planda 3 saniyede bir. Android eski ya da eksik veri verebilir.</string>
+    <string name="faq_q3">S. Yabancı operatörlerde çalışır mı?</string>
+    <string name="faq_a3">C. Android tarafından sağlanan operatör adı ve bantları gösterir. Referans verisi yoksa oran N/A olur.</string>
     <string name="faq_q4">S. Bağlı olan bazı bantlar neden görünmüyor?</string>
     <string name="faq_a4">C. Bazı akıllı telefonlarda işletim sistemi veya üretici kısıtlamaları, bağlı olunan bant bilgisinin uygulamalarla paylaşılmasını engeller.</string>
+    <string name="faq_q5">S. Birden fazla SIM ve eSIM kullanılabilir mi?</string>
+    <string name="faq_a5">C. Her etkin SIM için ayrı sekme vardır; üç veya daha fazla etkin SIM de desteklenir. Belirsiz bantlar başka SIMe atanmaz.</string>
+    <string name="faq_q6" formatted="false">S. N/A ile %0 arasındaki fark nedir?</string>
+    <string name="faq_a6" formatted="false">C. N/A referans veya gözlem eksikliği; %0 ise gözlem olmasına rağmen referans bantlarla eşleşme olmamasıdır.</string>
+    <string name="faq_q7" formatted="false">S. %23 zayıf sinyal demek mi?</string>
+    <string name="faq_a7">C. Hayır. Bu sadece gözlenen referans bant oranıdır; sinyal gücü, kalite veya telefonun tüm bantları değildir.</string>
 </resources>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Band Analyzer</string>
     <string name="loading">Đang tải...</string>
@@ -6,27 +6,22 @@
     <string name="band_history">Lịch sử (Đã quan sát)</string>
     <string name="band_missing">Bị thiếu</string>
     <string name="band_none">Không có</string>
-
     <string name="settings_title">Cài đặt</string>
     <string name="sec_monitoring">Giám sát nền</string>
     <string name="item_service">Dịch vụ giám sát</string>
     <string name="service_running">Đang chạy (Bật thông báo)</string>
     <string name="service_stopped">Đã dừng</string>
-
     <string name="sec_data">Quản lý dữ liệu</string>
     <string name="item_reset_title">Xóa lịch sử</string>
     <string name="item_reset_desc">Xóa tất cả dữ liệu băng tần đã ghi.</string>
     <string name="msg_history_cleared">Đã xóa lịch sử.</string>
-
     <string name="sec_system">Cài đặt hệ thống</string>
     <string name="item_perm_title">Mở Quyền</string>
     <string name="item_perm_desc">Kiểm tra/Thay đổi quyền vị trí &amp; thông báo.</string>
-
     <string name="sec_support">Hỗ trợ</string>
     <string name="item_help">Trợ giúp &amp; Cách dùng</string>
     <string name="help_title">Trợ giúp &amp; Cách dùng</string>
     <string name="help_close">Đóng</string>
-
     <string name="help_sec1_title">1. Tổng quan</string>
     <string name="help_sec1_desc">Hiển thị các băng tần LTE/5G cho các nhà mạng Nhật Bản (Docomo, au, SB, Rakuten). Giúp phân tích chất lượng mạng thực tế thay vì chỉ nhìn vào vạch sóng.</string>
     <string name="help_sec2_title">2. Cách dùng &amp; Màu sắc</string>
@@ -37,7 +32,6 @@
     <string name="help_sec_global_desc">Giám sát thời gian thực các băng tần hoạt động trên toàn thế giới. Tuy nhiên, \"Điểm phân tích\" và \"Độ phủ sóng\" được tối ưu hóa cho các nhà mạng Nhật Bản.</string>
     <string name="help_sec_graph_title">5. Thống kê &amp; Biểu đồ</string>
     <string name="help_sec_graph_desc">Chạm vào thẻ phần trăm trên màn hình chính để xem tần suất và tỷ lệ kết nối theo thời gian. Bật dịch vụ nền để tự động tích lũy dữ liệu.</string>
-
     <string name="help_sec3_title">6. Băng tần chính (4G)</string>
     <string name="help_sec3_desc">Tốc độ cao, băng tần phủ sóng chính.</string>
     <string name="help_sec4_title">7. Tốc độ siêu cao (5G)</string>
@@ -47,25 +41,21 @@
     <string name="help_sec6_title">9. 5G chuyển đổi</string>
     <string name="help_sec6_desc">Băng tần 4G hiện có được chuyển đổi để mở rộng vùng phủ sóng 5G nhanh chóng. Tốc độ tương đương 4G LTE tiêu chuẩn.</string>
     <string name="td_5g_diverted">Chuyển đổi (Phủ sóng)</string>
-
     <string name="th_band">Băng tần</string>
     <string name="th_freq">Tần số</string>
     <string name="th_detail">Chi tiết</string>
-
     <string name="td_main_desc">Chính / Tốc độ cao</string>
     <string name="td_sub_desc">Phụ / Sức chứa</string>
     <string name="td_high_desc">Tốc độ siêu cao</string>
     <string name="td_5g_main">5G Chính</string>
     <string name="td_5g_docomo">Chỉ Docomo</string>
     <string name="td_mmwave">mmWave (Nhanh nhất)</string>
-
     <string name="judgement_unknown">Không rõ</string>
     <string name="judgement_excellent">Tuyệt vời</string>
     <string name="judgement_good">Tốt</string>
     <string name="judgement_fair">Khá</string>
     <string name="judgement_poor_slight">Hơi yếu</string>
     <string name="judgement_poor">Yếu</string>
-
     <string name="notif_channel_name">Dịch vụ giám sát băng tần</string>
     <string name="notif_title">Band Analyzer đang hoạt động</string>
     <string name="notif_scanning">Đang quét...</string>
@@ -73,7 +63,6 @@
     <string name="label_observed">Thiết bị hỗ trợ (Đã thấy)</string>
     <string name="label_reference">Nhà mạng hỗ trợ</string>
     <string name="label_missing">Băng tần bị thiếu</string>
-
     <string name="status_on">Giám sát: BẬT</string>
     <string name="status_off">Giám sát: TẮT</string>
     <string name="item_export_log">Xuất nhật ký (CSV)</string>
@@ -87,7 +76,6 @@
     <string name="report_footer">\nTạo bởi CarrierBand Analyzer #RatoLab</string>
     <string name="label_copy_to_clipboard">Sao chép vào khay nhớ tạm</string>
     <string name="msg_copied">Đã sao chép vào khay nhớ tạm</string>
-
     <string name="item_language_title">Ngôn ngữ</string>
     <string name="item_language_desc">Thay đổi ngôn ngữ hiển thị ứng dụng.</string>
     <string name="stat_title">Thống kê &amp; Biểu đồ</string>
@@ -101,16 +89,21 @@
     <string name="warn_service_off_title">Dịch vụ nền đang TẮT</string>
     <string name="warn_service_off_desc">Bật dịch vụ trong cài đặt để tự động ghi nhật ký.</string>
     <string name="stat_tap_to_view">Chạm để xem biểu đồ &amp; thống kê ＞</string>
-
     <string name="item_usage">Tổng quan &amp; Cách sử dụng</string>
     <string name="item_faq">Câu hỏi thường gặp (FAQ)</string>
     <string name="faq_title">Câu hỏi thường gặp</string>
-    <string name="faq_q1">Q. Giám sát nền có làm hao pin không?</string>
-    <string name="faq_a1">A. Hầu như không hao pin. Khác với GPS, nó sử dụng cơ chế ghi dữ liệu thụ động chỉ khi hệ điều hành phát hiện sự thay đổi trạng thái mạng.</string>
-    <string name="faq_q2">Q. Tín hiệu mạng được kiểm tra bao lâu một lần?</string>
-    <string name="faq_a2">A. Khi mở ứng dụng, nó kiểm tra khoảng 1.5 giây một lần. Khi chạy ngầm, nó chỉ ghi dữ liệu khi hệ thống thông báo có thay đổi mạng.</string>
-    <string name="faq_q3">Q. Ứng dụng hoạt động thế nào ở nước ngoài hoặc với nhà mạng không được hỗ trợ?</string>
-    <string name="faq_a3">A. Ngay cả với SIM không được hỗ trợ, ứng dụng vẫn hiển thị và ghi lại tên nhà mạng gốc (VD: T-MOBILE) và thông tin băng tần. Tuy nhiên, tỷ lệ phủ sóng sẽ không được tính.</string>
+    <string name="faq_q1">H. Giám sát nền có hao pin không?</string>
+    <string name="faq_a1">Đ. Ứng dụng đọc dữ liệu mạng khoảng mỗi 3 giây. Mức hao pin tùy thiết bị và hệ điều hành.</string>
+    <string name="faq_q2">H. Bao lâu kiểm tra băng tần?</string>
+    <string name="faq_a2">Đ. Khoảng 1,5 giây trên màn hình chính và 3 giây khi chạy nền. Android có thể trả dữ liệu cũ hoặc thiếu.</string>
+    <string name="faq_q3">H. Có dùng được với nhà mạng nước ngoài không?</string>
+    <string name="faq_a3">Đ. Có thể hiện tên và băng tần do Android cung cấp. Không có dữ liệu tham chiếu thì tỷ lệ là N/A.</string>
     <string name="faq_q4">Q. Tại sao một số băng tần đã kết nối không hiển thị?</string>
     <string name="faq_a4">A. Trên một số điện thoại, hệ điều hành hoặc nhà sản xuất chặn không cho ứng dụng bên thứ ba truy cập thông tin băng tần đang kết nối.</string>
+    <string name="faq_q5">H. Có hỗ trợ nhiều SIM và eSIM?</string>
+    <string name="faq_a5">Đ. Mỗi SIM hoạt động có thẻ riêng, kể cả khi có từ ba SIM hoạt động. Băng tần không rõ SIM sẽ không bị gán nhầm.</string>
+    <string name="faq_q6" formatted="false">H. N/A khác 0% thế nào?</string>
+    <string name="faq_a6" formatted="false">Đ. N/A nghĩa là thiếu dữ liệu tham chiếu hoặc quan sát. 0% nghĩa là đã quan sát nhưng không khớp băng tần tham chiếu.</string>
+    <string name="faq_q7" formatted="false">H. 23% có nghĩa sóng yếu không?</string>
+    <string name="faq_a7">Đ. Không. Đó là tỷ lệ băng tần tham chiếu đã thấy, không phải cường độ sóng, chất lượng hay tất cả băng tần của máy.</string>
 </resources>

@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Band Analyzer</string>
     <string name="loading">Loading...</string>
@@ -5,97 +6,76 @@
     <string name="band_history">History (Observed)</string>
     <string name="band_missing">Missing</string>
     <string name="band_none">None</string>
-
     <string name="settings_title">Settings</string>
-
     <string name="sec_monitoring">Background Monitoring</string>
     <string name="item_service">Monitoring Service</string>
     <string name="service_running">Running (Notification On)</string>
     <string name="service_stopped">Stopped</string>
-
     <string name="sec_data">Data Management</string>
     <string name="item_reset_title">Reset History</string>
-    <string name="item_reset_desc">Clear all recorded band data.</string>
+    <string name="item_reset_desc">Clear observed bands for the currently selected SIM.</string>
     <string name="msg_history_cleared">History cleared.</string>
-
     <string name="sec_system">System Settings</string>
     <string name="item_perm_title">Open Permissions</string>
-    <string name="item_perm_desc">Check/Change location &amp; notification permissions.</string>
-
+    <string name="item_perm_desc">Check/change phone, location and notification permissions.</string>
     <string name="sec_support">Support</string>
     <string name="item_help">Help &amp; Usage</string>
-
     <string name="help_title">Help &amp; Usage</string>
     <string name="help_close">Close</string>
-
     <string name="help_sec1_title">1. Overview</string>
-    <string name="help_sec1_desc">Visualizes LTE/5G bands for Japanese carriers (Docomo, au, SB, Rakuten) and sub-brands. Helps analyze true area quality beyond just signal bars.</string>
-
+    <string name="help_sec1_desc">Shows and records observed LTE/5G bands for each SIM. For supported Japanese carriers, it compares observed bands with reference bands. It does not measure signal strength or real network quality.</string>
     <string name="help_sec2_title">2. Usage &amp; Colors</string>
-    <string name="help_sec2_desc">• Launch to scan. Enable service for background recording.\n🟦 Dark: Active (Connected)\n⬜ Light: History\n⬛ Gray: Missing</string>
-
+    <string name="help_sec2_desc">• Checks about every 1.5 seconds on screen or every 3 seconds in background.\n🟦 Dark: Connected now\n⬜ Light: Observed\n⬛ Gray: Reference band not yet observed</string>
     <string name="help_sec_share_title">3. Sharing &amp; Export</string>
-    <string name="help_sec_share_desc">You can copy the analysis report as text or export detailed history logs as a CSV file. Accessible via icons in the report or settings screens.</string>
-
+    <string name="help_sec_share_desc">Observed data and statistics are kept separately for each SIM. You can share reports or export per-SIM CSV logs.</string>
     <string name="help_sec_global_title">4. Global Usage</string>
-    <string name="help_sec_global_desc">Real-time monitoring of connected bands works worldwide. However, "Analysis Scores" and "Coverage" metrics are optimized for Japanese carriers and may not appear abroad.</string>
-
+    <string name="help_sec_global_desc">Shows available carrier names and bands abroad where Android exposes them. Without registered reference bands, the percentage is N/A. Available information varies by device.</string>
     <string name="help_sec_graph_title">5. Statistics &amp; Graphs</string>
-    <string name="help_sec_graph_desc">Tap the percentage card on the home screen to view your connection frequency and ratio by period. Turn on the background service to accumulate data automatically.</string>
-
+    <string name="help_sec_graph_desc">Tap the percentage to view SIM-specific observed bands and statistics. This is the share of reference bands seen so far, not signal quality or all bands supported by the phone.</string>
     <string name="help_sec3_title">6. Main Bands (4G)</string>
     <string name="help_sec3_desc">High speed, main coverage bands.</string>
-
     <string name="help_sec4_title">7. High Speed (5G)</string>
     <string name="help_sec4_desc">Next-gen ultra high-speed bands.</string>
-
     <string name="help_sec5_title">8. Platinum Bands</string>
     <string name="help_sec5_desc">Essential for indoor/rural connectivity.</string>
-
     <string name="help_sec6_title">9. Repurposed 5G</string>
     <string name="help_sec6_desc">Existing 4G bands repurposed to expand 5G coverage quickly. Speeds are generally similar to standard 4G LTE.</string>
     <string name="td_5g_diverted">Repurposed (Coverage)</string>
-
     <string name="th_band">Band</string>
     <string name="th_freq">Freq</string>
     <string name="th_detail">Detail</string>
-
     <string name="td_main_desc">Main / High Speed</string>
     <string name="td_sub_desc">Sub / Capacity</string>
     <string name="td_high_desc">Ultra High Speed</string>
     <string name="td_5g_main">5G Main</string>
     <string name="td_5g_docomo">Docomo Only</string>
     <string name="td_mmwave">mmWave (Fastest)</string>
-
     <string name="judgement_unknown">Unknown</string>
     <string name="judgement_excellent">Excellent</string>
     <string name="judgement_good">Good</string>
     <string name="judgement_fair">Fair</string>
     <string name="judgement_poor_slight">Slightly Weak</string>
     <string name="judgement_poor">Weak</string>
-
     <string name="notif_channel_name">Band Monitor Service</string>
     <string name="notif_title">Band Analyzer is active</string>
     <string name="notif_scanning">Scanning...</string>
     <string name="notif_connected">Connected: %1$s</string>
-    <string name="label_observed">Device Supported (Observed)</string>
+    <string name="label_observed">Observed Bands (Not Device Capability)</string>
     <string name="label_reference">Carrier Support</string>
     <string name="label_missing">Missing Bands</string>
-
     <string name="status_on">Monitoring: ON</string>
     <string name="status_off">Monitoring: OFF</string>
     <string name="item_export_log">Export Log (CSV)</string>
     <string name="msg_log_exported">Log saved to files.</string>
     <string name="report_title">Device Capability Report</string>
     <string name="label_device_name">Device Name</string>
-    <string name="label_est_lte">Estimated LTE Support (4G)</string>
-    <string name="label_est_nr">Estimated NR Support (5G)</string>
+    <string name="label_est_lte">Observed LTE Bands (4G)</string>
+    <string name="label_est_nr">Observed NR Bands (5G)</string>
     <string name="label_coverage_by">Compatibility Rate (%1$s)</string>
     <string name="action_share_report">Share Report</string>
     <string name="report_footer">\nGenerated by CarrierBand Analyzer #RatoLab</string>
     <string name="label_copy_to_clipboard">Copy to clipboard</string>
     <string name="msg_copied">Copied to clipboard</string>
-
     <string name="item_language_title">Language</string>
     <string name="item_language_desc">Change app display language.</string>
     <string name="stat_title">Statistics &amp; Graphs</string>
@@ -109,16 +89,21 @@
     <string name="warn_service_off_title">Background Service is OFF</string>
     <string name="warn_service_off_desc">Turn on the service in settings to record logs automatically.</string>
     <string name="stat_tap_to_view">Tap to view graphs &amp; stats ＞</string>
-
     <string name="item_usage">Overview &amp; Usage</string>
     <string name="item_faq">Frequently Asked Questions (FAQ)</string>
     <string name="faq_title">Frequently Asked Questions</string>
-    <string name="faq_q1">Q. Does background monitoring drain the battery?</string>
-    <string name="faq_a1">A. It consumes almost no battery. Unlike GPS, it uses a mechanism that passively records data only when the OS detects a change in the network status.</string>
-    <string name="faq_q2">Q. How often is the network signal checked?</string>
-    <string name="faq_a2">A. While the app is open, it checks for updates approximately every 1.5 seconds. In the background, it only records when the system notifies it of a network change.</string>
-    <string name="faq_q3">Q. How does it work overseas or with unsupported carriers?</string>
-    <string name="faq_a3">A. Even with unsupported SIMs, it displays and logs the raw carrier name (e.g., T-MOBILE) and band info. However, coverage percentages are not calculated.</string>
+    <string name="faq_q1">Q. Does background monitoring affect battery life?</string>
+    <string name="faq_a1">A. Monitoring periodically reads mobile network information, approximately every 3 seconds in the background. Battery consumption depends on the device and OS.</string>
+    <string name="faq_q2">Q. How frequently are bands checked?</string>
+    <string name="faq_a2">A. Approximately every 1.5 seconds on the main screen and every 3 seconds while background monitoring runs. Android may supply cached or incomplete cell information.</string>
+    <string name="faq_q3">Q. Does it work with overseas carriers?</string>
+    <string name="faq_a3">A. It can show the carrier name and bands provided by Android. Without registered reference bands, the compatibility percentage is N/A. Availability varies by device.</string>
     <string name="faq_q4">Q. Why are some connected bands not showing up?</string>
     <string name="faq_a4">A. On certain smartphones, OS or manufacturer restrictions prevent the currently connected band information from being shared with apps.</string>
+    <string name="faq_q5">Q. Can I use physical SIM and eSIM together?</string>
+    <string name="faq_a5">A. Active SIMs are shown in separate tabs, including supported configurations with three or more active subscriptions. If Android cannot identify a band for a particular SIM, the app does not assign it to another SIM.</string>
+    <string name="faq_q6" formatted="false">Q. What is the difference between N/A and 0%?</string>
+    <string name="faq_a6" formatted="false">A. N/A means there is no carrier reference or insufficient observations. 0% means observations exist but none match the reference bands.</string>
+    <string name="faq_q7" formatted="false">Q. Does 23% mean my phone has poor signal or supports only 23% of bands?</string>
+    <string name="faq_a7">A. No. This is the share of registered carrier reference bands observed so far, not radio signal strength, coverage quality, or a full list of phone-supported bands.</string>
 </resources>

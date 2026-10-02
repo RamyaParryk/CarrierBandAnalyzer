@@ -1,85 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">频段分析仪</string>
-
     <string name="loading">加载中...</string>
     <string name="band_now">当前连接 (Now)</string>
     <string name="band_history">历史记录 (Observed)</string>
     <string name="band_missing">未检测到 (Missing)</string>
     <string name="band_none">无</string>
-
     <string name="settings_title">设置</string>
-
     <string name="sec_monitoring">后台监控</string>
     <string name="item_service">常驻监控服务</string>
     <string name="service_running">运行中 (显示通知)</string>
     <string name="service_stopped">已停止</string>
-
     <string name="sec_data">数据管理</string>
     <string name="item_reset_title">重置历史记录</string>
     <string name="item_reset_desc">清除所有已记录的频段数据。</string>
     <string name="msg_history_cleared">历史记录已清除。</string>
-
     <string name="sec_system">系统设置</string>
     <string name="item_perm_title">打开权限设置</string>
     <string name="item_perm_desc">检查/更改位置和通知权限。</string>
-
     <string name="sec_support">支持</string>
     <string name="item_help">帮助与使用说明</string>
-
     <string name="help_title">帮助与使用说明</string>
     <string name="help_close">关闭</string>
-
     <string name="help_sec1_title">1. 应用概述</string>
     <string name="help_sec1_desc">用于可视化日本各大运营商频段的工具，帮助您了解超越信号格数的真实网络质量。</string>
-
     <string name="help_sec2_title">2. 使用方法与颜色含义</string>
     <string name="help_sec2_desc">• 启动即扫描。后台服务可在移动时记录。\n🟦 深色: 当前正在连接 (Active)\n⬜ 浅色: 历史记录中存在 (History)\n⬛ 灰色: 未检测到 (Missing)</string>
-
     <string name="help_sec_share_title">3. 分享与导出</string>
     <string name="help_sec_share_desc">您可以将分析报告作为文本复制，或将详细历史记录导出为CSV文件。</string>
-
     <string name="help_sec_global_title">4. 海外使用</string>
     <string name="help_sec_global_desc">实时频段监控功能在全球范围内均可使用。但网络覆盖率等分析指标主要针对日本四大运营商进行了优化。</string>
-
     <string name="help_sec_graph_title">5. 统计与图表</string>
     <string name="help_sec_graph_desc">点击主屏幕上的百分比卡片，即可查看各时间段的连接次数与比例。开启后台监控以自动积累数据。</string>
-
     <string name="help_sec3_title">6. 主力/高速频段 (4G)</string>
     <string name="help_sec3_desc">各大运营商的核心高速频段。</string>
-
     <string name="help_sec4_title">7. 高速频段 (5G)</string>
     <string name="help_sec4_desc">新一代超高速频段。</string>
-
     <string name="help_sec5_title">8. 黄金频段 (低频段)</string>
     <string name="help_sec5_desc">穿透力强，是室内和地下信号的保障。</string>
-
     <string name="help_sec6_title">9. 重耕 5G (DSS)</string>
     <string name="help_sec6_desc">将4G频段重耕用于5G。旨在快速扩大5G覆盖范围，网速与4G相近。</string>
     <string name="td_5g_diverted">4G重耕 (扩大覆盖)</string>
-
     <string name="th_band">频段</string>
     <string name="th_freq">频率</string>
     <string name="th_detail">详情/运营商</string>
-
     <string name="td_main_desc">主力 / 高速</string>
     <string name="td_sub_desc">辅助 / 扩容</string>
     <string name="td_high_desc">超高速 LTE</string>
     <string name="td_5g_main">5G 主力</string>
     <string name="td_5g_docomo">Docomo 专用</string>
     <string name="td_mmwave">毫米波 (极速)</string>
-
     <string name="judgement_unknown">未知</string>
     <string name="judgement_excellent">极佳</string>
     <string name="judgement_good">良好</string>
     <string name="judgement_fair">一般</string>
     <string name="judgement_poor_slight">略差</string>
     <string name="judgement_poor">较差</string>
-
     <string name="notif_channel_name">后台监控服务</string>
     <string name="notif_title">频段分析仪运行中</string>
     <string name="notif_scanning">扫描中...</string>
     <string name="notif_connected">已连接: %1$s</string>
-
     <string name="label_observed">本设备支持 (已确认)</string>
     <string name="label_reference">运营商支持</string>
     <string name="label_missing">缺失频段</string>
@@ -96,7 +76,6 @@
     <string name="report_footer">\n由 CarrierBand Analyzer #RatoLab 生成</string>
     <string name="label_copy_to_clipboard">复制到剪贴板</string>
     <string name="msg_copied">已复制</string>
-
     <string name="item_language_title">语言</string>
     <string name="item_language_desc">更改应用显示语言。</string>
     <string name="stat_title">统计与图表</string>
@@ -110,16 +89,21 @@
     <string name="warn_service_off_title">后台监控已关闭</string>
     <string name="warn_service_off_desc">请在设置中开启服务以自动记录日志。</string>
     <string name="stat_tap_to_view">点击查看图表与统计 ＞</string>
-
     <string name="item_usage">概述与使用方法</string>
     <string name="item_faq">常见问题 (FAQ)</string>
     <string name="faq_title">常见问题</string>
-    <string name="faq_q1">Q. 后台监控会消耗电量吗？</string>
-    <string name="faq_a1">A. 几乎不耗电。与GPS不同，它采用被动记录机制，仅在操作系统检测到网络状态变化时才记录数据。</string>
-    <string name="faq_q2">Q. 检查网络信号的频率是多少？</string>
-    <string name="faq_a2">A. 在打开应用界面时，大约每1.5秒检查一次最新信息。在后台监控期间，仅在系统发出网络变化通知时进行记录。</string>
-    <string name="faq_q3">Q. 在海外或使用不支持的运营商时如何显示？</string>
-    <string name="faq_a3">A. 即使使用不支持的SIM卡，也会直接显示并记录获取到的原始运营商名称（例如：T-MOBILE等）和频段信息。但是，不会计算覆盖率（百分比）。</string>
+    <string name="faq_q1">问：后台监控会耗电吗？</string>
+    <string name="faq_a1">答：后台约每3秒读取一次移动网络信息。耗电量因设备和系统而异。</string>
+    <string name="faq_q2">问：多久检测一次频段？</string>
+    <string name="faq_a2">答：主界面约每1.5秒、后台约每3秒检测一次。Android可能只提供缓存或不完整信息。</string>
+    <string name="faq_q3">问：国外运营商也支持吗？</string>
+    <string name="faq_a3">答：可以显示Android提供的运营商名称和频段。如无参照频段，则显示N/A；部分设备限制信息获取。</string>
     <string name="faq_q4">Q. 为什么有些已连接的频段没有显示？</string>
     <string name="faq_a4">A. 在部分智能手机上，由于操作系统或制造商的限制，可能无法向应用提供当前连接的频段信息。</string>
+    <string name="faq_q5">问：支持多个SIM和eSIM吗？</string>
+    <string name="faq_a5">答：每个有效SIM使用独立标签页，也可适应三个及以上有效SIM。无法确认归属的频段不会误记到其他SIM。</string>
+    <string name="faq_q6" formatted="false">问：N/A和0%有什么区别？</string>
+    <string name="faq_a6" formatted="false">答：N/A表示缺少参照数据或观测不足；0%表示已有观测，但均未匹配参照频段。</string>
+    <string name="faq_q7" formatted="false">问：23%表示信号差吗？</string>
+    <string name="faq_a7">答：不是。这只是目前观测到的运营商参照频段比例，不代表信号强度、网络质量或手机支持的全部频段。</string>
 </resources>

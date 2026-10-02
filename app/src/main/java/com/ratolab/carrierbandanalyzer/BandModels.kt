@@ -6,6 +6,6 @@ data class CoverageResult(
     val carrierBands: Set<String>,
     val coveredCount: Int,
     val totalCount: Int,
-    val coveragePercent: Int,
+    val coveragePercent: Int?,
     val judgement: String
 )

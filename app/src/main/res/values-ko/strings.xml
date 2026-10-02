@@ -1,85 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">밴드 분석기</string>
-
     <string name="loading">로딩 중...</string>
     <string name="band_now">현재 연결됨 (Now)</string>
     <string name="band_history">기록됨 (Observed)</string>
     <string name="band_missing">미확인 (Missing)</string>
     <string name="band_none">없음</string>
-
     <string name="settings_title">설정</string>
-
     <string name="sec_monitoring">백그라운드 모니터링</string>
     <string name="item_service">상주 모니터링 서비스</string>
     <string name="service_running">실행 중 (알림 표시 중)</string>
     <string name="service_stopped">중지됨</string>
-
     <string name="sec_data">데이터 관리</string>
     <string name="item_reset_title">관측 기록 초기화</string>
     <string name="item_reset_desc">지금까지 기록된 모든 밴드 정보를 삭제합니다.</string>
     <string name="msg_history_cleared">기록이 삭제되었습니다.</string>
-
     <string name="sec_system">시스템 설정</string>
     <string name="item_perm_title">권한 설정 열기</string>
     <string name="item_perm_desc">위치 및 알림 권한을 확인하고 변경합니다.</string>
-
     <string name="sec_support">지원</string>
     <string name="item_help">도움말 및 사용법</string>
-
     <string name="help_title">도움말 및 사용법</string>
     <string name="help_close">닫기</string>
-
     <string name="help_sec1_title">1. 앱 개요</string>
     <string name="help_sec1_desc">일본 통신사의 주파수를 시각화하는 도구입니다. 안테나 개수만으로는 알 수 없는 통신 품질을 파악할 수 있습니다.</string>
-
     <string name="help_sec2_title">2. 사용법 및 색상 의미</string>
     <string name="help_sec2_desc">• 실행 시 스캔. 서비스 활성화 시 이동 중에도 기록.\n🟦 진한 색: 현재 연결 중 (Active)\n⬜ 연한 색: 기록 있음 (History)\n⬛ 회색: 미감지 (Missing)</string>
-
     <string name="help_sec_share_title">3. 공유 및 내보내기</string>
     <string name="help_sec_share_desc">분석 결과를 텍스트로 복사하거나 기록을 CSV 파일로 내보낼 수 있습니다.</string>
-
     <string name="help_sec_global_title">4. 글로벌 사용</string>
     <string name="help_sec_global_desc">실시간 밴드 모니터링 기능은 전 세계에서 작동합니다. 단, 커버리지 분석 기능은 일본 4대 통신사에 최적화되어 있습니다.</string>
-
     <string name="help_sec_graph_title">5. 통계 및 그래프</string>
     <string name="help_sec_graph_desc">홈 화면의 퍼센트 카드를 탭하면 기간별 연결 횟수와 비율을 확인할 수 있습니다. 백그라운드 서비스를 켜면 데이터가 누적됩니다.</string>
-
     <string name="help_sec3_title">6. 주력/고속 밴드 (4G)</string>
     <string name="help_sec3_desc">속도의 핵심이 되는 메인 밴드입니다.</string>
-
     <string name="help_sec4_title">7. 고속 통신 밴드 (5G)</string>
     <string name="help_sec4_desc">차세대 초고속 주파수 대역입니다.</string>
-
     <string name="help_sec5_title">8. 플래티넘 밴드 (저대역)</string>
     <string name="help_sec5_desc">건물 내부나 지하에서 강한 전파입니다.</string>
-
     <string name="help_sec6_title">9. 전환된 5G (DSS)</string>
     <string name="help_sec6_desc">4G 주파수를 5G용으로 전환한 밴드입니다. 5G 커버리지를 빠르게 넓히기 위해 사용되며, 속도는 4G와 비슷합니다.</string>
     <string name="td_5g_diverted">4G 전환 (커버리지 확장)</string>
-
     <string name="th_band">밴드</string>
     <string name="th_freq">주파수</string>
     <string name="th_detail">특징/통신사</string>
-
     <string name="td_main_desc">주력 / 고속</string>
     <string name="td_sub_desc">보조 / 용량 대책</string>
     <string name="td_high_desc">초고속 LTE</string>
     <string name="td_5g_main">5G 메인</string>
     <string name="td_5g_docomo">Docomo 전용</string>
     <string name="td_mmwave">밀리미터파 (초고속)</string>
-
     <string name="judgement_unknown">알 수 없음</string>
     <string name="judgement_excellent">매우 좋음</string>
     <string name="judgement_good">좋음</string>
     <string name="judgement_fair">보통</string>
     <string name="judgement_poor_slight">약간 약함</string>
     <string name="judgement_poor">약함</string>
-
     <string name="notif_channel_name">백그라운드 모니터링 서비스</string>
     <string name="notif_title">밴드 분석기 실행 중</string>
     <string name="notif_scanning">스캔 중...</string>
     <string name="notif_connected">연결됨: %1$s</string>
-
     <string name="label_observed">이 기기 지원 (확인됨)</string>
     <string name="label_reference">통신사 지원</string>
     <string name="label_missing">부족한 밴드</string>
@@ -96,7 +76,6 @@
     <string name="report_footer">\nCarrierBand Analyzer #RatoLab에서 생성됨</string>
     <string name="label_copy_to_clipboard">클립보드에 복사</string>
     <string name="msg_copied">복사되었습니다</string>
-
     <string name="item_language_title">언어</string>
     <string name="item_language_desc">앱 표시 언어를 변경합니다.</string>
     <string name="stat_title">통계 및 그래프</string>
@@ -110,16 +89,21 @@
     <string name="warn_service_off_title">백그라운드 서비스 꺼짐</string>
     <string name="warn_service_off_desc">자동으로 로그를 기록하려면 설정에서 켜주세요.</string>
     <string name="stat_tap_to_view">탭하여 그래프 및 통계 보기 ＞</string>
-
     <string name="item_usage">개요 및 사용법</string>
     <string name="item_faq">자주 묻는 질문 (FAQ)</string>
     <string name="faq_title">자주 묻는 질문</string>
-    <string name="faq_q1">Q. 상시 모니터링은 배터리를 많이 소모하나요?</string>
-    <string name="faq_a1">A. 배터리를 거의 소모하지 않습니다. GPS와 달리 OS가 통신 상태 변화를 감지할 때만 수동적으로 데이터를 기록하는 방식을 사용하기 때문입니다.</string>
-    <string name="faq_q2">Q. 전파는 어느 정도의 주기로 확인하나요?</string>
-    <string name="faq_a2">A. 앱 화면이 열려 있는 동안에는 약 1.5초 간격으로 최신 정보를 확인합니다. 백그라운드 모니터링 중에는 시스템에서 전파 변화를 알릴 때만 기록합니다.</string>
-    <string name="faq_q3">Q. 해외나 미지원 통신사에서는 어떻게 표시되나요?</string>
-    <string name="faq_a3">A. 미지원 SIM에서도 가져온 원래의 통신사 이름(예: T-MOBILE 등)과 대역 정보를 그대로 표시하고 기록합니다. 단, 커버리지 비율(%)은 계산되지 않습니다.</string>
+    <string name="faq_q1">Q. 백그라운드 감시가 배터리를 소모하나요?</string>
+    <string name="faq_a1">A. 약 3초마다 통신망 정보를 확인합니다. 소모량은 기기와 OS에 따라 달라집니다.</string>
+    <string name="faq_q2">Q. 얼마나 자주 밴드를 확인하나요?</string>
+    <string name="faq_a2">A. 메인 화면에서는 약 1.5초마다, 백그라운드에서는 약 3초마다 확인합니다. Android 정보가 오래되거나 불완전할 수 있습니다.</string>
+    <string name="faq_q3">Q. 해외 통신사에서도 동작하나요?</string>
+    <string name="faq_a3">A. Android가 제공하는 통신사 이름과 밴드를 보여줍니다. 참조 정보가 없으면 비율은 N/A로 표시합니다.</string>
     <string name="faq_q4">Q. 연결된 대역(밴드)이 표시되지 않는 이유는 무엇인가요?</string>
     <string name="faq_a4">A. 일부 스마트폰 기기에서는 OS나 제조사의 제한으로 인해 현재 연결된 대역 정보가 앱에 제공되지 않도록 설정되어 있을 수 있습니다.</string>
+    <string name="faq_q5">Q. 여러 SIM과 eSIM을 사용할 수 있나요?</string>
+    <string name="faq_a5">A. 활성 SIM마다 탭을 분리합니다. 세 개 이상 활성 회선에도 대응하도록 구성되어 있습니다. 소속이 불확실한 밴드는 다른 SIM에 넣지 않습니다.</string>
+    <string name="faq_q6" formatted="false">Q. N/A와 0%의 차이는?</string>
+    <string name="faq_a6" formatted="false">A. N/A는 참조 데이터가 없거나 관측값이 부족한 경우입니다. 0%는 관측값이 있으나 참조 밴드와 일치하지 않는 경우입니다.</string>
+    <string name="faq_q7" formatted="false">Q. 23%면 전파가 약하다는 뜻인가요?</string>
+    <string name="faq_a7">A. 아닙니다. 지금까지 관측한 참조 밴드의 비율이며 신호 강도, 통신 품질, 단말의 전체 지원 밴드 수가 아닙니다.</string>
 </resources>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Band Analyzer</string>
     <string name="loading">กำลังโหลด...</string>
@@ -6,27 +6,22 @@
     <string name="band_history">ประวัติ (ตรวจพบแล้ว)</string>
     <string name="band_missing">ขาดหายไป</string>
     <string name="band_none">ไม่มี</string>
-
     <string name="settings_title">การตั้งค่า</string>
     <string name="sec_monitoring">การตรวจสอบพื้นหลัง</string>
     <string name="item_service">บริการตรวจสอบ</string>
     <string name="service_running">กำลังทำงาน (เปิดการแจ้งเตือน)</string>
     <string name="service_stopped">หยุดแล้ว</string>
-
     <string name="sec_data">การจัดการข้อมูล</string>
     <string name="item_reset_title">ล้างประวัติ</string>
     <string name="item_reset_desc">ล้างข้อมูลแบนด์ที่บันทึกไว้ทั้งหมด</string>
     <string name="msg_history_cleared">ล้างประวัติแล้ว</string>
-
     <string name="sec_system">การตั้งค่าระบบ</string>
     <string name="item_perm_title">เปิดการอนุญาต</string>
     <string name="item_perm_desc">ตรวจสอบ/เปลี่ยนการอนุญาตตำแหน่งและการแจ้งเตือน</string>
-
     <string name="sec_support">สนับสนุน</string>
     <string name="item_help">วิธีใช้</string>
     <string name="help_title">วิธีใช้</string>
     <string name="help_close">ปิด</string>
-
     <string name="help_sec1_title">1. ภาพรวม</string>
     <string name="help_sec1_desc">แสดงภาพแบนด์ LTE/5G สำหรับผู้ให้บริการในญี่ปุ่น (Docomo, au, SB, Rakuten) ช่วยวิเคราะห์คุณภาพพื้นที่จริงได้ดีกว่าแค่ดูขีดสัญญาณ</string>
     <string name="help_sec2_title">2. การใช้งานและสี</string>
@@ -37,7 +32,6 @@
     <string name="help_sec_global_desc">การตรวจสอบแบนด์ทำงานได้แบบเรียลไทม์ทั่วโลก อย่างไรก็ตาม "คะแนนการวิเคราะห์" จะปรับให้เหมาะสมกับผู้ให้บริการในญี่ปุ่นเท่านั้น</string>
     <string name="help_sec_graph_title">5. สถิติและกราฟ</string>
     <string name="help_sec_graph_desc">แตะการ์ดเปอร์เซ็นต์บนหน้าจอหลักเพื่อดูความถี่และอัตราส่วนการเชื่อมต่อตามช่วงเวลา</string>
-
     <string name="help_sec3_title">6. แบนด์หลัก (4G)</string>
     <string name="help_sec3_desc">ความเร็วสูง แบนด์ครอบคลุมหลัก</string>
     <string name="help_sec4_title">7. ความเร็วสูงพิเศษ (5G)</string>
@@ -47,25 +41,21 @@
     <string name="help_sec6_title">9. 5G ดัดแปลง</string>
     <string name="help_sec6_desc">นำแบนด์ 4G ที่มีอยู่มาใช้เพื่อขยาย 5G ความเร็วจะใกล้เคียงกับ 4G LTE มาตรฐาน</string>
     <string name="td_5g_diverted">ดัดแปลง (ครอบคลุม)</string>
-
     <string name="th_band">แบนด์</string>
     <string name="th_freq">ความถี่</string>
     <string name="th_detail">รายละเอียด</string>
-
     <string name="td_main_desc">หลัก / ความเร็วสูง</string>
     <string name="td_sub_desc">รอง / ความจุ</string>
     <string name="td_high_desc">ความเร็วสูงพิเศษ</string>
     <string name="td_5g_main">5G หลัก</string>
     <string name="td_5g_docomo">Docomo เท่านั้น</string>
     <string name="td_mmwave">mmWave (เร็วที่สุด)</string>
-
     <string name="judgement_unknown">ไม่ทราบ</string>
     <string name="judgement_excellent">ยอดเยี่ยม</string>
     <string name="judgement_good">ดี</string>
     <string name="judgement_fair">ปานกลาง</string>
     <string name="judgement_poor_slight">อ่อนเล็กน้อย</string>
     <string name="judgement_poor">อ่อน</string>
-
     <string name="notif_channel_name">บริการตรวจสอบแบนด์</string>
     <string name="notif_title">Band Analyzer ทำงานอยู่</string>
     <string name="notif_scanning">กำลังสแกน...</string>
@@ -73,7 +63,6 @@
     <string name="label_observed">อุปกรณ์รองรับ (พบแล้ว)</string>
     <string name="label_reference">เครือข่ายที่รองรับ</string>
     <string name="label_missing">แบนด์ที่ขาดหาย</string>
-
     <string name="status_on">การตรวจสอบ: เปิด</string>
     <string name="status_off">การตรวจสอบ: ปิด</string>
     <string name="item_export_log">ส่งออกบันทึก (CSV)</string>
@@ -87,7 +76,6 @@
     <string name="report_footer">\nสร้างโดย CarrierBand Analyzer #RatoLab</string>
     <string name="label_copy_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
     <string name="msg_copied">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
-
     <string name="item_language_title">ภาษา</string>
     <string name="item_language_desc">เปลี่ยนภาษาของแอปพลิเคชัน</string>
     <string name="stat_title">สถิติและกราฟ</string>
@@ -101,16 +89,21 @@
     <string name="warn_service_off_title">บริการพื้นหลังปิดอยู่</string>
     <string name="warn_service_off_desc">เปิดบริการในการตั้งค่าเพื่อบันทึกประวัติอัตโนมัติ</string>
     <string name="stat_tap_to_view">แตะเพื่อดูกราฟและสถิติ ＞</string>
-
     <string name="item_usage">ภาพรวมและการใช้งาน</string>
     <string name="item_faq">คำถามที่พบบ่อย (FAQ)</string>
     <string name="faq_title">คำถามที่พบบ่อย</string>
-    <string name="faq_q1">Q. การตรวจสอบพื้นหลังทำให้แบตเตอรี่หมดหรือไม่?</string>
-    <string name="faq_a1">A. แทบไม่กินแบตเตอรี่เลย ต่างจาก GPS ตรงที่ใช้กลไกบันทึกข้อมูลเชิงรับ เฉพาะเมื่อ OS ตรวจพบการเปลี่ยนแปลงของสถานะเครือข่ายเท่านั้น</string>
-    <string name="faq_q2">Q. ตรวจสอบสัญญาณเครือข่ายบ่อยแค่ไหน?</string>
-    <string name="faq_a2">A. ขณะเปิดแอป จะตรวจสอบอัปเดตทุกๆ 1.5 วินาที ในเบื้องหลัง จะบันทึกเฉพาะเมื่อระบบแจ้งการเปลี่ยนแปลงเครือข่าย</string>
-    <string name="faq_q3">Q. ใช้งานในต่างประเทศหรือกับเครือข่ายที่ไม่รองรับได้อย่างไร?</string>
-    <string name="faq_a3">A. แม้ใช้ซิมที่ไม่รองรับ ก็จะแสดงชื่อเครือข่าย (เช่น T-MOBILE) และข้อมูลแบนด์ แต่จะไม่มีการคำนวณเปอร์เซ็นต์ความครอบคลุม</string>
+    <string name="faq_q1">ถาม: การเฝ้าดูเบื้องหลังใช้แบตเตอรี่ไหม?</string>
+    <string name="faq_a1">ตอบ: แอปอ่านข้อมูลเครือข่ายทุกประมาณ 3 วินาที การใช้พลังงานขึ้นกับเครื่องและระบบ</string>
+    <string name="faq_q2">ถาม: ตรวจสอบแบนด์บ่อยแค่ไหน?</string>
+    <string name="faq_a2">ตอบ: หน้าหลักประมาณทุก 1.5 วินาที และเบื้องหลังทุก 3 วินาที Android อาจส่งข้อมูลเก่าหรือไม่ครบ</string>
+    <string name="faq_q3">ถาม: ใช้กับค่ายต่างประเทศได้หรือไม่?</string>
+    <string name="faq_a3">ตอบ: แสดงชื่อและแบนด์ที่ Android ให้มา ถ้าไม่มีข้อมูลอ้างอิงจะแสดง N/A</string>
     <string name="faq_q4">Q. ทำไมแบนด์ที่เชื่อมต่อบางอันถึงไม่แสดง?</string>
     <string name="faq_a4">A. ในสมาร์ทโฟนบางรุ่น ข้อจำกัดของ OS หรือผู้ผลิต จะบล็อกไม่ให้แชร์ข้อมูลแบนด์ปัจจุบันกับแอปพลิเคชัน</string>
+    <string name="faq_q5">ถาม: รองรับหลาย SIM และ eSIM หรือไม่?</string>
+    <string name="faq_a5">ตอบ: แต่ละ SIM ที่ใช้งานมีแท็บแยก รวมถึงสาม SIM ขึ้นไป แบนด์ที่ระบุ SIM ไม่ได้จะไม่ถูกนับให้ SIM อื่น</string>
+    <string name="faq_q6" formatted="false">ถาม: N/A ต่างจาก 0% อย่างไร?</string>
+    <string name="faq_a6" formatted="false">ตอบ: N/A คือไม่มีข้อมูลอ้างอิงหรือข้อมูลที่ตรวจพบไม่พอ ส่วน 0% คือข้อมูลที่พบไม่ตรงกับแบนด์อ้างอิง</string>
+    <string name="faq_q7" formatted="false">ถาม: 23% หมายถึงสัญญาณอ่อนใช่ไหม?</string>
+    <string name="faq_a7">ตอบ: ไม่ใช่ เป็นสัดส่วนแบนด์อ้างอิงที่เคยพบ ไม่ใช่ความแรงสัญญาณหรือแบนด์ทั้งหมดที่เครื่องรองรับ</string>
 </resources>

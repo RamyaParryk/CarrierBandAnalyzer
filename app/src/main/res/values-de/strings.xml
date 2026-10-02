@@ -1,85 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Band-Analysator</string>
-
     <string name="loading">Wird geladen...</string>
     <string name="band_now">Verbunden (Now)</string>
     <string name="band_history">Verlauf (Observed)</string>
     <string name="band_missing">Fehlt (Missing)</string>
     <string name="band_none">Keine</string>
-
     <string name="settings_title">Einstellungen</string>
-
     <string name="sec_monitoring">Hintergrundüberwachung</string>
     <string name="item_service">Überwachungsdienst</string>
     <string name="service_running">Läuft (Benachrichtigung an)</string>
     <string name="service_stopped">Gestoppt</string>
-
     <string name="sec_data">Datenverwaltung</string>
     <string name="item_reset_title">Verlauf zurücksetzen</string>
     <string name="item_reset_desc">Löscht alle aufgezeichneten Banddaten.</string>
     <string name="msg_history_cleared">Verlauf gelöscht.</string>
-
     <string name="sec_system">Systemeinstellungen</string>
     <string name="item_perm_title">Berechtigungen öffnen</string>
     <string name="item_perm_desc">Standort- und Benachrichtigungsrechte prüfen/ändern.</string>
-
     <string name="sec_support">Support</string>
     <string name="item_help">Hilfe &amp; Nutzung</string>
-
     <string name="help_title">Hilfe &amp; Nutzung</string>
     <string name="help_close">Schließen</string>
-
     <string name="help_sec1_title">1. Übersicht</string>
     <string name="help_sec1_desc">Tool zur Visualisierung der Frequenzen japanischer Anbieter. Zeigt die wahre Verbindungsqualität jenseits der Signalbalken.</string>
-
     <string name="help_sec2_title">2. Nutzung &amp; Farben</string>
     <string name="help_sec2_desc">• Scan beim Start. Hintergrundaufzeichnung unterwegs.\n🟦 Dunkel: Aktuell verbunden (Active)\n⬜ Hell: Im Verlauf (History)\n⬛ Grau: Nicht erkannt (Missing)</string>
-
     <string name="help_sec_share_title">3. Teilen &amp; Exportieren</string>
     <string name="help_sec_share_desc">Sie können den Bericht als Text kopieren oder den Verlauf als CSV exportieren. Verfügbar über die Symbole im Bericht oder in den Einstellungen.</string>
-
     <string name="help_sec_global_title">4. Globale Nutzung</string>
     <string name="help_sec_global_desc">Die Echtzeit-Überwachung funktioniert weltweit. Analyse-Funktionen zur Netzabdeckung sind jedoch auf die 4 japanischen Hauptanbieter optimiert.</string>
-
     <string name="help_sec_graph_title">5. Statistiken &amp; Diagramme</string>
     <string name="help_sec_graph_desc">Tippen Sie auf die Prozentkarte auf dem Startbildschirm, um die Verbindungshäufigkeit anzuzeigen. Aktivieren Sie den Hintergrunddienst, um Daten zu sammeln.</string>
-
     <string name="help_sec3_title">6. Hauptbänder (4G)</string>
     <string name="help_sec3_desc">Highspeed-Bänder für die primäre Netzabdeckung.</string>
-
     <string name="help_sec4_title">7. Highspeed (5G)</string>
     <string name="help_sec4_desc">Ultraschnelle Frequenzbänder der nächsten Generation.</string>
-
     <string name="help_sec5_title">8. Platin-Bänder (Low-Band)</string>
     <string name="help_sec5_desc">Wichtig für Verbindungen in Gebäuden und unter der Erde.</string>
-
     <string name="help_sec6_title">9. Umgewidmetes 5G (DSS)</string>
     <string name="help_sec6_desc">Für 5G umgewidmete 4G-Frequenzen. Dient der schnellen Erweiterung der 5G-Abdeckung bei ähnlichen Geschwindigkeiten wie 4G.</string>
     <string name="td_5g_diverted">4G Umgewidmet (Abdeckung)</string>
-
     <string name="th_band">Band</string>
     <string name="th_freq">Frequenz</string>
     <string name="th_detail">Details/Anbieter</string>
-
     <string name="td_main_desc">Hauptband / Schnell</string>
     <string name="td_sub_desc">Zusatz / Kapazität</string>
     <string name="td_high_desc">Ultra-Highspeed LTE</string>
     <string name="td_5g_main">5G Hauptband</string>
     <string name="td_5g_docomo">Nur Docomo</string>
     <string name="td_mmwave">Millimeterwellen (mmWave)</string>
-
     <string name="judgement_unknown">Unbekannt</string>
     <string name="judgement_excellent">Hervorragend</string>
     <string name="judgement_good">Gut</string>
     <string name="judgement_fair">Mittelmäßig</string>
     <string name="judgement_poor_slight">Etwas schwach</string>
     <string name="judgement_poor">Schwach</string>
-
     <string name="notif_channel_name">Überwachungsdienst</string>
     <string name="notif_title">Band-Analysator aktiv</string>
     <string name="notif_scanning">Scannen...</string>
     <string name="notif_connected">Verbunden: %1$s</string>
-
     <string name="label_observed">Gerät unterstützt</string>
     <string name="label_reference">Netz unterstützt</string>
     <string name="label_missing">Fehlende Bänder</string>
@@ -96,7 +76,6 @@
     <string name="report_footer">\nGeneriert von CarrierBand Analyzer #RatoLab</string>
     <string name="label_copy_to_clipboard">In die Zwischenablage kopieren</string>
     <string name="msg_copied">Kopiert</string>
-
     <string name="item_language_title">Sprache</string>
     <string name="item_language_desc">Anzeigesprache der App ändern.</string>
     <string name="stat_title">Statistiken &amp; Diagramme</string>
@@ -110,16 +89,21 @@
     <string name="warn_service_off_title">Hintergrunddienst ist AUS</string>
     <string name="warn_service_off_desc">Einschalten, um Protokolle automatisch aufzuzeichnen.</string>
     <string name="stat_tap_to_view">Tippen für Diagramme ＞</string>
-
     <string name="item_usage">Übersicht &amp; Nutzung</string>
     <string name="item_faq">Häufig gestellte Fragen (FAQ)</string>
     <string name="faq_title">Häufig gestellte Fragen</string>
-    <string name="faq_q1">F. Verbraucht die Hintergrundüberwachung den Akku?</string>
-    <string name="faq_a1">A. Es wird fast kein Akku verbraucht. Im Gegensatz zu GPS werden Daten nur dann passiv aufgezeichnet, wenn das Betriebssystem eine Änderung des Netzwerkstatus erkennt.</string>
-    <string name="faq_q2">F. Wie oft wird das Netzwerksignal überprüft?</string>
-    <string name="faq_a2">A. Solange die App geöffnet ist, wird ca. alle 1,5 Sekunden nach Updates gesucht. Im Hintergrund wird nur aufgezeichnet, wenn das System eine Netzwerkänderung meldet.</string>
-    <string name="faq_q3">F. Wie funktioniert es im Ausland oder bei nicht unterstützten Anbietern?</string>
-    <string name="faq_a3">A. Auch bei nicht unterstützten SIM-Karten werden der rohe Anbietername (z.B. T-MOBILE) und die Band-Infos angezeigt und protokolliert. Prozentwerte für die Abdeckung werden jedoch nicht berechnet.</string>
+    <string name="faq_q1">F. Verbraucht die Hintergrundüberwachung Akku?</string>
+    <string name="faq_a1">A. Die App liest etwa alle 3 Sekunden Mobilfunkdaten. Der Stromverbrauch hängt vom Gerät und Betriebssystem ab.</string>
+    <string name="faq_q2">F. Wie oft werden Frequenzbänder geprüft?</string>
+    <string name="faq_a2">A. Auf dem Hauptbildschirm etwa alle 1,5 Sekunden, im Hintergrund alle 3 Sekunden. Android kann veraltete oder unvollständige Daten liefern.</string>
+    <string name="faq_q3">F. Funktioniert die App bei ausländischen Anbietern?</string>
+    <string name="faq_a3">A. Verfügbare Namen und Bänder werden angezeigt. Ohne Referenzdaten steht bei der Quote N/A. Manche Geräte begrenzen den Zugriff.</string>
     <string name="faq_q4">F. Warum werden einige verbundene Bänder nicht angezeigt?</string>
     <string name="faq_a4">A. Auf bestimmten Smartphones verhindern Betriebssystem- oder Herstellereinschränkungen, dass die App auf die aktuellen Bandinformationen zugreifen kann.</string>
+    <string name="faq_q5">F. Sind mehrere SIMs und eSIMs möglich?</string>
+    <string name="faq_a5">A. Aktive SIMs haben eigene Registerkarten, auch bei mehr als zwei aktiven SIMs. Bänder ohne eindeutige SIM-Zuordnung werden nicht falsch zugeordnet.</string>
+    <string name="faq_q6" formatted="false">F. Was bedeuten N/A und 0 %?</string>
+    <string name="faq_a6" formatted="false">A. N/A bedeutet fehlende Referenz- oder Messdaten; 0 % bedeutet, dass gemessene Bänder nicht zu den Referenzbändern passen.</string>
+    <string name="faq_q7" formatted="false">F. Zeigt 23 % schlechte Signalqualität?</string>
+    <string name="faq_a7">A. Nein. Es ist der Anteil bisher beobachteter Referenzbänder, nicht die Signalstärke, Netzqualität oder die gesamte Geräteunterstützung.</string>
 </resources>

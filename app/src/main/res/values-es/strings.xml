@@ -1,85 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Analizador de Bandas</string>
-
     <string name="loading">Cargando...</string>
     <string name="band_now">Conectado (Now)</string>
     <string name="band_history">Historial (Observed)</string>
     <string name="band_missing">No detectado (Missing)</string>
     <string name="band_none">Ninguno</string>
-
     <string name="settings_title">Ajustes</string>
-
     <string name="sec_monitoring">Monitoreo en Segundo Plano</string>
     <string name="item_service">Servicio de Monitoreo</string>
     <string name="service_running">En ejecución (Notificación activa)</string>
     <string name="service_stopped">Detenido</string>
-
     <string name="sec_data">Gestión de Datos</string>
     <string name="item_reset_title">Restablecer Historial</string>
     <string name="item_reset_desc">Borrará todos los datos de bandas registrados.</string>
     <string name="msg_history_cleared">Historial borrado.</string>
-
     <string name="sec_system">Ajustes del Sistema</string>
     <string name="item_perm_title">Abrir Permisos</string>
     <string name="item_perm_desc">Comprobar/Cambiar permisos de ubicación y notificaciones.</string>
-
     <string name="sec_support">Soporte</string>
     <string name="item_help">Ayuda y Uso</string>
-
     <string name="help_title">Ayuda y Uso</string>
     <string name="help_close">Cerrar</string>
-
     <string name="help_sec1_title">1. Descripción General</string>
     <string name="help_sec1_desc">Herramienta para visualizar las frecuencias de los operadores japoneses. Permite conocer la calidad real de la conexión más allá de las barras de señal.</string>
-
     <string name="help_sec2_title">2. Uso y Colores</string>
     <string name="help_sec2_desc">• Escaneo al iniciar. Registra en movimiento con el servicio residente.\n🟦 Oscuro: Conectado actualmente (Active)\n⬜ Claro: Registrado en el historial (History)\n⬛ Gris: No detectado (Missing)</string>
-
     <string name="help_sec_share_title">3. Compartir y Exportar</string>
     <string name="help_sec_share_desc">Puede copiar el análisis como texto o exportar el historial en formato CSV desde los iconos de la pantalla de informe o ajustes.</string>
-
     <string name="help_sec_global_title">4. Uso Global</string>
     <string name="help_sec_global_desc">La monitorización en tiempo real funciona en todo el mundo. Sin embargo, las funciones de análisis de cobertura están optimizadas para los 4 operadores principales de Japón.</string>
-
     <string name="help_sec_graph_title">5. Estadísticas y Gráficos</string>
     <string name="help_sec_graph_desc">Toca la tarjeta de porcentaje en la pantalla de inicio para ver la frecuencia de conexión. Activa el servicio en segundo plano para acumular datos.</string>
-
     <string name="help_sec3_title">6. Bandas Principales (4G)</string>
     <string name="help_sec3_desc">Bandas de alta velocidad, fundamentales para la cobertura principal.</string>
-
     <string name="help_sec4_title">7. Alta Velocidad (5G)</string>
     <string name="help_sec4_desc">Bandas de frecuencia ultrarrápida de nueva generación.</string>
-
     <string name="help_sec5_title">8. Bandas Platino (Baja Frecuencia)</string>
     <string name="help_sec5_desc">Ondas de radio potentes para interiores y zonas subterráneas.</string>
-
     <string name="help_sec6_title">9. 5G Reutilizado (DSS)</string>
     <string name="help_sec6_desc">Frecuencias 4G reutilizadas para 5G. Se usan para expandir rápidamente la cobertura, con velocidades similares al 4G.</string>
     <string name="td_5g_diverted">4G Reutilizado (Cobertura)</string>
-
     <string name="th_band">Banda</string>
     <string name="th_freq">Frecuencia</string>
     <string name="th_detail">Detalles/Operador</string>
-
     <string name="td_main_desc">Principal / Rápida</string>
     <string name="td_sub_desc">Secundaria / Capacidad</string>
     <string name="td_high_desc">LTE Ultrarrápido</string>
     <string name="td_5g_main">5G Principal</string>
     <string name="td_5g_docomo">Solo Docomo</string>
     <string name="td_mmwave">Onda Milimétrica (mmWave)</string>
-
     <string name="judgement_unknown">Desconocido</string>
     <string name="judgement_excellent">Excelente</string>
     <string name="judgement_good">Bueno</string>
     <string name="judgement_fair">Regular</string>
     <string name="judgement_poor_slight">Ligeramente Débil</string>
     <string name="judgement_poor">Débil</string>
-
     <string name="notif_channel_name">Servicio de Monitoreo</string>
     <string name="notif_title">Analizador de Bandas Activo</string>
     <string name="notif_scanning">Escaneando...</string>
     <string name="notif_connected">Conectado: %1$s</string>
-
     <string name="label_observed">Soportado por el dispositivo</string>
     <string name="label_reference">Soporte del operador</string>
     <string name="label_missing">Bandas faltantes</string>
@@ -96,7 +76,6 @@
     <string name="report_footer">\nGenerado por CarrierBand Analyzer #RatoLab</string>
     <string name="label_copy_to_clipboard">Copiar al portapapeles</string>
     <string name="msg_copied">Copiado al portapapeles</string>
-
     <string name="item_language_title">Idioma</string>
     <string name="item_language_desc">Cambiar el idioma de la aplicación.</string>
     <string name="stat_title">Estadísticas y Gráficos</string>
@@ -110,16 +89,21 @@
     <string name="warn_service_off_title">Servicio en segundo plano APAGADO</string>
     <string name="warn_service_off_desc">Actívelo en la configuración para registrar automáticamente.</string>
     <string name="stat_tap_to_view">Toca para ver gráficos ＞</string>
-
     <string name="item_usage">Descripción y Uso</string>
     <string name="item_faq">Preguntas Frecuentes (FAQ)</string>
     <string name="faq_title">Preguntas Frecuentes</string>
-    <string name="faq_q1">P. ¿La monitorización en segundo plano consume mucha batería?</string>
-    <string name="faq_a1">R. Apenas consume batería. A diferencia del GPS, registra datos pasivamente solo cuando el sistema operativo detecta un cambio en el estado de la red.</string>
-    <string name="faq_q2">P. ¿Con qué frecuencia se comprueba la señal de red?</string>
-    <string name="faq_a2">R. Mientras la aplicación está abierta, se actualiza aproximadamente cada 1,5 segundos. En segundo plano, solo registra cuando el sistema notifica un cambio de red.</string>
-    <string name="faq_q3">P. ¿Cómo funciona en el extranjero o con operadores no compatibles?</string>
-    <string name="faq_a3">R. Incluso con SIMs no compatibles, muestra y registra el nombre original del operador (ej. T-MOBILE) y la información de la banda. Sin embargo, no se calcula el porcentaje de cobertura.</string>
+    <string name="faq_q1">P. ¿El monitoreo en segundo plano consume batería?</string>
+    <string name="faq_a1">R. Consulta la información móvil aproximadamente cada 3 segundos. El consumo depende del dispositivo y del sistema.</string>
+    <string name="faq_q2">P. ¿Con qué frecuencia se comprueban las bandas?</string>
+    <string name="faq_a2">R. Cada 1,5 segundos en la pantalla principal y cada 3 segundos en segundo plano. Android puede devolver datos antiguos o incompletos.</string>
+    <string name="faq_q3">P. ¿Funciona con operadores extranjeros?</string>
+    <string name="faq_a3">R. Muestra nombres y bandas disponibles. Si no hay datos de referencia, la proporción indica N/A. Algunos teléfonos limitan los datos.</string>
     <string name="faq_q4">P. ¿Por qué no aparecen algunas bandas a las que estoy conectado?</string>
     <string name="faq_a4">R. En algunos smartphones, las restricciones del sistema operativo o del fabricante impiden que la información de la banda conectada se comparta con las aplicaciones.</string>
+    <string name="faq_q5">P. ¿Admite varias SIM y eSIM?</string>
+    <string name="faq_a5">R. Cada SIM activa tiene su pestaña, incluso en dispositivos con más de dos SIM activas. Las bandas ambiguas no se atribuyen a otra SIM.</string>
+    <string name="faq_q6" formatted="false">P. ¿Qué significan N/A y 0 %?</string>
+    <string name="faq_a6" formatted="false">R. N/A indica referencias o mediciones insuficientes; 0 % significa que las bandas observadas no coinciden con las de referencia.</string>
+    <string name="faq_q7" formatted="false">P. ¿23 % significa mala señal?</string>
+    <string name="faq_a7">R. No. Es la proporción de bandas de referencia observadas, no la intensidad de señal, la calidad ni todas las bandas admitidas.</string>
 </resources>

@@ -27,7 +27,7 @@ class CapabilityReportActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val analyzer = BandAnalyzer(this)
+        val analyzer = BandAnalyzer(this, intent.getIntExtra("subscription_id", android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID))
 
         setContent {
             MaterialTheme {
@@ -128,13 +128,13 @@ fun CapabilityReportScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 LinearProgressIndicator(
-                    progress = { coverage.coveragePercent / 100f },
+                    progress = { (coverage.coveragePercent ?: 0) / 100f },
                     modifier = Modifier.fillMaxWidth().height(12.dp),
                     color = MaterialTheme.colorScheme.primary,
                     strokeCap = androidx.compose.ui.graphics.StrokeCap.Round
                 )
                 Text(
-                    text = "${coverage.coveragePercent}% - ${coverage.judgement}",
+                    text = "${coverage.coveragePercent?.let { "$it%" } ?: "N/A"} - ${coverage.judgement}",
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 4.dp)
@@ -167,7 +167,7 @@ private fun shareReportText(
         ${nrBands.ifEmpty { "None" }}
         
         ${context.getString(R.string.label_coverage_by, carrierName)}:
-        ${coverage.coveragePercent}% (${coverage.judgement})
+        ${coverage.coveragePercent?.let { "$it%" } ?: "N/A"} (${coverage.judgement})
         
         ${context.getString(R.string.report_footer)}
     """.trimIndent()

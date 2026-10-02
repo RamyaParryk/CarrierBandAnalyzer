@@ -24,8 +24,8 @@ android {
         applicationId = "com.ratolab.carrierbandanalyzer"
         minSdk = 26
         targetSdk = 36
-        versionCode = 12
-        versionName = "1.3"
+        versionCode = 16
+        versionName = "1.4.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -39,7 +39,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -77,6 +78,9 @@ dependencies {
 
     // AdMob SDK (最新版)
     implementation("com.google.android.gms:play-services-ads:24.9.0")
+
+    // AdMob経由で導入される古いWorkManagerを更新
+    implementation("androidx.work:work-runtime:2.12.0")
 
     // テスト系
     testImplementation(libs.junit)

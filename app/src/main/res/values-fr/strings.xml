@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Band Analyzer</string>
     <string name="loading">Chargement...</string>
@@ -6,75 +6,56 @@
     <string name="band_history">Historique (Observé)</string>
     <string name="band_missing">Manquant</string>
     <string name="band_none">Aucun</string>
-
     <string name="settings_title">Paramètres</string>
-
     <string name="sec_monitoring">Surveillance en arrière-plan</string>
     <string name="item_service">Service de surveillance</string>
     <string name="service_running">En cours (Notification activée)</string>
     <string name="service_stopped">Arrêté</string>
-
     <string name="sec_data">Gestion des données</string>
     <string name="item_reset_title">Réinitialiser l\'historique</string>
     <string name="item_reset_desc">Effacer toutes les données de bande enregistrées.</string>
     <string name="msg_history_cleared">Historique effacé.</string>
-
     <string name="sec_system">Paramètres du système</string>
     <string name="item_perm_title">Ouvrir les autorisations</string>
     <string name="item_perm_desc">Vérifier/Modifier les autorisations de localisation et de notification.</string>
-
     <string name="sec_support">Support</string>
     <string name="item_help">Aide et Utilisation</string>
-
     <string name="help_title">Aide et Utilisation</string>
     <string name="help_close">Fermer</string>
-
     <string name="help_sec1_title">1. Aperçu</string>
     <string name="help_sec1_desc">Visualise les bandes LTE/5G pour les opérateurs japonais (Docomo, au, SB, Rakuten) et les sous-marques. Aide à analyser la véritable qualité de la zone au-delà des simples barres de signal.</string>
-
     <string name="help_sec2_title">2. Utilisation et Couleurs</string>
     <string name="help_sec2_desc">• Lancez pour scanner. Activez le service pour l\'enregistrement en arrière-plan.\n🟦 Foncé : Actif (Connecté)\n⬜ Clair : Historique\n⬛ Gris : Manquant</string>
-
     <string name="help_sec_share_title">3. Partage et Exportation</string>
     <string name="help_sec_share_desc">Vous pouvez copier le rapport d\'analyse sous forme de texte ou exporter les journaux d\'historique détaillés sous forme de fichier CSV. Accessible via les icônes dans les écrans de rapport ou de paramètres.</string>
-
     <string name="help_sec_global_title">4. Utilisation Mondiale</string>
     <string name="help_sec_global_desc">La surveillance en temps réel des bandes connectées fonctionne dans le monde entier. Cependant, les métriques "Scores d\'analyse" et "Couverture" sont optimisées pour les opérateurs japonais et peuvent ne pas apparaître à l\'étranger.</string>
-
     <string name="help_sec_graph_title">5. Statistiques et Graphiques</string>
     <string name="help_sec_graph_desc">Appuyez sur la carte de pourcentage sur l\'écran d\'accueil pour afficher la fréquence de connexion et le ratio par période. Activez le service en arrière-plan pour accumuler des données automatiquement.</string>
-
     <string name="help_sec3_title">6. Bandes Principales (4G)</string>
     <string name="help_sec3_desc">Haute vitesse, bandes de couverture principales.</string>
-
     <string name="help_sec4_title">7. Haute Vitesse (5G)</string>
     <string name="help_sec4_desc">Bandes ultra haute vitesse de nouvelle génération.</string>
-
     <string name="help_sec5_title">8. Bandes Platine (Platinum)</string>
     <string name="help_sec5_desc">Essentiel pour la connectivité en intérieur/zones rurales.</string>
-
     <string name="help_sec6_title">9. 5G Réutilisée (Repurposed)</string>
     <string name="help_sec6_desc">Bandes 4G existantes réutilisées pour étendre rapidement la couverture 5G. Les vitesses sont généralement similaires à la norme 4G LTE.</string>
     <string name="td_5g_diverted">Réutilisée (Couverture)</string>
-
     <string name="th_band">Bande</string>
     <string name="th_freq">Fréq</string>
     <string name="th_detail">Détail</string>
-
     <string name="td_main_desc">Principal / Haute vitesse</string>
     <string name="td_sub_desc">Secondaire / Capacité</string>
     <string name="td_high_desc">Ultra Haute Vitesse</string>
     <string name="td_5g_main">5G Principal</string>
     <string name="td_5g_docomo">Docomo Uniquement</string>
     <string name="td_mmwave">mmWave (Le plus rapide)</string>
-
     <string name="judgement_unknown">Inconnu</string>
     <string name="judgement_excellent">Excellent</string>
     <string name="judgement_good">Bon</string>
     <string name="judgement_fair">Passable</string>
     <string name="judgement_poor_slight">Légèrement Faible</string>
     <string name="judgement_poor">Faible</string>
-
     <string name="notif_channel_name">Service de Moniteur de Bande</string>
     <string name="notif_title">Band Analyzer est actif</string>
     <string name="notif_scanning">Analyse en cours...</string>
@@ -82,7 +63,6 @@
     <string name="label_observed">Appareil Compatible (Observé)</string>
     <string name="label_reference">Support de l\'opérateur</string>
     <string name="label_missing">Bandes manquantes</string>
-
     <string name="status_on">Surveillance : ACTIVÉE</string>
     <string name="status_off">Surveillance : DÉSACTIVÉE</string>
     <string name="item_export_log">Exporter le journal (CSV)</string>
@@ -96,7 +76,6 @@
     <string name="report_footer">\nGénéré par CarrierBand Analyzer #RatoLab</string>
     <string name="label_copy_to_clipboard">Copier dans le presse-papiers</string>
     <string name="msg_copied">Copié dans le presse-papiers</string>
-
     <string name="item_language_title">Langue</string>
     <string name="item_language_desc">Changer la langue de l\'application.</string>
     <string name="stat_title">Statistiques et Graphiques</string>
@@ -110,16 +89,21 @@
     <string name="warn_service_off_title">Le service en arrière-plan est DÉSACTIVÉ</string>
     <string name="warn_service_off_desc">Activez le service dans les paramètres pour enregistrer automatiquement les journaux.</string>
     <string name="stat_tap_to_view">Appuyez pour voir les graphiques ＞</string>
-
     <string name="item_usage">Aperçu et Utilisation</string>
     <string name="item_faq">Foire Aux Questions (FAQ)</string>
     <string name="faq_title">Foire Aux Questions</string>
-    <string name="faq_q1">Q. La surveillance en arrière-plan consomme-t-elle de la batterie ?</string>
-    <string name="faq_a1">R. Elle ne consomme presque pas de batterie. Contrairement au GPS, elle enregistre les données de manière passive uniquement lorsque le système d\'exploitation détecte un changement d\'état du réseau.</string>
-    <string name="faq_q2">Q. À quelle fréquence le signal réseau est-il vérifié ?</string>
-    <string name="faq_a2">R. Lorsque l\'application est ouverte, elle vérifie les mises à jour environ toutes les 1,5 secondes. En arrière-plan, elle n\'enregistre que lorsque le système signale un changement de réseau.</string>
-    <string name="faq_q3">Q. Comment cela fonctionne-t-il à l\'étranger ou avec des opérateurs non pris en charge ?</string>
-    <string name="faq_a3">R. Même avec des cartes SIM non prises en charge, le nom brut de l\'opérateur (ex. T-MOBILE) et les infos de bande sont affichés et enregistrés. Cependant, le pourcentage de couverture n\'est pas calculé.</string>
+    <string name="faq_q1">Q. La surveillance consomme-t-elle de la batterie ?</string>
+    <string name="faq_a1">R. Les données mobiles sont consultées environ toutes les 3 secondes. La consommation dépend du téléphone et du système.</string>
+    <string name="faq_q2">Q. À quelle fréquence les bandes sont-elles vérifiées ?</string>
+    <string name="faq_a2">R. Environ toutes les 1,5 secondes à l’écran et toutes les 3 secondes en arrière-plan. Android peut donner des données incomplètes.</string>
+    <string name="faq_q3">Q. Fonctionne-t-elle avec les opérateurs étrangers ?</string>
+    <string name="faq_a3">R. Elle affiche les noms et bandes disponibles. Sans référence, le taux indique N/A. Certains appareils limitent ces données.</string>
     <string name="faq_q4">Q. Pourquoi certaines bandes connectées ne s\'affichent-elles pas ?</string>
     <string name="faq_a4">R. Sur certains smartphones, les restrictions du système d\'exploitation ou du fabricant empêchent l\'application d\'accéder aux informations de la bande actuellement connectée.</string>
+    <string name="faq_q5">Q. Peut-on utiliser plusieurs SIM et eSIM ?</string>
+    <string name="faq_a5">R. Chaque SIM active a son onglet, y compris au-delà de deux SIM actives. Les bandes ambiguës ne sont pas attribuées à une autre SIM.</string>
+    <string name="faq_q6" formatted="false">Q. Différence entre N/A et 0 % ?</string>
+    <string name="faq_a6" formatted="false">R. N/A indique des références ou mesures insuffisantes ; 0 % signifie qu’aucune bande observée ne correspond aux références.</string>
+    <string name="faq_q7" formatted="false">Q. 23 % signifie-t-il un signal faible ?</string>
+    <string name="faq_a7">R. Non. Ce taux mesure les bandes de référence observées, pas la force du signal ni toutes les bandes prises en charge.</string>
 </resources>

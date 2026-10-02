@@ -40,7 +40,6 @@ import kotlinx.coroutines.withContext
 import androidx.activity.enableEdgeToEdge
 import java.util.Locale
 
-// ★修正箇所: AppCompatActvity -> AppCompatActivity
 class MainActivity : AppCompatActivity() {
     private lateinit var analyzer: BandAnalyzer
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         analyzer = BandAnalyzer(this)
         setContent {
             MaterialTheme {
-                BandAnalyzerScreen(analyzer)
+                SimTabbedScreen()
             }
         }
         checkPermissions()
@@ -73,7 +72,8 @@ class MainActivity : AppCompatActivity() {
     private fun checkPermissions() {
         val perms = mutableListOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.READ_PHONE_STATE
         )
         if (Build.VERSION.SDK_INT >= 33) perms.add(Manifest.permission.POST_NOTIFICATIONS)
 
@@ -86,10 +86,56 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-// サービス起動状態を保持するフラグを追加
+// A changing set of active subscriptions is refreshed automatically.
+@Composable
+fun SimTabbedScreen() {
+    val context = LocalContext.current
+    var sims by remember { mutableStateOf(SimRepository.active(context)) }
+    var selectedId by remember { mutableIntStateOf(android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID) }
+    LaunchedEffect(Unit) {
+        while (isActive) {
+            sims = SimRepository.active(context)
+            if (sims.none { it.subscriptionId == selectedId }) selectedId = sims.firstOrNull()?.subscriptionId
+                ?: android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID
+            delay(3000)
+        }
+    }
+    Column {
+        if (sims.isEmpty()) {
+            Text(stringResource(R.string.sim_none), modifier = Modifier.padding(16.dp))
+        } else {
+            ScrollableTabRow(
+                selectedTabIndex = sims.indexOfFirst {
+                    it.subscriptionId == selectedId
+                }.coerceAtLeast(0),
+                modifier = Modifier.statusBarsPadding(),
+                containerColor =
+                    MaterialTheme.colorScheme.primaryContainer,
+                contentColor =
+                    MaterialTheme.colorScheme.onPrimaryContainer
+            ) {
+                sims.forEachIndexed { index, sim ->
+                    androidx.compose.material3.Tab(
+                        selected = sim.subscriptionId == selectedId,
+                        onClick = { selectedId = sim.subscriptionId },
+                        text = { Text(stringResource(R.string.sim_tab, index + 1) + " · " + sim.displayName) }
+                    )
+                }
+            }
+            if (selectedId != android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
+                key(selectedId) {
+                    BandAnalyzerScreen(remember(selectedId) { BandAnalyzer(context, selectedId) })
+                }
+            }
+        }
+    }
+}
+
+// サービス起動状態を保持するフラグ
 data class UiState(
     val carrier: String = "-",
-    val coveragePercent: Int = 0,
+    val subscriptionId: Int = android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID,
+    val coveragePercent: Int? = null,
     val judgement: String = "-",
     val nowBands: List<String> = emptyList(),
     val observedBands: List<String> = emptyList(),
@@ -126,6 +172,7 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
 
                 UiState(
                     carrier = carrier,
+                    subscriptionId = analyzer.subscriptionId,
                     coveragePercent = cov.coveragePercent,
                     judgement = cov.judgement,
                     nowBands = now.sorted(),
@@ -144,18 +191,24 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
+                windowInsets = WindowInsets(
+                    left = 0.dp,
+                    top = 0.dp,
+                    right = 0.dp,
+                    bottom = 0.dp
+                ),
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 actions = {
                     IconButton(onClick = {
-                        context.startActivity(Intent(context, CapabilityReportActivity::class.java))
+                        context.startActivity(Intent(context, CapabilityReportActivity::class.java).putExtra("subscription_id", analyzer.subscriptionId))
                     }) {
                         Icon(imageVector = Icons.Default.Assessment, contentDescription = null)
                     }
                     IconButton(onClick = {
-                        context.startActivity(Intent(context, SettingsActivity::class.java))
+                        context.startActivity(Intent(context, SettingsActivity::class.java).putExtra("subscription_id", analyzer.subscriptionId))
                     }) {
                         Icon(imageVector = Icons.Default.Settings, contentDescription = null)
                     }
@@ -187,7 +240,7 @@ fun BandAnalyzerScreen(analyzer: BandAnalyzer) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable {
-                            context.startActivity(Intent(context, SettingsActivity::class.java))
+                            context.startActivity(Intent(context, SettingsActivity::class.java).putExtra("subscription_id", analyzer.subscriptionId))
                         },
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer)
                 ) {
@@ -232,7 +285,7 @@ fun DashboardCard(state: UiState) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                context.startActivity(Intent(context, StatisticsActivity::class.java))
+                context.startActivity(Intent(context, StatisticsActivity::class.java).putExtra("subscription_id", state.subscriptionId))
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
@@ -252,7 +305,7 @@ fun DashboardCard(state: UiState) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "${state.coveragePercent}%",
+                text = state.coveragePercent?.let { "$it%" } ?: "N/A",
                 style = MaterialTheme.typography.displayLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
@@ -260,11 +313,11 @@ fun DashboardCard(state: UiState) {
             Text(
                 text = state.judgement,
                 style = MaterialTheme.typography.titleLarge,
-                color = if (state.coveragePercent > 50) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
+                color = if ((state.coveragePercent ?: 0) > 50) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error
             )
             Spacer(modifier = Modifier.height(16.dp))
             LinearProgressIndicator(
-                progress = { state.coveragePercent / 100f },
+                progress = { (state.coveragePercent ?: 0) / 100f },
                 modifier = Modifier.fillMaxWidth().height(8.dp),
                 color = MaterialTheme.colorScheme.primary,
                 trackColor = MaterialTheme.colorScheme.surfaceDim,

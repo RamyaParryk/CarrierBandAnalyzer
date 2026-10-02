@@ -45,7 +45,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val analyzer = BandAnalyzer(this)
+        val analyzer = BandAnalyzer(this, intent.getIntExtra("subscription_id", android.telephony.SubscriptionManager.INVALID_SUBSCRIPTION_ID))
 
         setContent {
             MaterialTheme {
@@ -253,7 +253,7 @@ private fun copyReportToClipboard(context: Context, analyzer: BandAnalyzer) {
         Device: $deviceName
         LTE: ${lteBands.ifEmpty { "None" }}
         NR: ${nrBands.ifEmpty { "None" }}
-        Coverage ($carrierName): ${coverage.coveragePercent}%
+        Coverage ($carrierName): ${coverage.coveragePercent?.let { "$it%" } ?: "N/A"}
         ${context.getString(R.string.report_footer)}
     """.trimIndent()
 
@@ -331,6 +331,9 @@ fun FaqDialog(onDismiss: () -> Unit) {
                 HelpSection(stringResource(R.string.faq_q2), stringResource(R.string.faq_a2))
                 HelpSection(stringResource(R.string.faq_q3), stringResource(R.string.faq_a3))
                 HelpSection(stringResource(R.string.faq_q4), stringResource(R.string.faq_a4))
+                HelpSection(stringResource(R.string.faq_q5), stringResource(R.string.faq_a5))
+                HelpSection(stringResource(R.string.faq_q6), stringResource(R.string.faq_a6))
+                HelpSection(stringResource(R.string.faq_q7), stringResource(R.string.faq_a7))
             }
         },
         confirmButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.help_close)) } }
