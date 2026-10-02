@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">لا توجد بيانات مرجعية لهذا المشغل</string>
+    <string name="sim_waiting">بانتظار بيانات النطاق</string>
+    <string name="sim_none">لا توجد شرائح SIM نشطة. تحقق من الإذن.</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

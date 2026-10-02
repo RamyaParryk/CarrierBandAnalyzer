@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">इस ऑपरेटर का संदर्भ डेटा उपलब्ध नहीं</string>
+    <string name="sim_waiting">बैंड डेटा की प्रतीक्षा है</string>
+    <string name="sim_none">कोई सक्रिय SIM नहीं मिला। अनुमति जाँचें।</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

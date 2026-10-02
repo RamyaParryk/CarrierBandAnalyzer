@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">ไม่มีข้อมูลอ้างอิงของผู้ให้บริการ</string>
+    <string name="sim_waiting">กำลังรอข้อมูลย่านความถี่</string>
+    <string name="sim_none">ไม่พบ SIM ที่ใช้งาน โปรดตรวจสอบสิทธิ์</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

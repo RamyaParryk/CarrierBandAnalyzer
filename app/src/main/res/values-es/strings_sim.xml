@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">Sin datos de referencia del operador</string>
+    <string name="sim_waiting">Esperando datos de bandas</string>
+    <string name="sim_none">No se encontraron SIM activas. Comprueba el permiso.</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

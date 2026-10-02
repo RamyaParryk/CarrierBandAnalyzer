@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">Нет справочных данных для оператора</string>
+    <string name="sim_waiting">Ожидание данных диапазонов</string>
+    <string name="sim_none">Нет активных SIM. Проверьте разрешение.</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

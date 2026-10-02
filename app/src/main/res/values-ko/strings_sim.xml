@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">통신사 기준 데이터 없음</string>
+    <string name="sim_waiting">밴드 데이터 대기 중</string>
+    <string name="sim_none">활성 SIM이 없습니다. 권한을 확인하세요.</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

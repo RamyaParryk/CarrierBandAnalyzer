@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">キャリアの参照データなし</string>
+    <string name="sim_waiting">バンド取得待ち</string>
+    <string name="sim_none">有効なSIMがありません。電話の権限を確認してください。</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

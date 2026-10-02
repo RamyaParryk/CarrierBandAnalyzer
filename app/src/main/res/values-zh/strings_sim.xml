@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">该运营商无参考数据</string>
+    <string name="sim_waiting">等待频段数据</string>
+    <string name="sim_none">未找到已启用的 SIM，请检查权限。</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

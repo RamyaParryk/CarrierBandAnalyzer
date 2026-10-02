@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">Keine Referenzdaten für diesen Anbieter</string>
+    <string name="sim_waiting">Warte auf Banddaten</string>
+    <string name="sim_none">Keine aktive SIM gefunden. Berechtigung prüfen.</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

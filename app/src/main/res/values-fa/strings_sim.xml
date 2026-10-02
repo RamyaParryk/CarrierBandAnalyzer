@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">داده مرجع برای این اپراتور موجود نیست</string>
+    <string name="sim_waiting">در انتظار اطلاعات باند</string>
+    <string name="sim_none">سیم‌کارت فعالی یافت نشد. مجوز را بررسی کنید.</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>

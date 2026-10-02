@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sim_no_reference">Không có dữ liệu tham chiếu của nhà mạng</string>
+    <string name="sim_waiting">Đang chờ dữ liệu băng tần</string>
+    <string name="sim_none">Không có SIM hoạt động. Kiểm tra quyền.</string>
+    <string name="sim_tab">SIM %1$d</string>
+</resources>
