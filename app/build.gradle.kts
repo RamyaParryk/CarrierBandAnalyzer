@@ -29,8 +29,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // ★ AdMob IDの設定
-        // マニフェスト用
+        // ★ AdMob IDの設定1、マニフェスト用
         manifestPlaceholders["admobAppId"] = localProperties.getProperty("ADMOB_APP_ID") ?: ""
         // Kotlinコード(MainActivity)用
         val bannerId = localProperties.getProperty("ADMOB_BANNER_UNIT_ID") ?: ""
