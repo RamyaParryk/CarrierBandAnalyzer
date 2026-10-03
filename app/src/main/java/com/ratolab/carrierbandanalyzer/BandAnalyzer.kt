@@ -6,17 +6,25 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Looper
+import android.util.AtomicFile
 import android.telephony.CellIdentityNr
 import android.telephony.CellInfoLte
 import android.telephony.CellInfoNr
-import android.telephony.TelephonyManager
 import android.telephony.SubscriptionManager
-import android.telephony.CellInfo
+import android.telephony.TelephonyManager
 import androidx.core.content.ContextCompat
 import java.io.File
+import java.io.FileNotFoundException
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.roundToInt
+import java.io.BufferedWriter
 
 class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
 
@@ -30,28 +38,7 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
     // メモリ上のキャッシュ
     private val observedBands: MutableSet<String> = mutableSetOf()
 
-    init {
-        reloadFromPrefs(prefs)
-        // Preferences are reloaded on reads, avoiding a listener leak.
-    }
-
-    // 許可チェック用の便利関数
-    private fun hasLocationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            appContext,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun reloadFromPrefs(sharedPreferences: SharedPreferences) {
-        val set = sharedPreferences.getStringSet(KEY_OBSERVED_BANDS, emptySet()) ?: emptySet()
-        synchronized(observedBands) {
-            observedBands.clear()
-            observedBands.addAll(set)
-        }
-    }
-
-    // キャリアごとのバンド定義 (転用5G・ミリ波などを完全網羅)
+    // キャリアごとのバンド定義 (initより前に初期化する)
     private val carrierBands = mapOf(
         "DOCOMO" to setOf("B1","B3","B19","B21","B28","B42","n1","n28","n77","n78","n79","n257"),
         "AU" to setOf("B1","B3","B18","B26","B28","B41","B42","n1","n3","n28","n77","n78","n257"),
@@ -64,6 +51,281 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
         "Y!MOBILE" to setOf("B1","B3","B8","B11","B28","B41","B42","n1","n3","n28","n77","n78","n257")
     )
 
+    init {
+        reloadFromPrefs()
+    }
+
+    /**
+     * 旧形式のデータを確認する。
+     *
+     * AUTO_IMPORT_LEGACY=false の場合はデータを変更せず、そのまま保持する。
+     * true にした場合も、単一SIMかつキャリアが整合する場合に限る。
+     * 注意: 旧形式にSIM固有IDは存在しないため、同一キャリアのSIM交換までは判別できない。
+     */
+    private fun ensureMigrated() {
+        if (subscriptionId == SubscriptionManager.INVALID_SUBSCRIPTION_ID || migrationCompleted) return
+        if (!AUTO_IMPORT_LEGACY) return
+        // CSVの全走査をメインスレッドで実行しない
+        if (Looper.myLooper() == Looper.getMainLooper()) return
+
+        synchronized(legacyLock) {
+            if (migrationCompleted) return
+            if (!hasLegacyData()) {
+                migrationCompleted = true
+                return
+            }
+
+            val activeSimIds = SimRepository.active(appContext).map { it.subscriptionId }.toSet()
+            if (activeSimIds.size != 1 || subscriptionId !in activeSimIds) return
+            val carrier = detectCarrierLabel()
+            if (carrier == "UNKNOWN" || !carrierBands.containsKey(carrier)) return
+
+            val legacyCsv = existingLegacyCsv() ?: run {
+                // CSVがなくPrefsだけ残っていても、旧データのSIM所属は証明できない。
+                return
+            }
+            // 元のシングルSIM時代のログから判定する。異なるキャリア/不正行があれば保留。
+            try {
+                var lineCount = 0
+                var unexpected = false
+                legacyCsv.forEachLine { line ->
+                    if (line.isNotBlank()) {
+                        val columns = line.split(",", limit = 3)
+                        if (columns.size < 3 || columns[1].trim() != carrier) unexpected = true
+                        lineCount++
+                    }
+                }
+                if (lineCount == 0 || unexpected) return
+                val oldPrefs = appContext.getSharedPreferences("band_analyzer_prefs", Context.MODE_PRIVATE)
+                val oldBands = oldPrefs.getStringSet(KEY_OBSERVED_BANDS, emptySet()).orEmpty()
+                if (!carrierBands.getValue(carrier).containsAll(oldBands)) return
+                // 同キャリアの異なるSIMだった可能性は排除できない。自動動作は明示的な選択扱い。
+            } catch (_: Exception) { return }
+
+            importLegacyDataToThisSim()
+        }
+    }
+
+    /** 旧CSVと旧Prefsの存在確認。既存設定画面の手動引き継ぎUIから利用可能。 */
+    fun hasLegacyData(): Boolean = synchronized(legacyLock) {
+        val legacyPrefs = File(appContext.applicationInfo.dataDir, "shared_prefs/band_analyzer_prefs.xml")
+        legacyPrefs.exists() ||
+                File(appContext.filesDir, "band_logs.csv").exists() ||
+                File(appContext.filesDir, "band_logs.csv.migrating").exists()
+    }
+
+    private fun existingLegacyCsv(): File? {
+        val pending = File(appContext.filesDir, "band_logs.csv.migrating")
+        val original = File(appContext.filesDir, "band_logs.csv")
+        // 過去バージョンで2つ同時に存在した場合は、どちらも勝手に破棄しない。
+        if (pending.exists() && original.exists()) return null
+        return when {
+            pending.exists() -> pending
+            original.exists() -> original
+            else -> null
+        }
+    }
+
+    /**
+     * ユーザーが指定したSIMに旧データを取り込む。自動・手動で共用する。
+     *
+     * CSVには取り込み元のSHA-256をコメント行として同じファイル内へ書く。
+     * CSV本体とマーカーをAtomicFileで一括置換することで、クラッシュ後の再実行でも
+     * 同じ旧CSVを二重追加しない（マーカー行は集計時に無視する）。
+     * CSVの旧ファイルは新CSV確定後に削除する。削除に失敗しても再試行は安全。
+     */
+    fun importLegacyDataToThisSim(): Boolean {
+        if (subscriptionId == SubscriptionManager.INVALID_SUBSCRIPTION_ID) return false
+        // 設定画面から呼ぶ際もwithContext(Dispatchers.IO)に載せる。
+        if (Looper.myLooper() == Looper.getMainLooper()) return false
+        synchronized(legacyLock) {
+            synchronized(getSimLock(subscriptionId)) {
+                val original = File(appContext.filesDir, "band_logs.csv")
+                val pending = File(appContext.filesDir, "band_logs.csv.migrating")
+                val legacyPrefsFile = File(appContext.applicationInfo.dataDir, "shared_prefs/band_analyzer_prefs.xml")
+
+                // 両方の旧CSVがあれば正本不明なので保持する。
+                if (original.exists() && pending.exists()) return false
+                // 前の試作版の外部マーカー/フラグだけでは、CSVの原子的確定が
+                // 証明できない。既に結合済みか不明なら安全側で処理を停止する。
+                if (original.exists() || pending.exists()) {
+                    val oldMarker = File(appContext.filesDir, "band_logs.csv.merged_to_${subscriptionId}")
+                    if (oldMarker.exists() || prefs.getBoolean("legacy_csv_imported", false)) return false
+                }
+
+                val source = existingLegacyCsv()
+                if (source != null && !mergeLegacyCsvAtomically(source)) return false
+
+                // SharedPreferencesはunionがべき等。永続化を確認できた場合のみ旧データを削除。
+                if (legacyPrefsFile.exists()) {
+                    try {
+                        val oldPrefs = appContext.getSharedPreferences("band_analyzer_prefs", Context.MODE_PRIVATE)
+                        val oldBands = oldPrefs.getStringSet(KEY_OBSERVED_BANDS, emptySet()).orEmpty().toSet()
+                        val latest = prefs.getStringSet(KEY_OBSERVED_BANDS, emptySet()).orEmpty().toSet()
+                        val editor = prefs.edit().putStringSet(KEY_OBSERVED_BANDS, latest + oldBands)
+                        updateSimMetadata(editor, detectCarrierLabel())
+                        if (!editor.commit()) return false
+                        if (!deleteLegacyPrefsFile(oldPrefs, legacyPrefsFile)) return false
+                        reloadFromPrefs()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        return false
+                    }
+                }
+
+                migrationCompleted = !hasLegacyData()
+                return migrationCompleted
+            }
+        }
+    }
+
+    /** 旧CSVのハッシュ。アプリ起動時には行わず、取り込みを試みるときだけ計算する。 */
+    private fun sha256(file: File): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        file.inputStream().buffered().use { stream ->
+            val buffer = ByteArray(64 * 1024)
+            while (true) {
+                val count = stream.read(buffer)
+                if (count < 0) break
+                digest.update(buffer, 0, count)
+            }
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
+    }
+
+    private fun mergeLegacyCsvAtomically(source: File): Boolean {
+        val destination = getLogFile()
+        val atomic = AtomicFile(destination)
+
+        try {
+            val marker = "#CBAL-LEGACY-SHA256:" + sha256(source)
+            // openRead()により中断された旧バックアップも回復する。
+            var alreadyImported = false
+            try {
+                atomic.openRead().bufferedReader(StandardCharsets.UTF_8).use { reader ->
+                    reader.forEachLine { if (it == marker) alreadyImported = true }
+                }
+            } catch (_: FileNotFoundException) { /* 新規CSV */ }
+
+            if (!alreadyImported) {
+                // 読み取り用FDを開いてから書き込み開始（古いファイルを安全に読み続けられる）。
+                val existingInput = try { atomic.openRead() } catch (_: FileNotFoundException) { null }
+                var output: java.io.FileOutputStream? = null
+                try {
+                    output = atomic.startWrite()
+                    val writer = BufferedWriter(OutputStreamWriter(output, StandardCharsets.UTF_8))
+                    // 旧形式はCSVレコード。空行は除外し、記録回数は重複排除しない。
+                    source.bufferedReader(StandardCharsets.UTF_8).use { input ->
+                        input.forEachLine { line ->
+                            if (line.isNotBlank()) {
+                                writer.write(line)
+                                writer.newLine()
+                            }
+                        }
+                    }
+                    existingInput?.bufferedReader(StandardCharsets.UTF_8)?.use { input ->
+                        input.forEachLine { line ->
+                            if (line.isNotBlank()) {
+                                writer.write(line)
+                                writer.newLine()
+                            }
+                        }
+                    }
+                    // データとマーカーが同一のatomic writeに含まれることが重要。
+                    writer.write(marker)
+                    writer.newLine()
+                    writer.flush()
+                    atomic.finishWrite(output)
+                    output = null
+                } catch (e: Exception) {
+                    if (output != null) atomic.failWrite(output)
+                    e.printStackTrace()
+                    return false
+                } finally {
+                    // startWriteに失敗した場合もFDを確実に閉じる。
+                    try { existingInput?.close() } catch (_: Exception) { }
+                }
+            }
+            // 確定されたマーカーの存在を再確認してから旧CSVを削除する。
+            var confirmed = false
+            atomic.openRead().bufferedReader(StandardCharsets.UTF_8).use { reader ->
+                reader.forEachLine { if (it == marker) confirmed = true }
+            }
+            return confirmed && (!source.exists() || source.delete())
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+    }
+
+    private fun deleteLegacyPrefsFile(legacyPrefs: SharedPreferences, legacyPrefsFile: File): Boolean {
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                appContext.deleteSharedPreferences("band_analyzer_prefs")
+            } else {
+                val cleared = legacyPrefs.edit().clear().commit()
+                cleared && (!legacyPrefsFile.exists() || legacyPrefsFile.delete())
+            }
+        } catch (_: Exception) {
+            false
+        }
+    }
+
+    /**
+     * INVALID_SUBSCRIPTION_ID (-1) で作られてしまった不要なゴミファイルを削除する
+     */
+    private fun cleanupInvalidSubIdFiles(sharedPrefsDir: File) {
+        try {
+            val invalidId = SubscriptionManager.INVALID_SUBSCRIPTION_ID
+            val invalidPrefsFile = File(sharedPrefsDir, "band_analyzer_prefs_${invalidId}.xml")
+            if (invalidPrefsFile.exists()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    appContext.deleteSharedPreferences("band_analyzer_prefs_${invalidId}")
+                } else {
+                    invalidPrefsFile.delete()
+                }
+            }
+            val invalidLogFile = File(appContext.filesDir, "band_logs_${invalidId}.csv")
+            if (invalidLogFile.exists()) {
+                invalidLogFile.delete()
+            }
+        } catch (_: Exception) {}
+    }
+
+    /**
+     * 将来の「保存済みSIMデータ」管理画面向けに、SIMを抜いた後でも識別できるメタデータを保存する
+     */
+    private fun updateSimMetadata(editor: SharedPreferences.Editor, carrier: String) {
+        if (carrier != "UNKNOWN") {
+            editor.putString(KEY_META_CARRIER, carrier)
+        }
+        editor.putLong(KEY_META_LAST_OBSERVED, System.currentTimeMillis())
+        val displayName = SimRepository.active(appContext)
+            .firstOrNull { it.subscriptionId == subscriptionId }
+            ?.displayName
+        if (!displayName.isNullOrBlank()) {
+            editor.putString(KEY_META_DISPLAY_NAME, displayName)
+        }
+    }
+
+    // 許可チェック用の便利関数
+    private fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            appContext,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun reloadFromPrefs() {
+        synchronized(getSimLock(subscriptionId)) {
+            val set = prefs.getStringSet(KEY_OBSERVED_BANDS, emptySet()) ?: emptySet()
+            synchronized(observedBands) {
+                observedBands.clear()
+                observedBands.addAll(set)
+            }
+        }
+    }
+
     fun getCarrier(): String = detectCarrierLabel()
 
     fun getCarrierReferenceBands(): Set<String> {
@@ -72,7 +334,8 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
     }
 
     fun getObservedBands(): Set<String> {
-        reloadFromPrefs(prefs)
+        ensureMigrated()
+        reloadFromPrefs()
         synchronized(observedBands) {
             return observedBands.toSet()
         }
@@ -80,15 +343,16 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
 
     @SuppressLint("MissingPermission")
     fun scanNowBands(): Set<String> {
+        ensureMigrated()
         if (!hasLocationPermission()) return emptySet()
 
         val now = mutableSetOf<String>()
 
-        // The per-subscription manager scopes the query; do NOT mix in unscoped PCC data.
-        // Only registered cells are treated as connected bands, avoiding neighbors.
+        // サブスクリプション（回線）ごとのTelephonyManagerでクエリを実行する（回線が特定できないPCCデータは混ぜない）。
+        // 近隣セル（ネイバーセル）を除外するため、現在登録（接続）されているセルのみを接続中バンドとして扱う。
         val cells = try { telephonyManager.allCellInfo.orEmpty().filter { it.isRegistered } }
-                    catch (_: SecurityException) { emptyList() }
-                    catch (_: RuntimeException) { emptyList() }
+        catch (_: SecurityException) { emptyList() }
+        catch (_: RuntimeException) { emptyList() }
         for (cell in cells) {
             if (cell is CellInfoLte) {
                 val id = cell.cellIdentity
@@ -112,8 +376,8 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
             }
         }
 
-        // PhysicalChannelConfig reflection is deliberately omitted: subscription ownership
-        // is not guaranteed by every Android vendor/API implementation.
+        // PhysicalChannelConfigのリフレクション取得は意図的に省略：
+        // AndroidのメーカーやAPIの実装によっては、どのSIM回線に属するかの判定が保証されないため。
         addObservedAndPersist(now)
         return now
     }
@@ -171,50 +435,72 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
     }
 
     fun resetObservedBands() {
-        synchronized(observedBands) {
-            observedBands.clear()
-        }
-        prefs.edit().remove(KEY_OBSERVED_BANDS).apply()
-
-        try {
-            val logFile = getLogFile()
-            if (logFile.exists()) {
-                logFile.delete()
+        synchronized(getSimLock(subscriptionId)) {
+            synchronized(observedBands) {
+                observedBands.clear()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+            prefs.edit().remove(KEY_OBSERVED_BANDS).commit()
+
+            try {
+                val logFile = getLogFile()
+                if (logFile.exists()) {
+                    logFile.delete()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
     fun saveLog(bands: Set<String>) {
+        ensureMigrated()
         if (bands.isEmpty()) return
 
         val time = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
         val carrier = detectCarrierLabel()
         val bandsStr = bands.sorted().joinToString("|")
-
         val logLine = "$time, $carrier, $bandsStr\n"
 
-        try {
-            val logFile = File(appContext.filesDir, "band_logs_${subscriptionId}.csv")
-            logFile.appendText(logLine)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        // サービスと画面・移行処理が同時にCSVへアクセスしても衝突しないよう、SIM別ロックで保護する
+        synchronized(getSimLock(subscriptionId)) {
+            try {
+                val logFile = getLogFile()
+                logFile.appendText(logLine)
+
+                val editor = prefs.edit()
+                updateSimMetadata(editor, carrier)
+                editor.apply()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
     fun getLogFile(): File = File(appContext.filesDir, "band_logs_${subscriptionId}.csv")
 
+    /**
+     * 画面とサービスの別インスタンス間で古いキャッシュによる上書きロストが起きないよう、
+     * SIM別共通ロックの中で最新のSharedPreferencesを読み直して union() してから保存する。
+     */
     private fun addObservedAndPersist(bands: Set<String>) {
-        var changed = false
-        synchronized(observedBands) {
-            for (b in bands) {
-                if (observedBands.add(b)) changed = true
+        if (bands.isEmpty()) return
+
+        val carrier = detectCarrierLabel()
+        synchronized(getSimLock(subscriptionId)) {
+            val currentInPrefs = prefs.getStringSet(KEY_OBSERVED_BANDS, emptySet()).orEmpty()
+            val merged = currentInPrefs.union(bands)
+
+            val editor = prefs.edit()
+            if (merged.size != currentInPrefs.size || !currentInPrefs.containsAll(merged)) {
+                editor.putStringSet(KEY_OBSERVED_BANDS, merged)
             }
-        }
-        if (changed) {
-            val toSave = synchronized(observedBands) { observedBands.toSet() }
-            prefs.edit().putStringSet(KEY_OBSERVED_BANDS, toSave).apply()
+            updateSimMetadata(editor, carrier)
+            editor.commit()
+
+            synchronized(observedBands) {
+                observedBands.clear()
+                observedBands.addAll(merged)
+            }
         }
     }
 
@@ -250,7 +536,7 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
             op == "44011" -> "RAKUTEN"
             op == "44050" || op == "44051" -> "AU"
             op == "44020" || op == "44021" -> "SOFTBANK"
-            else -> rawCarrierName // ★変更箇所："UNKNOWN" ではなく生のキャリア名を返す！
+            else -> rawCarrierName // "UNKNOWN" ではなく生のキャリア名を返す
         }
     }
 
@@ -314,6 +600,7 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
         20 -> "NR"
         else -> "TYPE_$type"
     }
+
     private fun convertEarfcnToBand(earfcn: Int): String? = when (earfcn) {
         in 0..599 -> "B1"
         in 600..1199 -> "B2"
@@ -382,8 +669,8 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
         else -> null
     }
 
-    // Band identification from ARFCN is a fallback. A frequency may belong
-    // to multiple overlapping 3GPP bands. In such cases do not invent a band.
+    // ARFCNからのバンド特定はフォールバック（代替手段）として使用する。
+    // 1つの周波数が複数の重複する3GPPバンドに属する場合があるため、その場合は無理に1つに決めつけずnullを返す。
     private fun convertNrArfcnToBand(nrarfcn: Int): String? {
         if (nrarfcn < 0) return null
         val mhz = when (nrarfcn) {
@@ -409,64 +696,83 @@ class BandAnalyzer(context: Context, val subscriptionId: Int = SubscriptionManag
 
     companion object {
         private const val KEY_OBSERVED_BANDS = "observed_bands"
+        // false: 旧データはユーザー操作まで保留（安全側）
+        // true : 単一SIM＆同キャリアのログのみ自動引き継ぎ（SIM個体の同一性は未保証）
+        private const val AUTO_IMPORT_LEGACY = true
+        // 将来の「保存済みSIMデータ」一覧表示用メタデータキー
+        const val KEY_META_CARRIER = "meta_carrier"
+        const val KEY_META_DISPLAY_NAME = "meta_display_name"
+        const val KEY_META_LAST_OBSERVED = "meta_last_observed"
+
+        private val legacyLock = Any()
+        private val simLocks = ConcurrentHashMap<Int, Any>()
+
+        @Volatile
+        private var migrationCompleted = false
+
+        // 複数インスタンス（MainActivityとBandMonitorServiceなど）間でファイル・設定アクセスを同期するSIM別ロック
+        private fun getSimLock(subId: Int): Any = simLocks.getOrPut(subId) { Any() }
     }
 
     // --- グラフ集計用ロジック ---
     enum class StatPeriod { TODAY, WEEK, MONTH, ALL }
 
     fun getBandStatistics(period: StatPeriod): Map<String, Int> {
-        val logFile = getLogFile()
-        if (!logFile.exists()) return emptyMap()
+        ensureMigrated()
+        synchronized(getSimLock(subscriptionId)) {
+            val logFile = getLogFile()
+            if (!logFile.exists()) return emptyMap()
 
-        val counts = mutableMapOf<String, Int>()
-        val now = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            val counts = mutableMapOf<String, Int>()
+            val now = Calendar.getInstance()
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
 
-        try {
-            logFile.forEachLine { line ->
-                val parts = line.split(",")
-                if (parts.size >= 3) {
-                    val dateStr = parts[0].trim()
-                    val bandsStr = parts[2].trim()
+            try {
+                logFile.forEachLine { line ->
+                    val parts = line.split(",")
+                    if (parts.size >= 3) {
+                        val dateStr = parts[0].trim()
+                        val bandsStr = parts[2].trim()
 
-                    val logDate = try { dateFormat.parse(dateStr) } catch(e: Exception) { null }
-                    if (logDate != null) {
-                        val logCal = Calendar.getInstance().apply { time = logDate }
+                        val logDate = try { dateFormat.parse(dateStr) } catch(e: Exception) { null }
+                        if (logDate != null) {
+                            val logCal = Calendar.getInstance().apply { time = logDate }
 
-                        // 期間の判定
-                        val isIncluded = when (period) {
-                            StatPeriod.TODAY -> {
-                                now.get(Calendar.YEAR) == logCal.get(Calendar.YEAR) &&
-                                        now.get(Calendar.DAY_OF_YEAR) == logCal.get(Calendar.DAY_OF_YEAR)
+                            // 期間の判定
+                            val isIncluded = when (period) {
+                                StatPeriod.TODAY -> {
+                                    now.get(Calendar.YEAR) == logCal.get(Calendar.YEAR) &&
+                                            now.get(Calendar.DAY_OF_YEAR) == logCal.get(Calendar.DAY_OF_YEAR)
+                                }
+                                StatPeriod.WEEK -> {
+                                    val diffMillis = now.timeInMillis - logCal.timeInMillis
+                                    val diffDays = diffMillis / (1000 * 60 * 60 * 24)
+                                    diffDays in 0..7
+                                }
+                                StatPeriod.MONTH -> {
+                                    now.get(Calendar.YEAR) == logCal.get(Calendar.YEAR) &&
+                                            now.get(Calendar.MONTH) == logCal.get(Calendar.MONTH)
+                                }
+                                StatPeriod.ALL -> true
                             }
-                            StatPeriod.WEEK -> {
-                                val diffMillis = now.timeInMillis - logCal.timeInMillis
-                                val diffDays = diffMillis / (1000 * 60 * 60 * 24)
-                                diffDays in 0..7
-                            }
-                            StatPeriod.MONTH -> {
-                                now.get(Calendar.YEAR) == logCal.get(Calendar.YEAR) &&
-                                        now.get(Calendar.MONTH) == logCal.get(Calendar.MONTH)
-                            }
-                            StatPeriod.ALL -> true
-                        }
 
-                        // 対象期間ならカウントアップ
-                        if (isIncluded && bandsStr.isNotEmpty()) {
-                            val bands = bandsStr.split("|")
-                            bands.forEach { b ->
-                                val cleanBand = b.trim()
-                                if (cleanBand.isNotEmpty()) {
-                                    counts[cleanBand] = counts.getOrDefault(cleanBand, 0) + 1
+                            // 対象期間ならカウントアップ
+                            if (isIncluded && bandsStr.isNotEmpty()) {
+                                val bands = bandsStr.split("|")
+                                bands.forEach { b ->
+                                    val cleanBand = b.trim()
+                                    if (cleanBand.isNotEmpty()) {
+                                        counts[cleanBand] = counts.getOrDefault(cleanBand, 0) + 1
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+            return counts
         }
-        return counts
     }
 }

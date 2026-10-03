@@ -41,9 +41,9 @@ import androidx.activity.enableEdgeToEdge
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var analyzer: BandAnalyzer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         // システム言語をチェックし、非対応なら英語をデフォルトにする
         val appLocale = AppCompatDelegate.getApplicationLocales()
@@ -57,8 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         MobileAds.initialize(this) {}
-        enableEdgeToEdge()
-        analyzer = BandAnalyzer(this)
         setContent {
             MaterialTheme {
                 SimTabbedScreen()
