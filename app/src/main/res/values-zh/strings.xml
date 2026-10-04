@@ -13,7 +13,7 @@
     <string name="service_stopped">已停止</string>
     <string name="sec_data">数据管理</string>
     <string name="item_reset_title">重置历史记录</string>
-    <string name="item_reset_desc">清除所有已记录的频段数据。</string>
+    <string name="item_reset_desc">清除当前所选 SIM 的已观测频段和日志。</string>
     <string name="msg_history_cleared">历史记录已清除。</string>
     <string name="sec_system">系统设置</string>
     <string name="item_perm_title">打开权限设置</string>
@@ -106,4 +106,17 @@
     <string name="faq_a6" formatted="false">答：N/A表示缺少参照数据或观测不足；0%表示已有观测，但均未匹配参照频段。</string>
     <string name="faq_q7" formatted="false">问：23%表示信号差吗？</string>
     <string name="faq_a7">答：不是。这只是目前观测到的运营商参照频段比例，不代表信号强度、网络质量或手机支持的全部频段。</string>
+    <string name="log_export_selected_desc">将当前所选 SIM 的日志导出为 CSV。</string>
+    <string name="log_saved_select">选择已保存的日志</string>
+    <string name="log_saved_select_desc">导出或删除日志，包括以前使用的 SIM。</string>
+    <string name="log_saved_title">已保存的 SIM 日志</string>
+    <string name="log_saved_empty">没有已保存的日志。</string>
+    <string name="log_sim_current">当前使用的 SIM ID</string>
+    <string name="log_sim_previous">以前使用的 SIM ID</string>
+    <string name="log_action_statistics">统计</string>
+    <string name="log_action_delete">删除</string>
+    <string name="log_delete_title">删除日志</string>
+    <string name="log_delete_confirmation">删除 SIM ID %1$d 的观测历史和日志？此操作无法撤销。</string>
+    <string name="log_delete_button">删除</string>
+    <string name="log_cancel_button">取消</string>
 </resources>

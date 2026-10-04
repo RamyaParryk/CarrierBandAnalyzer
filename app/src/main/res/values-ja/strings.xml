@@ -13,7 +13,7 @@
     <string name="service_stopped">停止中</string>
     <string name="sec_data">データ管理</string>
     <string name="item_reset_title">観測履歴をリセット</string>
-    <string name="item_reset_desc">選択中のSIMの観測バンド履歴を消去します。</string>
+    <string name="item_reset_desc">選択中のSIMの観測済みバンドとログを削除します。</string>
     <string name="msg_history_cleared">履歴を消去しました</string>
     <string name="sec_system">システム設定</string>
     <string name="item_perm_title">権限設定を開く</string>
@@ -109,4 +109,17 @@
     <string name="faq_a6" formatted="false">A. N/Aはキャリアの参照データがないか、観測情報が足りない状態です。0%は観測情報があり、参照バンドと一致しない状態です。</string>
     <string name="faq_q7" formatted="false">Q. 23%なら電波が弱い、あるいは端末が23%しか対応していないの？</string>
     <string name="faq_a7">A. いいえ。登録済みのキャリア参照バンドのうち、これまでに観測した割合です。電波強度・通信品質・端末の全対応バンドを意味しません。</string>
+    <string name="log_export_selected_desc">選択中のSIMのログをCSVで出力します。</string>
+    <string name="log_saved_select">保存済みログを選ぶ</string>
+    <string name="log_saved_select_desc">過去のSIMを含むログのCSV出力・削除</string>
+    <string name="log_saved_title">保存済みSIMログ</string>
+    <string name="log_saved_empty">保存されたログはありません</string>
+    <string name="log_sim_current">現在利用中のSIM ID</string>
+    <string name="log_sim_previous">過去のSIM ID</string>
+    <string name="log_action_statistics">統計</string>
+    <string name="log_action_delete">削除</string>
+    <string name="log_delete_title">ログを削除</string>
+    <string name="log_delete_confirmation">SIM ID %1$d の観測履歴とログを削除します。元に戻せません。</string>
+    <string name="log_delete_button">削除</string>
+    <string name="log_cancel_button">キャンセル</string>
 </resources>

@@ -13,7 +13,7 @@
     <string name="service_stopped">Durduruldu</string>
     <string name="sec_data">Veri Yönetimi</string>
     <string name="item_reset_title">Geçmişi Sıfırla</string>
-    <string name="item_reset_desc">Kaydedilen tüm bant verilerini temizle.</string>
+    <string name="item_reset_desc">Seçili SIM’in gözlemlenen bantlarını ve günlüklerini sil.</string>
     <string name="msg_history_cleared">Geçmiş temizlendi.</string>
     <string name="sec_system">Sistem Ayarları</string>
     <string name="item_perm_title">İzinleri Aç</string>
@@ -106,4 +106,17 @@
     <string name="faq_a6" formatted="false">C. N/A referans veya gözlem eksikliği; %0 ise gözlem olmasına rağmen referans bantlarla eşleşme olmamasıdır.</string>
     <string name="faq_q7" formatted="false">S. %23 zayıf sinyal demek mi?</string>
     <string name="faq_a7">C. Hayır. Bu sadece gözlenen referans bant oranıdır; sinyal gücü, kalite veya telefonun tüm bantları değildir.</string>
+    <string name="log_export_selected_desc">Seçili SIM günlüğünü CSV olarak dışa aktar.</string>
+    <string name="log_saved_select">Kaydedilmiş günlükleri seç</string>
+    <string name="log_saved_select_desc">Önceki SIM’ler dahil günlükleri dışa aktar veya sil.</string>
+    <string name="log_saved_title">Kaydedilmiş SIM günlükleri</string>
+    <string name="log_saved_empty">Kaydedilmiş günlük yok.</string>
+    <string name="log_sim_current">Geçerli etkin SIM kimliği</string>
+    <string name="log_sim_previous">Önceki SIM kimliği</string>
+    <string name="log_action_statistics">İstatistikler</string>
+    <string name="log_action_delete">Sil</string>
+    <string name="log_delete_title">Günlüğü sil</string>
+    <string name="log_delete_confirmation">SIM kimliği %1$d için gözlem geçmişi ve günlükler silinsin mi? Bu işlem geri alınamaz.</string>
+    <string name="log_delete_button">Sil</string>
+    <string name="log_cancel_button">İptal</string>
 </resources>

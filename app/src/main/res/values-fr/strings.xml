@@ -13,7 +13,7 @@
     <string name="service_stopped">Arrêté</string>
     <string name="sec_data">Gestion des données</string>
     <string name="item_reset_title">Réinitialiser l\'historique</string>
-    <string name="item_reset_desc">Effacer toutes les données de bande enregistrées.</string>
+    <string name="item_reset_desc">Effacer les bandes observées et les journaux de la SIM sélectionnée.</string>
     <string name="msg_history_cleared">Historique effacé.</string>
     <string name="sec_system">Paramètres du système</string>
     <string name="item_perm_title">Ouvrir les autorisations</string>
@@ -106,4 +106,17 @@
     <string name="faq_a6" formatted="false">R. N/A indique des références ou mesures insuffisantes ; 0 % signifie qu’aucune bande observée ne correspond aux références.</string>
     <string name="faq_q7" formatted="false">Q. 23 % signifie-t-il un signal faible ?</string>
     <string name="faq_a7">R. Non. Ce taux mesure les bandes de référence observées, pas la force du signal ni toutes les bandes prises en charge.</string>
+    <string name="log_export_selected_desc">Exporter le journal de la SIM sélectionnée au format CSV.</string>
+    <string name="log_saved_select">Choisir les journaux enregistrés</string>
+    <string name="log_saved_select_desc">Exporter ou supprimer les journaux, y compris ceux des anciennes SIM.</string>
+    <string name="log_saved_title">Journaux SIM enregistrés</string>
+    <string name="log_saved_empty">Aucun journal enregistré.</string>
+    <string name="log_sim_current">ID de la SIM actuellement active</string>
+    <string name="log_sim_previous">ID d’une ancienne SIM</string>
+    <string name="log_action_statistics">Statistiques</string>
+    <string name="log_action_delete">Supprimer</string>
+    <string name="log_delete_title">Supprimer le journal</string>
+    <string name="log_delete_confirmation">Supprimer les observations et les journaux de la SIM (ID %1$d) ? Cette action est irréversible.</string>
+    <string name="log_delete_button">Supprimer</string>
+    <string name="log_cancel_button">Annuler</string>
 </resources>

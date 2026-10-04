@@ -22,6 +22,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.activity.enableEdgeToEdge
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class CapabilityReportActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,16 +33,26 @@ class CapabilityReportActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
-                val observed = analyzer.getObservedBands()
-                val coverage = analyzer.calculateCoverage()
-
-                CapabilityReportScreen(
-                    analyzer = analyzer,
-                    deviceName = Build.MODEL,
-                    observedBands = observed,
-                    coverage = coverage,
-                    onBack = { finish() }
-                )
+                var result by remember { mutableStateOf<Pair<Set<String>, CoverageResult>?>(null) }
+                LaunchedEffect(analyzer.subscriptionId) {
+                    result = withContext(Dispatchers.IO) {
+                        analyzer.getObservedBands() to analyzer.calculateCoverage()
+                    }
+                }
+                val snapshot = result
+                if (snapshot == null) {
+                    Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                } else {
+                    CapabilityReportScreen(
+                        analyzer = analyzer,
+                        deviceName = Build.MODEL,
+                        observedBands = snapshot.first,
+                        coverage = snapshot.second,
+                        onBack = { finish() }
+                    )
+                }
             }
         }
     }
@@ -68,7 +80,7 @@ fun CapabilityReportScreen(
                 },
                 actions = {
                     IconButton(onClick = {
-                        shareLogFile(context, analyzer.getLogFile())
+                        shareDatabaseLog(context, analyzer.subscriptionId)
                     }) {
                         Icon(
                             imageVector = Icons.Default.Description,

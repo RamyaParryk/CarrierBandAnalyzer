@@ -13,7 +13,7 @@
     <string name="service_stopped">중지됨</string>
     <string name="sec_data">데이터 관리</string>
     <string name="item_reset_title">관측 기록 초기화</string>
-    <string name="item_reset_desc">지금까지 기록된 모든 밴드 정보를 삭제합니다.</string>
+    <string name="item_reset_desc">현재 선택한 SIM의 관측 밴드와 로그를 삭제합니다.</string>
     <string name="msg_history_cleared">기록이 삭제되었습니다.</string>
     <string name="sec_system">시스템 설정</string>
     <string name="item_perm_title">권한 설정 열기</string>
@@ -106,4 +106,17 @@
     <string name="faq_a6" formatted="false">A. N/A는 참조 데이터가 없거나 관측값이 부족한 경우입니다. 0%는 관측값이 있으나 참조 밴드와 일치하지 않는 경우입니다.</string>
     <string name="faq_q7" formatted="false">Q. 23%면 전파가 약하다는 뜻인가요?</string>
     <string name="faq_a7">A. 아닙니다. 지금까지 관측한 참조 밴드의 비율이며 신호 강도, 통신 품질, 단말의 전체 지원 밴드 수가 아닙니다.</string>
+    <string name="log_export_selected_desc">선택한 SIM의 로그를 CSV로 내보냅니다.</string>
+    <string name="log_saved_select">저장된 로그 선택</string>
+    <string name="log_saved_select_desc">이전 SIM을 포함한 로그 내보내기 및 삭제</string>
+    <string name="log_saved_title">저장된 SIM 로그</string>
+    <string name="log_saved_empty">저장된 로그가 없습니다.</string>
+    <string name="log_sim_current">현재 사용 중인 SIM ID</string>
+    <string name="log_sim_previous">이전 SIM ID</string>
+    <string name="log_action_statistics">통계</string>
+    <string name="log_action_delete">삭제</string>
+    <string name="log_delete_title">로그 삭제</string>
+    <string name="log_delete_confirmation">SIM ID %1$d의 관측 기록과 로그를 삭제할까요? 되돌릴 수 없습니다.</string>
+    <string name="log_delete_button">삭제</string>
+    <string name="log_cancel_button">취소</string>
 </resources>

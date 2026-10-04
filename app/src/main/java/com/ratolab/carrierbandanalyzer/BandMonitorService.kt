@@ -13,7 +13,8 @@ import androidx.core.app.NotificationCompat
 import kotlinx.coroutines.*
 
 class BandMonitorService : Service() {
-    private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
+    private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private var monitorJob: Job? = null
     
     override fun onCreate() {
         super.onCreate()
@@ -25,7 +26,8 @@ class BandMonitorService : Service() {
         // サービス起動時の初期通知
         startForeground(NOTIFICATION_ID, buildNotification(getString(R.string.notif_scanning)))
         // 監視ループ開始
-        serviceScope.launch {
+        if (monitorJob?.isActive == true) return START_STICKY
+        monitorJob = serviceScope.launch {
             while (isActive) {
                 // 1. バンド取得
                 val sims = SimRepository.active(this@BandMonitorService)
@@ -36,9 +38,7 @@ class BandMonitorService : Service() {
                     if (found.isNotEmpty()) analyzer.saveLog(found)
                     summaries.add("SIM ${index + 1}: " + if (found.isEmpty()) "—" else found.sorted().joinToString(", "))
                 }
-                val nowBands = emptySet<String>()
-                // 2. ログ保存の実行 (Priority 4)
-
+        
                 // 3. 通知の文字を作る
                 val contentText = summaries.joinToString(" | ").ifBlank { getString(R.string.notif_scanning) }
                 // 4. 通知を更新
@@ -51,6 +51,7 @@ class BandMonitorService : Service() {
     }
     override fun onDestroy() {
         super.onDestroy()
+        monitorJob?.cancel()
         serviceScope.cancel()
     }
     override fun onBind(intent: Intent?): IBinder? = null

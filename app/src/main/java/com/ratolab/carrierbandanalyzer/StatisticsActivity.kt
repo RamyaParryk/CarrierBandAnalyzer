@@ -60,11 +60,14 @@ fun StatisticsScreen(analyzer: BandAnalyzer, onBack: () -> Unit) {
 
     var statsData by remember { mutableStateOf<Map<String, Int>>(emptyMap()) }
 
-    // タブが切り替わるたびに裏でCSVを集計
-    LaunchedEffect(selectedTabIndex) {
-        withContext(Dispatchers.IO) {
-            statsData = analyzer.getBandStatistics(periods[selectedTabIndex])
-        }
+    // SQL index restricts work to the chosen date range. Clear stale chart immediately.
+    var loading by remember { mutableStateOf(true) }
+    LaunchedEffect(selectedTabIndex, analyzer.subscriptionId) {
+        loading = true
+        statsData = emptyMap()
+        val period = periods[selectedTabIndex]
+        statsData = withContext(Dispatchers.IO) { analyzer.getBandStatistics(period) }
+        loading = false
     }
 
     Scaffold(
@@ -114,7 +117,9 @@ fun StatisticsScreen(analyzer: BandAnalyzer, onBack: () -> Unit) {
                     .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                if (statsData.isEmpty()) {
+                if (loading) {
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                } else if (statsData.isEmpty()) {
                     Box(modifier = Modifier.fillMaxWidth().height(200.dp), contentAlignment = Alignment.Center) {
                         Text(stringResource(R.string.stat_no_data), color = MaterialTheme.colorScheme.outline) // ★修正
                     }

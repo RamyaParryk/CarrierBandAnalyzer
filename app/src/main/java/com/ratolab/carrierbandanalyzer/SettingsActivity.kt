@@ -22,6 +22,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.filled.Assessment
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Language
@@ -40,6 +41,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.ratolab.carrierbandanalyzer.data.BandRepository
+import com.ratolab.carrierbandanalyzer.data.SavedSimLog
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,10 +60,11 @@ class SettingsActivity : AppCompatActivity() {
                     analyzer = analyzer,
                     onBack = { finish() },
                     onReset = {
-                        analyzer.resetObservedBands()
-                        val msg = getString(R.string.msg_history_cleared)
-                        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-                        finish()
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.IO) { analyzer.resetObservedBands() }
+                            Toast.makeText(this@SettingsActivity, getString(R.string.msg_history_cleared), Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
                     },
                     onOpenPermissionSettings = {
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
@@ -80,10 +88,72 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     var isServiceActive by remember { mutableStateOf(isServiceRunning(context)) }
+    val scope = rememberCoroutineScope()
+    var showSavedLogs by remember { mutableStateOf(false) }
+    var savedLogs by remember { mutableStateOf<List<SavedSimLog>>(emptyList()) }
+    var deleteTarget by remember { mutableStateOf<SavedSimLog?>(null) }
+    var loadingLogs by remember { mutableStateOf(false) }
 
     var showUsageDialog by remember { mutableStateOf(false) }
     var showFaqDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
+
+    if (showSavedLogs && deleteTarget == null) {
+        AlertDialog(
+            onDismissRequest = { showSavedLogs = false },
+            title = { Text(stringResource(R.string.log_saved_title)) },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    if (loadingLogs) LinearProgressIndicator(Modifier.fillMaxWidth())
+                    if (!loadingLogs && savedLogs.isEmpty()) Text(stringResource(R.string.log_saved_empty))
+                    savedLogs.forEach { item ->
+                        val active = SimRepository.active(context).any { it.subscriptionId == item.subscriptionId }
+                        val label = item.displayName.ifBlank { item.carrier.ifBlank { "SIM" } }
+                        ListItem(
+                            headlineContent = { Text("$label (ID: ${item.subscriptionId})") },
+                            supportingContent = { Text(stringResource(if (active) R.string.log_sim_current else R.string.log_sim_previous)) },
+                            trailingContent = {
+                                Row {
+                                    IconButton(onClick = {
+                                        showSavedLogs = false
+                                        context.startActivity(
+                                            Intent(context, StatisticsActivity::class.java)
+                                                .putExtra("subscription_id", item.subscriptionId)
+                                        )
+                                    }) { Icon(Icons.Default.Assessment, contentDescription = stringResource(R.string.log_action_statistics)) }
+                                    IconButton(onClick = {
+                                        showSavedLogs = false
+                                        shareDatabaseLog(context, item.subscriptionId)
+                                    }) { Icon(Icons.Default.Share, contentDescription = "CSV") }
+                                    IconButton(onClick = { deleteTarget = item }) {
+                                        Icon(Icons.Default.DeleteForever, contentDescription = stringResource(R.string.log_action_delete))
+                                    }
+                                }
+                            }
+                        )
+                    }
+                }
+            },
+            confirmButton = { TextButton(onClick = { showSavedLogs = false }) { Text(stringResource(R.string.help_close)) } }
+        )
+    }
+    deleteTarget?.let { target ->
+        AlertDialog(
+            onDismissRequest = { deleteTarget = null },
+            title = { Text(stringResource(R.string.log_delete_title)) },
+            text = { Text(stringResource(R.string.log_delete_confirmation, target.subscriptionId)) },
+            confirmButton = { TextButton(onClick = {
+                deleteTarget = null
+                scope.launch {
+                    withContext(Dispatchers.IO) {
+                        BandRepository.get(context).reset(target.subscriptionId)
+                    }
+                    savedLogs = withContext(Dispatchers.IO) { BandRepository.get(context).savedSims() }
+                }
+            }) { Text(stringResource(R.string.log_delete_button)) } },
+            dismissButton = { TextButton(onClick = { deleteTarget = null }) { Text(stringResource(R.string.log_cancel_button)) } }
+        )
+    }
 
     if (showUsageDialog) UsageDialog(onDismiss = { showUsageDialog = false })
     if (showFaqDialog) FaqDialog(onDismiss = { showFaqDialog = false })
@@ -157,9 +227,23 @@ fun SettingsScreen(
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                 ListItem(
                     headlineContent = { Text(stringResource(R.string.item_export_log)) },
-                    supportingContent = { Text("band_logs.csv") },
+                    supportingContent = { Text(stringResource(R.string.log_export_selected_desc)) },
                     leadingContent = { Icon(Icons.Default.Share, contentDescription = null) },
-                    modifier = Modifier.clickable { shareLogFile(context, analyzer.getLogFile()) }
+                    modifier = Modifier.clickable { shareDatabaseLog(context, analyzer.subscriptionId) }
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.log_saved_select)) },
+                    supportingContent = { Text(stringResource(R.string.log_saved_select_desc)) },
+                    leadingContent = { Icon(Icons.Default.Share, contentDescription = null) },
+                    modifier = Modifier.clickable {
+                        showSavedLogs = true
+                        loadingLogs = true
+                        scope.launch {
+                            savedLogs = withContext(Dispatchers.IO) { BandRepository.get(context).savedSims() }
+                            loadingLogs = false
+                        }
+                    }
                 )
                 HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                 ListItem(

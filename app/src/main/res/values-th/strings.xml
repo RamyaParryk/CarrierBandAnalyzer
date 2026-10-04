@@ -13,7 +13,7 @@
     <string name="service_stopped">หยุดแล้ว</string>
     <string name="sec_data">การจัดการข้อมูล</string>
     <string name="item_reset_title">ล้างประวัติ</string>
-    <string name="item_reset_desc">ล้างข้อมูลแบนด์ที่บันทึกไว้ทั้งหมด</string>
+    <string name="item_reset_desc">ลบแบนด์ที่ตรวจพบและบันทึกของ SIM ที่เลือกอยู่</string>
     <string name="msg_history_cleared">ล้างประวัติแล้ว</string>
     <string name="sec_system">การตั้งค่าระบบ</string>
     <string name="item_perm_title">เปิดการอนุญาต</string>
@@ -106,4 +106,17 @@
     <string name="faq_a6" formatted="false">ตอบ: N/A คือไม่มีข้อมูลอ้างอิงหรือข้อมูลที่ตรวจพบไม่พอ ส่วน 0% คือข้อมูลที่พบไม่ตรงกับแบนด์อ้างอิง</string>
     <string name="faq_q7" formatted="false">ถาม: 23% หมายถึงสัญญาณอ่อนใช่ไหม?</string>
     <string name="faq_a7">ตอบ: ไม่ใช่ เป็นสัดส่วนแบนด์อ้างอิงที่เคยพบ ไม่ใช่ความแรงสัญญาณหรือแบนด์ทั้งหมดที่เครื่องรองรับ</string>
+    <string name="log_export_selected_desc">ส่งออกบันทึกของ SIM ที่เลือกเป็น CSV</string>
+    <string name="log_saved_select">เลือกบันทึกที่จัดเก็บไว้</string>
+    <string name="log_saved_select_desc">ส่งออกหรือลบบันทึก รวมถึง SIM ที่เคยใช้</string>
+    <string name="log_saved_title">บันทึก SIM ที่จัดเก็บไว้</string>
+    <string name="log_saved_empty">ไม่มีบันทึกที่จัดเก็บไว้</string>
+    <string name="log_sim_current">รหัส SIM ที่ใช้งานอยู่</string>
+    <string name="log_sim_previous">รหัส SIM ที่เคยใช้</string>
+    <string name="log_action_statistics">สถิติ</string>
+    <string name="log_action_delete">ลบ</string>
+    <string name="log_delete_title">ลบบันทึก</string>
+    <string name="log_delete_confirmation">ลบประวัติการตรวจพบและบันทึกของ SIM ID %1$d หรือไม่? ไม่สามารถกู้คืนได้</string>
+    <string name="log_delete_button">ลบ</string>
+    <string name="log_cancel_button">ยกเลิก</string>
 </resources>

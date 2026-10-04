@@ -13,7 +13,7 @@
     <string name="service_stopped">Detenido</string>
     <string name="sec_data">Gestión de Datos</string>
     <string name="item_reset_title">Restablecer Historial</string>
-    <string name="item_reset_desc">Borrará todos los datos de bandas registrados.</string>
+    <string name="item_reset_desc">Borrar las bandas observadas y los registros de la SIM seleccionada.</string>
     <string name="msg_history_cleared">Historial borrado.</string>
     <string name="sec_system">Ajustes del Sistema</string>
     <string name="item_perm_title">Abrir Permisos</string>
@@ -106,4 +106,17 @@
     <string name="faq_a6" formatted="false">R. N/A indica referencias o mediciones insuficientes; 0 % significa que las bandas observadas no coinciden con las de referencia.</string>
     <string name="faq_q7" formatted="false">P. ¿23 % significa mala señal?</string>
     <string name="faq_a7">R. No. Es la proporción de bandas de referencia observadas, no la intensidad de señal, la calidad ni todas las bandas admitidas.</string>
+    <string name="log_export_selected_desc">Exportar el registro de la SIM seleccionada como CSV.</string>
+    <string name="log_saved_select">Elegir registros guardados</string>
+    <string name="log_saved_select_desc">Exportar o eliminar registros, incluso de SIM anteriores.</string>
+    <string name="log_saved_title">Registros de SIM guardados</string>
+    <string name="log_saved_empty">No hay registros guardados.</string>
+    <string name="log_sim_current">ID de SIM activa</string>
+    <string name="log_sim_previous">ID de SIM anterior</string>
+    <string name="log_action_statistics">Estadísticas</string>
+    <string name="log_action_delete">Eliminar</string>
+    <string name="log_delete_title">Eliminar registro</string>
+    <string name="log_delete_confirmation">¿Eliminar el historial de observaciones y los registros de la SIM con ID %1$d? No se puede deshacer.</string>
+    <string name="log_delete_button">Eliminar</string>
+    <string name="log_cancel_button">Cancelar</string>
 </resources>

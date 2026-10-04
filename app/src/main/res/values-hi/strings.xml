@@ -13,7 +13,7 @@
     <string name="service_stopped">रुक गया</string>
     <string name="sec_data">डेटा प्रबंधन</string>
     <string name="item_reset_title">इतिहास रीसेट करें</string>
-    <string name="item_reset_desc">सभी रिकॉर्ड किए गए बैंड डेटा को मिटाएं।</string>
+    <string name="item_reset_desc">वर्तमान में चुने गए SIM के देखे गए बैंड और लॉग मिटाएँ।</string>
     <string name="msg_history_cleared">इतिहास मिटा दिया गया।</string>
     <string name="sec_system">सिस्टम सेटिंग्स</string>
     <string name="item_perm_title">अनुमतियाँ खोलें</string>
@@ -106,4 +106,17 @@
     <string name="faq_a6" formatted="false">उ. N/A का अर्थ सूची या अवलोकन उपलब्ध नहीं; 0% का अर्थ अवलोकन हैं लेकिन कोई संदर्भ बैंड मेल नहीं खाता।</string>
     <string name="faq_q7" formatted="false">प्र. क्या 23% का मतलब कमजोर सिग्नल है?</string>
     <string name="faq_a7">उ. नहीं। यह देखे गए संदर्भ बैंड का अनुपात है, सिग्नल की ताकत या फ़ोन द्वारा समर्थित सभी बैंड नहीं।</string>
+    <string name="log_export_selected_desc">चुने गए SIM का लॉग CSV के रूप में निर्यात करें।</string>
+    <string name="log_saved_select">सहेजे गए लॉग चुनें</string>
+    <string name="log_saved_select_desc">पुराने SIM सहित लॉग निर्यात करें या हटाएँ।</string>
+    <string name="log_saved_title">सहेजे गए SIM लॉग</string>
+    <string name="log_saved_empty">कोई सहेजा गया लॉग नहीं है।</string>
+    <string name="log_sim_current">वर्तमान सक्रिय SIM ID</string>
+    <string name="log_sim_previous">पुराना SIM ID</string>
+    <string name="log_action_statistics">आँकड़े</string>
+    <string name="log_action_delete">हटाएँ</string>
+    <string name="log_delete_title">लॉग हटाएँ</string>
+    <string name="log_delete_confirmation">SIM ID %1$d का अवलोकन इतिहास और लॉग हटाएँ? इसे वापस नहीं लाया जा सकता।</string>
+    <string name="log_delete_button">हटाएँ</string>
+    <string name="log_cancel_button">रद्द करें</string>
 </resources>
